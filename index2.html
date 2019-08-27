@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<title>1031F Solutions</title>
+		<style>
+		* {
+		box-sizing: border-box;
+		}
+		body {
+		margin: 0;
+		}
+		#main {
+		display: flex;
+		min-height: calc(100vh - 40vh);
+		}
+		#main > article {
+		flex: 1;
+		}
+		#main > nav,
+		#main > aside {
+		flex: 0 0 20vw;
+		background: beige;
+		}
+		#main > nav {
+		order: -1;
+		}
+		header, footer, article, nav, aside {
+		padding: 1em;
+		}
+		header{
+			background-image:
+		linear-gradient( rgba(0,0,0,.5), rgba(0,0,0,.5) ),
+			url("images/header-background.jpg");
+			height: 400px;
+			text-align: center;
+		}
+		footer {
+		background: yellowgreen;
+		height: 20vh;
+		}
+		.header {
+			color: #ffffff;
+		}
+		.header li{
+			display: inline-block;
+			margin: 10px;
+			vertical-align: top;
+			text-align: left;
+		}
+		.header li a{
+			text-decoration: none;
+			color: #ffffff;
+		}
+		.header li li{
+			display: block;
+			margin: 10px;
+			text-align: left;
+		}
+		.limiter{
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 1000px;
+		}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="header limiter">
+				<div style="float: left;">
+					<span class="glyphicon glyphicon-fire"></span>
+					1031F Solutions
+				</div>
+				<div style="float: right; vertical-align: top;">
+					<ul>
+						<li class="active">
+							<a href="#">Home</a>
+						</li>
+						<li>Software
+							<ul class="dropdown-menu" aria-labelledby="about-us">
+								<li><a href="#">Slack Overwatch Randomizer</a></li>
+								<li><a href="#">Mission Control(VBS(2019)</a></li>
+								<li><a href="#">N Queens</a></li>
+							</ul>
+						</li>
+						<li>Projects
+							<ul class="dropdown-menu" aria-labelledby="about-us">
+								<li><a href="#">Engage</a></li>
+								<li><a href="#">Pontificate</a></li>
+								<li><a href="#">Synergize</a></li>
+							</ul>
+						</li>
+						<li>Contact</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<div id="main" class="limiter">
+		<article>Article</article>
+	<nav>Nav</nav>
+<aside>Aside</aside>
+</div>
+<footer class="limiter">Footer</footer>
+</body>
+</html>
