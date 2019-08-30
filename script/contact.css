@@ -1,0 +1,12 @@
+/* ------ title -----*/
+
+#title-contact { width: 960px; height: 360px; background-image: url("../images/contact-cover.jpg"); background-size: cover; background-repeat: no-repeat; background-position: center center; margin-top: 20px; margin-left: auto; margin-right: auto;}
+#title-contact div { width: 600px; padding-top: 50px; color: white; text-align: center;}
+
+
+
+#contacts {margin:0; padding:0; list-style:none; width: 100%;}
+#contacts li {display:inline-block; text-align: center; padding: 25px; margin: 20px; background-color: grey; border-radius: 25px;}
+#contacts li img { vertical-align: middle; height: 50px;}
+#contacts li h2 { color: white;}
+#contacts li a { text-decoration: none; color: DarkOrange;}

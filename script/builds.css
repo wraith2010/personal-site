@@ -1,0 +1,25 @@
+
+/* ------ title -----*/
+
+#title-build { width: 960px; height: 360px; background-image: url("../images/build-cover.jpg"); background-size: cover; background-repeat: no-repeat; background-position: center center; margin-top: 20px; margin-left: auto; margin-right: auto; }
+#title-build div { width: 600px; padding-top: 50px; color: white; text-align: center; }
+
+/* ------ section -----*/
+section {float: left; width: 600px;  text-align: left; }
+section ul {margin:0; padding:0; list-style:none;}
+section ul li { padding: 15px; background-color: sandybrown; border-radius: 25px; margin-top: 5px;}
+section ul li article h2 { padding-left: 215px; color: white;}
+section ul li article p { padding-left: 215px; color: white; }
+section ul li article figure { margin: 10px; }
+section ul li article figure a img {float: left; width: 180px; margin: 0; padding: 4px; border:1px solid #666666;}
+section ul li article figure img {float: left; width: 180px; margin: 0; padding: 4px; border:1px solid #666666;}
+section ul li article a img { width:100px; }
+section ul li article ul { padding-left: 215px; }
+section ul li article ul li a img { width: 20px; margin-right: 10px; }
+
+/* ------ aside-----*/
+aside {float: right;max-width: 300px; text-align: left}
+aside h2 {margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid #DEDEDE;}
+aside nav ul {margin:0; padding:0; list-style:none;}
+aside nav ul li {margin-bottom: 5px; padding-bottom: 5px; border-bottom: 1px solid #DEDEDE;}
+aside nav ul li a img {width: 20px; vertical-align: middle;}
