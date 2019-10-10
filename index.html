@@ -1,76 +1,123 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>1031F Solutions</title>
-		<link href="script/main.css" rel="stylesheet" type="text/css">
-		<link href="script/slideshow.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	</head>
-	<body>
-		<div class="header">
-			<div class="limiter" style="vertical-align: top;">
-				<h1 style="float: left;">1031F Solutions</h1>
-				<ul class="menu" style="float: right;">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="software.html">Software</a></li>
-					<li><a href="builds.html">Builds</a></li>
-					<li><a href="contact.html">Contacts</a></li>
-				</ul>
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>1031F Solutions</title>
+</head>
+
+<body>
+	<header class="header-banner">
+		<div class="container-width">
+			<h1>1031F Solutions</h1>
+
+			<nav class="menu">
+					<div class="menu-item">BUILDER</div>
+					<div class="menu-item">TEMPLATE</div>
+					<div class="menu-item">WEB</div>
+				  </nav>
+				  <div class="clearfix"></div>
+				  <div class="lead-title">Build your templates without coding</div>
+				  <div class="sub-lead-title">All text blocks could be edited easily with double clicking on it. You can create new
+					text blocks with the command from the left panel</div>
+				  <div class="lead-btn">Hover me</div>
+
+		</div>
+	</header>
+	<section class="flex-sect">
+		<div class="container-width">
+			<h1>Software</h1>
+			<div class="cards">
+				<article class="card">
+					<h2 clas="card-title">Overwatch Slackbot</h2>
+					<figure>
+						<img src="img/fig_overwatch_slackbot.jpg" />
+					</figure>
+					<p>Play enough overwatch and you need something to change things. This slack bot will randomly
+						assign
+						roles to a team from 2 to 6 players. The slack bot uses DJ Khaled as its icon and also includes
+						one
+						of his inpirational quotes along with role assignments.</p>
+					<details>
+						<summary>Gallery</summary>
+						<a href="img/slackbot/slackbot-01.png">
+							<img src="img/slackbot/slackbot-01.png" />
+						</a>
+						<a href="img/slackbot/slackbot-02.png">
+							<img src="img/slackbot/slackbot-02.png" />
+						</a>
+					</details>
+				</article>
+				<article class="card">
+					<h2>Mission Control</h2>
+					<figure>
+						<img src="img/fig_mission_control.png" />
+					</figure>
+					<p>Marple Presbyterian Church's VBS 2019 theme was to mars and beyond. So I created the mission
+						control
+						game. Its done in an 8 bit retro look which really seemed to land evan with the kids too young
+						to
+						know what that is. If you can solve the security puzzle and complete the launch sequence it
+						trips a
+						relay via webservice which sets off a smoke machine.</p>
+					<details>
+						<summary>Gallery</summary>
+						<div width>
+						<iframe src="https://www.youtube.com/embed/O0JlTFg7W-8" frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen></iframe>
+						</div>
+					</details>
+				</article>
+				<article class="card">
+					<h2>N Queens</h2>
+					<figure>
+						<img src="img/fig_n_queens.png" />
+					</figure>
+					<p>The N Queen is the problem of placing N chess queens on an N×N chessboard so that no two queens
+						attack each other. This is one of thoose math problems that takes over my mind from time to
+						time.
+						When I have an idea worth coding for testing you can find it here.</p>
+				</article>
+				<article class="card">
+					<h2>Halftone SVG Generator</h2>
+					<figure>
+						<img src="img/fig_halftone_svg_generator.png" />
+					</figure>
+					<p>A while back I did a study in turning portraits into halftone version images. I would then cut
+						thoose
+						on a laser cutter and even attempted a few etchings in tile and other materials. I wrote this
+						program to translate images to SVG cut fules in haltone.</p>
+					<details>
+						<summary>Gallery</summary>
+					</details>
+				</article>
+				<article class="card">
+					<h2>Stencil Tab Tool</h2>
+					<figure>
+						<img src="img/fig_stencil_tab_tool.png" />
+					</figure>
+					<p>Its really easy to make SVG stencils in Adobe Ilustrator. However one concept that is difficult
+						to do
+						in adobe is to add tabs to hold islands in position. This toll breaks up overly long lines and
+						anchors islands. Still a work in progress.</p>
+					<details>
+						<summary>Gallery</summary>
+					</details>
+				</article>
 			</div>
 		</div>
-		<div class="limiter">
-			<div class="slideshow-container">
-				<div class="mySlides fade">
-					<div class="numbertext">1 / 3</div>
-					<img src="images/index-slide-01.jpg" style="width:100%">
-					<div class="text">Caption Text</div>
-				</div>
-				<div class="mySlides fade">
-					<div class="numbertext">2 / 3</div>
-					<img src="images/index-slide-02.jpg" style="width:100%">
-					<div class="text">Caption Two</div>
-				</div>
-				<div class="mySlides fade">
-					<div class="numbertext">3 / 3</div>
-					<img src="images/index-slide-03.jpg" style="width:100%">
-					<div class="text">Caption Three</div>
-				</div>
-				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-				<a class="next" onclick="plusSlides(1)">&#10095;</a>
-			</div>
-			<br>
-			<div style="text-align:center">
-				<span class="dot" onclick="currentSlide(1)"></span>
-				<span class="dot" onclick="currentSlide(2)"></span>
-				<span class="dot" onclick="currentSlide(3)"></span>
-			</div>
-			<script>
-			var slideIndex = 1;
-			showSlides(slideIndex);
-			function plusSlides(n) {
-			showSlides(slideIndex += n);
-			}
-			function currentSlide(n) {
-			showSlides(slideIndex = n);
-			}
-			function showSlides(n) {
-			var i;
-			var slides = document.getElementsByClassName("mySlides");
-			var dots = document.getElementsByClassName("dot");
-			if (n > slides.length) {slideIndex = 1}
-			if (n < 1) {slideIndex = slides.length}
-			for (i = 0; i < slides.length; i++) {
-			slides[i].style.display = "none";
-			}
-			for (i = 0; i < dots.length; i++) {
-			dots[i].className = dots[i].className.replace(" active", "");
-			}
-			slides[slideIndex-1].style.display = "block";
-			dots[slideIndex-1].className += " active";
-			}
-			</script>
+	</section>
+	<section class="flex-sect">
+		<div class="container-width">
+			<h1>Builds</h1>
 		</div>
-		<div class="footer">
+	</section>
+	<footer>
+		<div class="container-width">
 		</div>
-	</body>
+	</footer>
+</body>
+
 </html>
