@@ -4,29 +4,75 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/slideshow.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>1031F Solutions</title>
 </head>
 
 <body>
 	<header class="header-banner">
 		<div class="container-width">
-			<h1>1031F Solutions</h1>
 
-			<nav class="menu">
-				<div class="menu-item">BUILDER</div>
-				<div class="menu-item">TEMPLATE</div>
-				<div class="menu-item">WEB</div>
-			</nav>
-			<div class="clearfix"></div>
-			<div class="lead-title">Build your templates without coding</div>
-			<div class="sub-lead-title">All text blocks could be edited easily with double clicking on it. You can
-				create new
-				text blocks with the command from the left panel</div>
-			<div class="lead-btn">Hover me</div>
 
+			<div class="slideshow-container">
+				<h1>1031F Solutions</h1>
+				<div class="mySlides fade">
+					<div class="numbertext">1 / 3</div>
+					<img src="img/slideshow/slide-01.jpg" style="width:100%">
+				</div>
+				<div class="mySlides fade">
+					<div class="numbertext">2 / 3</div>
+					<img src="img/slideshow/slide-02.jpg" style="width:100%">
+				</div>
+				<div class="mySlides fade">
+					<div class="numbertext">3 / 3</div>
+					<img src="img/slideshow/slide-03.jpg" style="width:100%">
+				</div>
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlides(1)">&#10095;</a>
+			</div>
+			<br>
+			<div style="text-align:center">
+				<span class="dot" onclick="currentSlide(1)"></span>
+				<span class="dot" onclick="currentSlide(2)"></span>
+				<span class="dot" onclick="currentSlide(3)"></span>
+			</div>
+			<script>
+				var slideIndex = 1;
+				showSlides(slideIndex);
+
+				function plusSlides(n) {
+					showSlides(slideIndex += n);
+				}
+
+				function currentSlide(n) {
+					showSlides(slideIndex = n);
+				}
+
+				function showSlides(n) {
+					var i;
+					var slides = document.getElementsByClassName("mySlides");
+					var dots = document.getElementsByClassName("dot");
+					if (n > slides.length) {
+						slideIndex = 1
+					}
+					if (n < 1) {
+						slideIndex = slides.length
+					}
+					for (i = 0; i < slides.length; i++) {
+						slides[i].style.display = "none";
+					}
+					for (i = 0; i < dots.length; i++) {
+						dots[i].className = dots[i].className.replace(" active", "");
+					}
+					slides[slideIndex - 1].style.display = "block";
+					dots[slideIndex - 1].className += " active";
+				}
+			</script>
 		</div>
+
 	</header>
-	<section class="section dark">
+	<section class="section software">
 		<div class="container-width">
 			<h1>Software</h1>
 			<p>Various projects I have tinkered with</p>
@@ -113,7 +159,7 @@
 			</div>
 		</div>
 	</section>
-	<section class="section light">
+	<section class="section builds">
 		<div class="container-width">
 			<h1>Builds</h1>
 			<p>Creation is a compulsion. Sometimes I remember to take pictures </p>
@@ -139,8 +185,26 @@
 			</div>
 		</div>
 	</section>
-	<footer>
+	<footer class="footer">
 		<div class="container-width">
+			<div class="contacts">
+				<ul class="footer-social">
+					<h3>Ben Mitchell</h3>
+					<li><a class="fa fa-facebook" href="https://www.facebook.com/ben.mitchell.7169"></a></li>
+					<li><a class="fa boardgamegeek" href="https://boardgamegeek.com/user/bugsy2010"><img
+								src="img/icons/icon-board-game-geek.png" /></a></li>
+					<li><a class="fa thingiverse" href="https://www.thingiverse.com/wraith2010"><img
+								src="img/icons/icon-thingiverse.png" /></a></li>
+					<li><a class="fa fa-github" href="https://github.com/wraith2010"></a></li>
+				</ul>
+				<ul class="footer-social">
+					<h3>Double Watt Games</h3>
+					<li><a class="fa fa-globe" href="https://www.doublewattgames.com/"></a></li>
+					<li><a class="fa fa-twitter" href="https://twitter.com/DoubleWattGames"></a></li>
+					<li><a class="fa fa-facebook" href="https://www.facebook.com/Double-Watt-Games-465252890645534"></a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</footer>
 </body>

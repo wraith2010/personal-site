@@ -32,8 +32,20 @@ body {
 	padding: 100px 0;
 	font-family: Helvetica, serif;
 	text-align: center;
+	color: #ffffff;
 }
 
+.software{
+	background-image: url("../img/backgrounds/background-software.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.builds{
+	background-image: url("../img/backgrounds/background-builds.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 .section div p {
 	font-size: 15px;
 	max-width: 700px;
@@ -115,4 +127,84 @@ body {
 
 .card details a img {
 	width: 100%;
+}
+
+
+.footer {
+	background-image: linear-gradient(to right, #000000, #9400D3);
+}
+
+.footer-social li {
+	display: inline;
+}
+
+.footer-social h3 {
+	color: #ffffff;
+}
+
+.footer-social {
+	padding: 20px;
+}
+
+.contacts {
+	display: flex;
+	justify-content: space-around;
+}
+
+/* Contacts */
+.fa {
+	width: 55px;
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 50%;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+	opacity: 0.7;
+}
+
+/* Facebook */
+.fa-facebook {
+	background: #3B5998;
+	color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+	background: #55ACEE;
+	color: white;
+}
+
+/* Github */
+.fa-github {
+	background: #4078c0;
+	color: white;
+}
+
+/* Thingiverse */
+.thingiverse {
+	background: #c9510c;
+	color: white;
+}
+
+.thingiverse img {
+	width: 16px;
+}
+
+
+/* Thingiverse */
+.boardgamegeek {
+	background: #6e5494;
+	color: white;
+}
+
+.boardgamegeek img {
+	width: 16px;
+}
+
+.fa-globe {
+	background: #000000;
+	color: white;
 }
