@@ -1,210 +1,391 @@
-* {
-	box-sizing: border-box;
-}
-
 body {
-	margin: 0;
+    margin: 0;
 }
 
 .header-banner {
-	padding-top: 35px;
-	padding-bottom: 100px;
-	color: #ffffff;
-	font-family: Helvetica, serif;
-	font-weight: 100;
-	background-image: url("../img/header-background.jpg");
-	background-repeat: repeat-y, no-repeat;
-	background-size: contain, cover;
+    padding-top: 35px;
+    padding-bottom: 100px;
+    color: #ffffff;
+    font-family: Helvetica, serif;
+    font-weight: 100;
+    background-image: url("../img/header-background.jpg");
+    background-attachment: scroll;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.header-banner h1 {
-	margin: 150px 0 30px 0;
-	font-size: 40px;
+
+/* ================ Slide Show Start ================ */
+
+
+/* Slideshow container */
+
+.slideshow-container {
+    max-width: 960px;
+    position: relative;
+    margin: auto;
 }
+
+.slideshow-container h1 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    text-shadow: 4px 4px #000000;
+}
+
+.slideshow-container p {
+    margin: 0;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #9400D3;
+    font-weight: bold;
+}
+
+
+/* Hide the images by default */
+
+.mySlides {
+    display: none;
+}
+
+.mySlides img {
+    border-radius: 50px;
+    width: 100%;
+}
+
+
+/* Next & previous buttons */
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+
+/* Position the "next button" to the right */
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+
+/* On hover, add a black background color with a little bit see-through */
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+/* Caption text */
+
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+
+/* Number text (1/3 etc) */
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+
+/* The dots/bullets/indicators */
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+
+/* Fading animation */
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+
+/* ================ Slide Show End ================ */
 
 .container-width {
-	width: 90%;
-	max-width: 1150px;
-	margin: 0 auto;
+    width: 90%;
+    max-width: 1150px;
+    margin: 0 auto;
 }
 
 .section {
-	padding: 100px 0;
-	font-family: Helvetica, serif;
-	text-align: center;
-	color: #ffffff;
+    padding: 100px 0;
+    font-family: Helvetica, serif;
+    text-align: center;
+    color: #ffffff;
 }
 
-.software{
-	background-image: url("../img/backgrounds/background-software.png");
-	background-repeat: no-repeat;
-	background-size: cover;
+.section div h1 {
+    font-size: 60px;
+    text-transform: uppercase;
+    margin: 10px
 }
 
-.builds{
-	background-image: url("../img/backgrounds/background-builds.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
+.section div ul {
+    list-style-type: none;
 }
+
+.software {
+    background-image: url("../img/backgrounds/background-software.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.builds {
+    background-image: url("../img/backgrounds/background-builds.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .section div p {
-	font-size: 15px;
-	max-width: 700px;
-	margin: 0 auto;
-	font-weight: 100;
-}
-
-.light {
-	background-color: #fafafa;
-	color: #000000;
-}
-
-.light div p {
-	color: #b1b1b1;
-}
-
-.dark {
-	background-color: #000000;
-	color: #ffffff;
-}
-
-.dark div p {
-	color: #b1b1b1;
+    font-size: 15px;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .logo-container {
-	float: left;
-	width: 50%;
+    float: left;
+    width: 50%;
 }
 
 .cards {
-	padding: 20px 0;
-	display: flex;
-	justify-content: space-around;
-	flex-flow: wrap;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: wrap;
 }
 
+.center-link {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 5px;
+}
+
+
+/* ============= Cards Start ============= */
+
 .card {
-	background-color: white;
-	min-height: 400px;
-	width: 330px;
-	margin-bottom: 30px;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-	border-radius: 5px;
-	transition: all 0.5s ease;
-	font-weight: 100;
-	/*overflow: hidden;*/
-	padding: 15px 15px 5px 15px;
-	color: #555;
+    background-color: white;
+    min-height: 400px;
+    width: 330px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    transition: all 0.5s ease;
+    font-weight: 100;
+    padding: 15px 15px 5px 15px;
+    color: #505050;
 }
 
 .card:hover {
-	margin-top: -5px;
-	box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
+    margin-top: -5px;
+    box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card figure {
-	float: left;
-	width: 30%;
-	border: thin silver solid;
-	margin: 0.5em;
-	padding: 0.5em;
+    float: left;
+    width: 30%;
+    margin: 0.5em;
+    margin-top: 0;
 }
 
 .card figure img {
-	width: 100%;
+    width: 100%;
 }
 
 .card p {
-	font-size: 0.85rem;
-	line-height: 17px;
-	text-align: left;
+    font-size: 0.85rem;
+    text-align: left;
+    color: #000000;
 }
 
 .card details {
-	text-align: left;
-	padding: 5px 15px 5px 15px;
+    text-align: left;
+    padding: 5px 15px 5px 15px;
 }
 
 .card details a img {
-	width: 100%;
+    width: 100%;
+}
+
+.software-link {
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
 }
 
 
+/* ============= Cards End ============= */
+
 .footer {
-	background-image: linear-gradient(to right, #000000, #9400D3);
+    background-image: linear-gradient(to right, #000000, #9400D3);
 }
 
 .footer-social li {
-	display: inline;
+    display: inline;
 }
 
 .footer-social h3 {
-	color: #ffffff;
+    color: #ffffff;
 }
 
 .footer-social {
-	padding: 20px;
+    padding: 20px;
 }
 
 .contacts {
-	display: flex;
-	justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 }
+
 
 /* Contacts */
+
 .fa {
-	width: 55px;
-	padding: 20px;
-	text-align: center;
-	text-decoration: none;
-	border-radius: 50%;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+    display: table-cell;
+    vertical-align: middle;
 }
+
+.contact {
+    font-size: 60px;
+    width: 90px;
+    height: 90px;
+}
+
 
 /* Add a hover effect if you want */
+
 .fa:hover {
-	opacity: 0.7;
+    opacity: 0.7;
 }
+
 
 /* Facebook */
+
 .fa-facebook {
-	background: #3B5998;
-	color: white;
+    background: #3B5998;
+    color: white;
 }
+
 
 /* Twitter */
+
 .fa-twitter {
-	background: #55ACEE;
-	color: white;
+    background: #55ACEE;
+    color: white;
 }
+
 
 /* Github */
+
 .fa-github {
-	background: #4078c0;
-	color: white;
+    background: #4078c0;
+    color: white;
 }
 
+
 /* Thingiverse */
+
 .thingiverse {
-	background: #c9510c;
-	color: white;
+    background: #c9510c;
+    color: white;
 }
 
 .thingiverse img {
-	width: 16px;
+    width: 60px;
+}
+
+.fa-wikipedia-w {
+    background: #aaaaaa;
+    color: white;
 }
 
 
 /* Thingiverse */
+
 .boardgamegeek {
-	background: #6e5494;
-	color: white;
+    background: #6e5494;
+    color: white;
 }
 
 .boardgamegeek img {
-	width: 16px;
+    width: 60px;
 }
 
 .fa-globe {
-	background: #000000;
-	color: white;
+    background: #000000;
+    color: white;
 }
