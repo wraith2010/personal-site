@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modal.css">
     <title>1031F Solutions</title>
 </head>
 
@@ -79,7 +80,7 @@
             <h1>Software</h1>
             <p style="font-weight: bold; color: mediumvioletred;font-size: 20px;">Various projects I have tinkered with</p>
             <div class="cards">
-                <article class="card">
+                <article class="card software-card">
                     <h2>Overwatch Slackbot</h2>
                     <figure>
                         <img src="img/fig_overwatch_slackbot.jpg" />
@@ -92,17 +93,18 @@
                             <a class="center-link" href="https://github.com/wraith2010/overwatchslackbot">Overwatch Slack Bot Repo</a>
                         </li>
                     </ul>
-                    <details>
+                    <details id="overwatch-slackbot-gallery">
                         <summary>Gallery</summary>
-                        <a href="img/slackbot/slackbot-01.png">
-                            <img src="img/slackbot/slackbot-01.png" />
-                        </a>
-                        <a href="img/slackbot/slackbot-02.png">
-                            <img src="img/slackbot/slackbot-02.png" />
-                        </a>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('overwatch-slackbot-gallery').open = false; return false;">&times;</span>
+                                <img src="img/slackbot/slackbot-01.png" />
+                                <img src="img/slackbot/slackbot-02.png" />
+                            </div>
+                        </div>
                     </details>
                 </article>
-                <article class="card">
+                <article class="card software-card">
                     <h2>Mission Control</h2>
                     <figure>
                         <img src="img/fig_mission_control.png" />
@@ -119,14 +121,17 @@
                             <a class="center-link" href="https://1031f-hosting.s3.amazonaws.com/mission-to-mars.zip">Executable Jar</a>
                         </li>
                     </ul>
-                    <details>
+                    <details id="mission-control-gallery">
                         <summary>Gallery</summary>
-                        <div>
-                            <iframe src="https://www.youtube.com/embed/O0JlTFg7W-8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('mission-control-gallery').open = false; return false;">&times;</span>
+                                <iframe src="https://www.youtube.com/embed/O0JlTFg7W-8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </details>
                 </article>
-                <article class="card">
+                <article class="card software-card">
                     <h2>N Queens</h2>
                     <figure>
                         <img src="img/fig_n_queens.png" />
@@ -144,7 +149,7 @@
                         </li>
                     </ul>
                 </article>
-                <article class="card">
+                <article class="card software-card">
                     <h2>Halftone SVG Generator</h2>
                     <figure>
                         <img src="img/fig_halftone_svg_generator.png" />
@@ -157,14 +162,17 @@
                             <a class="center-link" href="https://github.com/wraith2010/halftone-svg-generator">Halftone SVG Generator Repo</a>
                         </li>
                     </ul>
-                    <details>
+                    <details id="halftone-gallery">
                         <summary>Gallery</summary>
-                        <a href="img/halftone/halftone-01.jpg">
-                            <img src="img/halftone/halftone-01.jpg" />
-                        </a>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('halftone-gallery').open = false; return false;">&times;</span>
+                                <img src="img/halftone/halftone-01.jpg" />
+                            </div>
+                        </div>
                     </details>
                 </article>
-                <article class="card">
+                <article class="card software-card">
                     <h2>Stencil Tab Tool</h2>
                     <figure>
                         <img src="img/fig_stencil_tab_tool.png" />
@@ -176,17 +184,18 @@
                             <a class="center-link" href="https://github.com/wraith2010/svgstencilmaker">SVG Stencil Maker Repo</a>
                         </li>
                     </ul>
-                    <details>
+                    <details id="stencil-gallery">
                         <summary>Gallery</summary>
-                        <a href="img/stencil/stencil-01.jpg">
-                            <img src="img/stencil/stencil-01.jpg" />
-                        </a>
-                        <a href="img/stencil/stencil-02.jpg">
-                            <img src="img/stencil/stencil-02.jpg" />
-                        </a>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('stencil-gallery').open = false; return false;">&times;</span>
+                                <img src="img/stencil/stencil-01.jpg" />
+                                <img src="img/stencil/stencil-02.jpg" />
+                            </div>
+                        </div>
                     </details>
                 </article>
-                <article class="card">
+                <article class="card software-card">
                 </article>
             </div>
         </div>
@@ -199,65 +208,127 @@
                 <article class="card">
                     <h2>Bravo Stage: Chess</h2>
                     <figure>
-                        <img src="img/fig_n_queens.png" />
+                        <img src="img/bravo-chess/bravo-chess-01.jpg" />
                     </figure>
                     <p>Bravo Theatre Company's put on Chess for their 2019 show. The story involves a politically driven, Cold Warâ€“era chess tournament between two grandmasters from America and the USSR. I build the stage and the frames to fly the flags
                         in the background.</p>
-                    <details>
+                    <details id="bravo-chess-gallery">
                         <summary>Gallery</summary>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('bravo-chess-gallery').open = false; return false;">&times;</span>
+                                <img src="img/bravo-chess/bravo-chess-02.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-03.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-04.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-05.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-06.jpg" />
+                            </div>
+                        </div>
                     </details>
                 </article>
                 <article class="card">
                     <h2>D&D Galleon Build</h2>
                     <figure>
-                        <img src="img/fig_n_queens.png" />
+                        <img src="img/galleon-build/galleon-build-01.jpg" />
                     </figure>
                     <p>My D&D Group is currently working through the "Storm King's Thunder". The DM wanted a physical model for the AirShip. I shared my cut files on thingiverse if your interested in making your own.</p>
-                    <details>
+                    <ul>
+                        <li>
+                            <a class="fa thingiverse software-link" href="https://www.thingiverse.com/thing:3591894">
+                                <img style="width:20px" src="img/icons/icon-thingiverse.png" />
+                            </a>
+                            <a class="center-link" href="https://www.thingiverse.com/thing:3591894">Cut Files on Thingiverse</a>
+                        </li>
+                    </ul>
+                    <details id="galleon-build-gallery">
                         <summary>Gallery</summary>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('galleon-build-gallery').open = false; return false;">&times;</span>
+                                <iframe src="https://www.youtube.com/embed/X_9rHoD9vlw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
                     </details>
                 </article>
                 <article class="card">
                     <h2>Bravo Stage: Into the Woods</h2>
                     <figure>
-                        <img src="img/fig_n_queens.png" />
+                        <img src="img/bravo-into-the-woods/bravo-into-the-woods-01.jpg" />
                     </figure>
                     <p>I was watching too much of the black magic craft channel, which caused me to think I really needed a set of modular dungeon tiles. I am not currently running a game and probably won't for a little while. However it turned out to be
                         a great lesson is painting fake stone. I posted the cut files on thiniverse if you want to cut your own.</p>
-                    <details>
+                    <details id="into-the-woods-gallery">
                         <summary>Gallery</summary>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('into-the-woods-gallery').open = false; return false;">&times;</span>
+                                <img src="img/bravo-into-the-woods/bravo-into-the-woods-02.jpg" />
+                                <img src="img/bravo-into-the-woods/bravo-into-the-woods-03.jpg" />
+                                <img src="img/bravo-into-the-woods/bravo-into-the-woods-04.jpg" />
+                            </div>
+                        </div>
                     </details>
                 </article>
                 <article class="card">
                     <h2>Little Mermaid Boat</h2>
                     <figure>
-                        <img src="img/fig_n_queens.png" />
+                        <img src="img/little-mermaid-boat/little-mermaid-01.jpg" />
                     </figure>
                     <p>One of the local high schools needed a rolling boat for there production of the little mermaid. This project was fun if only for the video of kristen piloting the boat around the shop.</p>
-                    <details>
+                    <details id="little-mermaid-gallery">
                         <summary>Gallery</summary>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('little-mermaid-gallery').open = false; return false;">&times;</span>
+                                <img src="img/little-mermaid-boat/little-mermaid-02.jpg" />
+                                <img src="img/little-mermaid-boat/little-mermaid-03.jpg" />
+                                <img src="img/little-mermaid-boat/little-mermaid-04.jpg" />
+                            </div>
+                        </div>
                     </details>
                 </article>
                 <article class="card">
                     <h2>Modular Dungeon Tiles</h2>
                     <figure>
-                        <img src="img/fig_n_queens.png" />
+                        <img src="img/dnd-tiles/modular-tile-01.jpg" />
                     </figure>
                     <p>I was watching too much of the black magic craft channel, which caused me to think I really needed a set of modular dungeon tiles. I am not currently running a game and probably won't for a little while. However it turned out to be
                         a great lesson is painting fake stone. I posted the cut files on thiniverse if you want to cut your own.</p>
-                    <details>
+                    <ul>
+                        <li>
+                            <a class="fa thingiverse software-link" href="https://www.thingiverse.com/thing:3592915">
+                                <img style="width:20px" src="img/icons/icon-thingiverse.png" />
+                            </a>
+                            <a class="center-link" href="https://www.thingiverse.com/thing:3592915">Cut Files on Thingiverse</a>
+                        </li>
+                    </ul>
+                    <details id="dnd-tiles-gallery">
                         <summary>Gallery</summary>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('dnd-tiles-gallery').open = false; return false;">&times;</span>
+                                <img src="img/dnd-tiles/modular-tile-02.jpg" />
+                                <img src="img/dnd-tiles/modular-tile-03.jpg" />
+                                <img src="img/dnd-tiles/modular-tile-04.jpg" />
+                            </div>
+                        </div>
                     </details>
                 </article>
                 <article class="card">
                     <h2>9 Square in the Air</h2>
                     <figure>
-                        <img src="img/fig_n_queens.png" />
+                        <img src="img/nine-square/nine-square-01.jpg" />
                     </figure>
                     <p>Youth Group is always looking for new games. We saw a metal version of this at our summer retreat and wanted to bring it home. It was going to be a lot of pvc pipe to cut and then we had the brilliant idea. Lets the kids do it. They
                         did a great job.</p>
-                    <details>
+                    <details id="nine-square-gallery">
                         <summary>Gallery</summary>
+                        <div class="show-modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="document.getElementById('nine-square-gallery').open = false; return false;">&times;</span>
+                                <iframe src="https://www.youtube.com/embed/LJ7fDqRtafU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
                     </details>
                 </article>
             </div>
