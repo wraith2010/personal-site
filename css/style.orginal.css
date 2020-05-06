@@ -177,23 +177,6 @@ body {
     margin: 0 auto;
 }
 
-.section {
-    padding: 100px 0;
-    font-family: Helvetica, serif;
-    text-align: center;
-    color: #ffffff;
-}
-
-.section div h1 {
-    font-size: 60px;
-    text-transform: uppercase;
-    margin: 10px
-}
-
-.section div ul {
-    list-style-type: none;
-}
-
 .software {
     background-image: url("../img/backgrounds/background-software.jpg");
     background-repeat: no-repeat;
@@ -206,22 +189,9 @@ body {
     background-size: cover;
 }
 
-.section div p {
-    font-size: 15px;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
 .logo-container {
     float: left;
     width: 50%;
-}
-
-.cards {
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-around;
-    flex-flow: wrap;
 }
 
 .center-link {
@@ -229,63 +199,6 @@ body {
     vertical-align: middle;
     padding-left: 5px;
 }
-
-
-/* ============= Cards Start ============= */
-
-.card {
-    background-color: white;
-    min-height: 400px;
-    width: 330px;
-    margin-bottom: 30px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    transition: all 0.5s ease;
-    font-weight: 100;
-    padding: 15px 15px 5px 15px;
-    color: #505050;
-}
-
-.card:hover {
-    margin-top: -5px;
-    box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
-}
-
-.software-card figure {
-    float: left;
-    width: 30%;
-    margin: 0.5em;
-    margin-top: 0;
-}
-
-.card figure img {
-    width: 100%;
-}
-
-.card p {
-    font-size: 0.85rem;
-    text-align: left;
-    color: #000000;
-}
-
-.card details {
-    text-align: left;
-    padding: 5px 15px 5px 15px;
-}
-
-.card details a img {
-    width: 100%;
-}
-
-.software-link {
-    font-size: 20px;
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-}
-
-
-/* ============= Cards End ============= */
 
 .footer {
     background-image: linear-gradient(to right, #000000, #9400D3);

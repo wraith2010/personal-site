@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+}
+
+.header-banner {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.header-banner div h1 {
+	color: #ffffff;
+}
+
+.header-banner div h1 {
+	margin: 0px;
+	color: #ffffff;
+}
+
+.header-banner div p {
+	color: #800080;
+}
+
+
+.software {
+    background-color: #4B0082;
+}
+
+.builds {
+    background-color: #FFB90F;
+}
+
+.section {
+    font-family: Helvetica, serif;
+    color: #ffffff;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: wrap;
+}
+
+.section h2 {
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+
+.section p {
+	text-align: center;
+	margin: 5px;
+	font-weight: bold;
+	color: mediumvioletred;
+	font-size: 20px;
+}
+
+.link-icon{
+	width: 15px;
+	margin: 0px 5px 0px 5px;
+}
+
+.section ul {
+    list-style-type: none;
+}
+
+
+
+/* ============= Cards Start ============= */
+
+.card {
+    background-color: white;
+    width: 330px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+    color: #505050;
+    padding: 10px;
+}
+
+.card:hover {
+    margin-top: -5px;
+    box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
+}
+
+.software-card figure {
+    float: left;
+    width: 100px;
+}
+
+.card h3 {
+    font-size: 25px;
+    text-align: center;
+}
+
+.card p {
+	font-family: Dosis;
+	font-size: 15px;
+    text-align: justify;
+    color: #000000;
+    margin: 0px;
+    padding: 10px;
+}
+
+.card details {
+    text-align: left;
+    padding: 5px 15px 5px 15px;
+}
+
+.card details a img {
+    width: 100%;
+}
+
+.card a img {
+    display: inline-block;
+}
+
+.card figure {
+	margin: 5px;
+	padding: 2px;
+}
+
+/* ============= Cards End ============= */
+
+.build figure{
+
+	width: 100px;
+	
+}
