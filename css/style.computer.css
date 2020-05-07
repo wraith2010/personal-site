@@ -20,3 +20,11 @@
     font-size: 60px;    
     margin: 0px;
 }
+
+.modal-content img {
+    width: 30%;
+}
+
+.show-modal {
+    transform: scale(3.0);
+}

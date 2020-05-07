@@ -19,3 +19,10 @@
     margin:5px;
 }
 
+.modal-content img {
+    width: 100%;
+}
+
+.show-modal {
+    transform: scale(1.0);
+}
