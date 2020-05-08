@@ -22,13 +22,30 @@ body {
 }
 
 
+/* ==== sections === */
+
 .software {
     background-color: #4B0082;
+}
+
+.software article figure{
+    float: left;
+    width: 100px;
 }
 
 .builds {
     background-color: #FFB90F;
 }
+
+.random{
+    background-color: #ea2b1f;
+}
+
+.random article figure img{
+    width: 100%;
+}
+
+/* ==== end  sections === */
 
 .section {
     font-family: Helvetica, serif;
@@ -49,7 +66,7 @@ body {
 	text-align: center;
 	margin: 5px;
 	font-weight: bold;
-	color: mediumvioletred;
+	color: #087e8b;
 	font-size: 20px;
 }
 
@@ -61,8 +78,6 @@ body {
 .section ul {
     list-style-type: none;
 }
-
-
 
 /* ============= Cards Start ============= */
 
@@ -79,11 +94,6 @@ body {
 .card:hover {
     margin-top: -5px;
     box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
-}
-
-.software-card figure {
-    float: left;
-    width: 100px;
 }
 
 .card h3 {
@@ -121,9 +131,7 @@ body {
 /* ============= Cards End ============= */
 
 .build figure{
-
 	width: 100px;
-	
 }
 
 
@@ -132,7 +140,6 @@ body {
     /*display: none;*/ /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-   
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -148,7 +155,7 @@ body {
     left: 50%;
     width: 80%;
     transform: translate(-50%, -50%);
-    background-color: grey;
+    background-color: #565554;
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
 }
