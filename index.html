@@ -6,10 +6,10 @@
         <link rel="stylesheet" type="text/css" href="css/style.uniform.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.handheld.css" media="screen, handheld" />
         <link rel="stylesheet" type="text/css" href="css/style.computer.css" media="screen  and (min-width: 40.5em)" />
-        <link rel="stylesheet" href="css/modal.css">
         <title>1031F Solutions</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="script/banner.js"></script>
+        <script type="text/javascript" src="script/gallery.js"></script>
     </head>
     <body onload="rotateBackground()">
         <header id="header" class="header-banner">
@@ -21,25 +21,24 @@
         <section class="section software">
             <h2>Software</h1>
             <p style="width:100%">Various projects I have tinkered with</p>
-            <article class="card software-card">
+            <article class="card">
                 <h3>Overwatch Slackbot</h2>
                 <figure>
                     <img src="img/figures/fig_overwatch_slackbot.jpg" />
                 </figure>
                 <p>Play enough Overwatch and you need something to change things. This slack bot will randomly assign roles to a team from 2 to 6 players. The slack bot uses DJ Khaled as its icon and also includes one of his inspirational quotes along with role assignments.</p>
                 <a href="https://github.com/wraith2010/overwatchslackbot"><img class="link-icon" src="img/icons/github.png"/>Overwatch Slack Bot Repo</a>
-                <details id="overwatch-slackbot-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('overwatch-slackbot-gallery').open = false; return false;">&times;</span>
                         <img src="img/slackbot/slackbot-01.png" />
                         <img src="img/slackbot/slackbot-02.png" />
                     </div>
                 </div>
                 </details>
             </article>
-            <article class="card software-card">
+            <article class="card">
                 <h3>Mission Control</h2>
                 <figure>
                     <img src="img/figures/fig_mission_control.png" />
@@ -47,17 +46,16 @@
                 <p>Marple Presbyterian Church's VBS 2019 theme was "To Mars and Beyond". So I created the mission control game. It's done in an 8 bit retro look which really seemed to land even with the kids too young to know what that is. If you can solve the security puzzle and complete the launch sequence it trips a relay via webservice which sets off a smoke machine.</p>
                 <a href="https://github.com/wraith2010/misison-control"><img class="link-icon" src="img/icons/github.png"/>Mission Control Repo</a><br/>
                 <a href="https://1031f-hosting.s3.amazonaws.com/mission-to-mars.zip"><img class="link-icon" src="img/icons/disk-icon.png"/>Executable Jar</a>
-                <details id="mission-control-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
-                    <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('mission-control-gallery').open = false; return false;">&times;</span>
-                        <iframe src="https://www.youtube.com/embed/O0JlTFg7W-8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="modal" onclick="this.parentNode.open=false;">
+                    <div class='embed-container'>
+                        <iframe src='https://www.youtube.com/embed/O0JlTFg7W-8' frameborder='0' allowfullscreen></iframe>
                     </div>
                 </div>
                 </details>
             </article>
-            <article class="card software-card">
+            <article class="card">
                 <h3>N Queens</h2>
                 <figure>
                     <img src="img/figures/fig_n_queens.png" />
@@ -66,35 +64,33 @@
                 <a href="https://github.com/wraith2010/queens"><img class="link-icon" src="img/icons/github.png"/>N Queens Repo</a><br/>
                 <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle"><img class="link-icon" src="img/icons/wikipedia.png"/>Wikipedia N Queens article</a>
             </article>
-            <article class="card software-card">
+            <article class="card">
                 <h3>Halftone SVG Generator</h2>
                 <figure>
                     <img src="img/figures/fig_halftone_svg_generator.png" />
                 </figure>
                 <p>A while back I did a study in turning portraits into halftone version images. I would then cut those on a laser cutter and even attempted a few etchings in tile and other materials. I wrote this program to translate images to SVG cut files in halftone.</p>
                 <a href="https://github.com/wraith2010/halftone-svg-generator"><img class="link-icon" src="img/icons/github.png"/>Halftone SVG Generator Repo</a>
-                <details id="halftone-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('halftone-gallery').open = false; return false;">&times;</span>
                         <img src="img/halftone/halftone-01.jpg" />
                     </div>
                 </div>
                 </details>
             </article>
-            <article class="card software-card">
+            <article class="card">
                 <h3>Stencil Tab Tool</h2>
                 <figure>
                     <img src="img/figures/fig_stencil_tab_tool.png" />
                 </figure>
                 <p>It's really easy to make SVG stencils in Adobe Ilustrator. However one concept that is difficult to do in Adobe is to add tabs to hold islands in position. This tool breaks up overly long lines and anchors islands. Still a work in progress.</p>
                 <a href="https://github.com/wraith2010/svgstencilmaker"><img class="link-icon" src="img/icons/github.png"/>SVG Stencil Maker Repo</a>
-                <details id="stencil-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('stencil-gallery').open = false; return false;">&times;</span>
                         <img src="img/stencil/stencil-01.jpg" />
                         <img src="img/stencil/stencil-02.jpg" />
                     </div>
@@ -111,11 +107,11 @@
                     <img src="img/figures/fig_chess.png" />
                 </figure>
                 <p>Bravo Theatre Company put on Chess for their 2019 show. The story involves a politically driven, Cold War era chess tournament between two grandmasters from America and the USSR. I built the stage and the frames to fly the flags in the background.</p>
-                <details id="bravo-chess-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('bravo-chess-gallery').open = false; return false;">&times;</span>
+                        <img src="img/bravo-chess/bravo-chess-01.jpg" />
                         <img src="img/bravo-chess/bravo-chess-02.jpg" />
                         <img src="img/bravo-chess/bravo-chess-03.jpg" />
                         <img src="img/bravo-chess/bravo-chess-04.jpg" />
@@ -139,12 +135,13 @@
                         <a class="center-link" href="https://www.thingiverse.com/thing:3591894">Cut Files on Thingiverse</a>
                     </li>
                 </ul>
-                <details id="galleon-build-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('galleon-build-gallery').open = false; return false;">&times;</span>
-                        <iframe src="https://www.youtube.com/embed/X_9rHoD9vlw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class='embed-container'>
+                            <iframe src='https://www.youtube.com/embed/X_9rHoD9vlw' frameborder='0' allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
                 </details>
@@ -155,11 +152,11 @@
                     <img src="img/figures/fig-into-the-woods.jpg" />
                 </figure>
                 <p>Bravo Theater Company performed "Into the Woods" for its 2018 show.  This was one of the largest sets I have been a part of building to date.  The show required a library which became an enchanted forest.  The set had a second story balcony, a short bridge, and a spiral staircase.  The show was amazing and the set looked great.</p>
-                <details id="into-the-woods-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('into-the-woods-gallery').open = false; return false;">&times;</span>
+                        <img src="img/bravo-into-the-woods/bravo-into-the-woods-01.jpg" />
                         <img src="img/bravo-into-the-woods/bravo-into-the-woods-02.jpg" />
                         <img src="img/bravo-into-the-woods/bravo-into-the-woods-03.jpg" />
                         <img src="img/bravo-into-the-woods/bravo-into-the-woods-04.jpg" />
@@ -173,11 +170,11 @@
                     <img src="img/figures/fig-little-mermaid.jpg" />
                 </figure>
                 <p>One of the local high schools needed a rolling boat for there production of The Little Mermaid. This project was fun if only for the video of Kristen piloting the boat around the shop.</p>
-                <details id="little-mermaid-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('little-mermaid-gallery').open = false; return false;">&times;</span>
+                        <img src="img/little-mermaid-boat/little-mermaid-01.jpg" />
                         <img src="img/little-mermaid-boat/little-mermaid-02.jpg" />
                         <img src="img/little-mermaid-boat/little-mermaid-03.jpg" />
                         <img src="img/little-mermaid-boat/little-mermaid-04.jpg" />
@@ -193,17 +190,17 @@
                 <p>I was watching too much of the black magic craft channel, which caused me to think I really needed a set of modular dungeon tiles. I am not currently running a game and probably won't for a little while. However it turned out to be a great lesson is painting fake stone. I posted the cut files on thingiverse if you want to cut your own.</p>
                 <ul>
                     <li>
-                        <a class="fa thingiverse software-link" href="https://www.thingiverse.com/thing:3592915">
+                        <a href="https://www.thingiverse.com/thing:3592915">
                             <img style="width:20px" src="img/icons/icon-thingiverse.png" />
                         </a>
                         <a class="center-link" href="https://www.thingiverse.com/thing:3592915">Cut Files on Thingiverse</a>
                     </li>
                 </ul>
-                <details id="dnd-tiles-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('dnd-tiles-gallery').open = false; return false;">&times;</span>
+                        <img src="img/dnd-tiles/modular-tile-01.jpg" />
                         <img src="img/dnd-tiles/modular-tile-02.jpg" />
                         <img src="img/dnd-tiles/modular-tile-03.jpg" />
                         <img src="img/dnd-tiles/modular-tile-04.jpg" />
@@ -217,12 +214,13 @@
                     <img src="img/figures/fig-nine-square.jpg" />
                 </figure>
                 <p>Youth Group is always looking for new games. We saw a metal version of this at our summer retreat and wanted to bring it home. It was going to be a lot of pvc pipe to cut and then we had the brilliant idea. Let the kids do it. They did a great job.</p>
-                <details id="nine-square-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('nine-square-gallery').open = false; return false;">&times;</span>
-                        <iframe src="https://www.youtube.com/embed/LJ7fDqRtafU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class='embed-container'>
+                            <iframe src='https://www.youtube.com/embed/LJ7fDqRtafU' frameborder='0' allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
                 </details>
@@ -233,11 +231,10 @@
                     <img src="img/figures/fig-les-mis.jpg" />
                 </figure>
                 <p>Got another prop request from a local high school musical.  This time for muskets for Les Miserables. I was happy with this design and it came in for under $4.00 a musket. Everything sourced from Home Depot.  The stock is cut from 2"x6". The barrel rest is a 2"x2" with a channel routed down the middle.  The barrel is 3/4" schedule 40 electrical conduit.  They looked very good stained up.</p>
-                <details id="les-mis-muskets-gallery">
+                <details>
                 <summary>Gallery</summary>
-                <div class="show-modal">
+                <div class="modal" onclick="this.parentNode.open=false;">
                     <div class="modal-content">
-                        <span class="close-button" onclick="document.getElementById('les-mis-muskets-gallery').open = false; return false;">&times;</span>
                         <img src="img/radnor-les-mis-muskets/build-01.jpg" />
                         <img src="img/radnor-les-mis-muskets/build-02.jpg" />
                         <img src="img/radnor-les-mis-muskets/build-03.jpg" />
@@ -249,16 +246,45 @@
                 </details>
             </article>
         </section>
+        <section class="section random">
+            <h2>Some Random Stuff</h2>
+            <p style="width:100%">Just some other stuff</p>
+            <article class="card">
+                <h3>Drone Flight</h3>
+                <figure>
+                    <img src="img/figures/fig-drone-flight.jpg" />
+                </figure>
+                <p>Finally got my drone out of the box and took it for a flight.  It was amazing, can't wait to try this other places.</p>
+                <details>
+                <summary>Gallery</summary>
+                <div class="modal" onclick="this.parentNode.open=false;">
+                    <div class="modal-content">
+                        <div class='embed-container'>
+                            <iframe src='https://www.youtube.com/embed/E5v2KpFB0fg' frameborder='0' allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                </details>
+            </article>
+        </section>
         <footer class="footer">
-            <h3>Ben Mitchell</h3>
-            <a href="https://www.facebook.com/ben.mitchell.7169">Facebook</a>
-            <a href="https://boardgamegeek.com/user/bugsy2010">Game Geek</a>
-            <a href="https://www.thingiverse.com/wraith2010">Thing-i-verse</a>
-            <a href="https://github.com/wraith2010"></a>
-            <h3>Double Watt Games</h3>
-            <a href="https://www.doublewattgames.com/">Website</a>
-            <a href="https://twitter.com/DoubleWattGames">Twitter</a>
-            <a href="https://www.facebook.com/Double-Watt-Games-465252890645534">Facebook</a>
+            <div style="text-align: right">
+                <ul>
+                    <h3>Ben Mitchell</h3>
+                    <li/><a href="https://www.facebook.com/ben.mitchell.7169"><img src="img/icons/icon-facebook.png"/></a>
+                    <li/><a href="https://boardgamegeek.com/user/bugsy2010"><img src="img/icons/icon-board-game-geek.png"/></a>
+                    <li/><a href="https://www.thingiverse.com/wraith2010"><img src="img/icons/icon-thingiverse.png"/></a>
+                    <li/><a href="https://github.com/wraith2010"><img src="img/icons/github.png"/></a>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <h3>Double Watt Games</h3>
+                    <li/><a href="https://www.doublewattgames.com/"><img src="img/icons/icon-website.png"/></a>
+                    <li/><a href="https://twitter.com/DoubleWattGames"><img src="img/icons/icon-twitter.jpg"/></a>
+                    <li/><a href="https://www.facebook.com/Double-Watt-Games-465252890645534"><img src="img/icons/icon-facebook.png"/></a>
+                </ul>
+            </div>
         </footer>
     </body>
 </html>
