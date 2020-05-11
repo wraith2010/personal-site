@@ -30,3 +30,7 @@
     height: 100%;
 }
 
+.footer div ul h3 {
+    font-size: 30px;
+    margin: 10px;
+}
