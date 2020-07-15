@@ -5,24 +5,24 @@
 .header-banner div {
     margin: 50px;
     position: absolute;
-    top: 20%;    
+    top: 20%;
 }
 
 .header-banner div h1 {
-	font-size: 100px;	
+    font-size: 100px;
 }
 
 .section {
-    padding: 10px 200px 10px 200px; 
+    padding: 10px 200px 10px 200px;
 }
 
 .section h2 {
-    font-size: 60px;    
+    font-size: 60px;
     margin: 0px;
 }
 
 .modal-content img {
-    width: 48%;
+    width: 30%;
 }
 
 .modal-content iframe {
