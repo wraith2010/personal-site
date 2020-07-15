@@ -9,16 +9,16 @@ body {
 }
 
 .header-banner div h1 {
-	color: #ffffff;
+    color: #ffffff;
 }
 
 .header-banner div h1 {
-	margin: 0px;
-	color: #ffffff;
+    margin: 0px;
+    color: #ffffff;
 }
 
 .header-banner div p {
-	color: #800080;
+    color: #800080;
 }
 
 
@@ -28,7 +28,7 @@ body {
     background-color: #4B0082;
 }
 
-.software article figure{
+.software article figure {
     float: left;
     width: 100px;
 }
@@ -37,13 +37,14 @@ body {
     background-color: #FFB90F;
 }
 
-.random{
+.random {
     background-color: #ea2b1f;
 }
 
-.random article figure img{
+.random article figure img {
     width: 100%;
 }
+
 
 /* ==== end  sections === */
 
@@ -63,21 +64,22 @@ body {
 }
 
 .section p {
-	text-align: center;
-	margin: 5px;
-	font-weight: bold;
-	color: #087e8b;
-	font-size: 20px;
+    text-align: center;
+    margin: 5px;
+    font-weight: bold;
+    color: #087e8b;
+    font-size: 20px;
 }
 
-.link-icon{
-	width: 15px;
-	margin: 0px 5px 0px 5px;
+.link-icon {
+    width: 15px;
+    margin: 0px 5px 0px 5px;
 }
 
 .section ul {
     list-style-type: none;
 }
+
 
 /* ============= Cards Start ============= */
 
@@ -102,8 +104,8 @@ body {
 }
 
 .card p {
-	font-family: Dosis;
-	font-size: 15px;
+    font-family: Times New Roman;
+    font-size: 15px;
     text-align: justify;
     color: #000000;
     margin: 0px;
@@ -124,29 +126,39 @@ body {
 }
 
 .card figure {
-	margin: 5px;
-	padding: 2px;
+    margin: 5px;
+    padding: 2px;
 }
+
 
 /* ============= Cards End ============= */
 
-.build figure{
-	width: 100px;
+.build figure {
+    width: 100px;
 }
 
 
 /* =============== modal gallery ============ */
+
 .modal {
-    /*display: none;*/ /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    /*display: none;*/
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Black w/ opacity */
 }
 
 .modal-content {
@@ -159,7 +171,6 @@ body {
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
 }
-
 
 .close-button {
     float: right;
@@ -175,19 +186,32 @@ body {
     background-color: darkgray;
 }
 
+.embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
 
-.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; }
-.embed-container iframe,.embed-container object,.embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 
 /* =============== end of modal gallery ============ */
 
 .footer {
-     display: flex;
-     justify-content: center;
-     background-color: #087e8b;
+    display: flex;
+    justify-content: center;
+    background-color: #087e8b;
 }
-
 
 .footer div ul {
     list-style: none;
@@ -198,9 +222,9 @@ body {
 }
 
 .footer div {
-    width:40%;
+    width: 40%;
 }
 
 .footer div ul li {
-    display:inline;
+    display: inline;
 }
