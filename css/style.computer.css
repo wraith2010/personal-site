@@ -1,15 +1,24 @@
+.intro div img {
+    width: 100%;
+    object-fit: cover;
+}
+
 .section header {
     text-align: right;
 }
 
 .section header h1 {
     font-size: 100px;
+    text-align: right;
 }
 
 .section header h2 {
     font-size: 60px;
+    text-align: right;
+}
+
+.section header p {
     float: right;
-    clear: right;
 }
 
 .modal-content img {
