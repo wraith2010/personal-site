@@ -14,371 +14,430 @@
 </head>
 
 <body onload="rotateBackground()">
-    <header id="header" class="header-banner">
-        <div>
-            <h1>1031F Solutions</h1>
-            <p>Personal Website of: <span style="color: #ffffff">Ben Mitchell</span></p>
-        </div>
-    </header>
-    <section class="section software">
-        <h2>Software</h1>
-            <p style="width:100%">Various projects I have tinkered with</p>
-            <article class="card">
-                <h3>Overwatch Slackbot
-        </h2>
-        <figure>
-            <img src="img/figures/fig_overwatch_slackbot.jpg" />
-        </figure>
-        <p>Play enough Overwatch and you need something to change things. This slack bot will randomly assign roles to a
-            team from 2 to 6 players. The slack bot uses DJ Khaled as its icon and also includes one of his
-            inspirational quotes along with role
-            assignments.
-        </p>
-        <a href="https://github.com/wraith2010/overwatchslackbot"><img class="link-icon"
-                src="img/icons/github.png" />Overwatch Slack Bot Repo</a>
-        <details>
-            <summary>Gallery</summary>
-            <div class="modal" onclick="this.parentNode.open=false;">
-                <div class="modal-content">
-                    <img src="img/slackbot/slackbot-01.png" />
-                    <img src="img/slackbot/slackbot-02.png" />
-                </div>
+    <div id="wrapper">
+        <section class="section intro">
+            <header>
+                <h1>1031F Solutions</h1>
+                <p>Personal Website of: <span style="color: #ffffff">Ben Mitchell III</span></p>
+            </header>
+            <div>
+                <img id="rotating-images" src="img/slideshow/slide-01.jpg" />
             </div>
-        </details>
-        </article>
-        <article class="card">
-            <h3>Mission Control</h2>
-                <figure>
-                    <img src="img/figures/fig_mission_control.png" />
-                </figure>
-                <p>Marple Presbyterian Church's VBS 2019 theme was "To Mars and Beyond". So I created the mission
-                    control game. It's done in an 8 bit retro look which really seemed to land even with the kids too
-                    young to know what that is. If you can solve
-                    the security puzzle and complete the launch sequence it trips a relay via webservice which sets off
-                    a smoke machine.</p>
-                <a href="https://github.com/wraith2010/misison-control"><img class="link-icon"
-                        src="img/icons/github.png" />Mission Control Repo</a><br />
-                <a href="https://1031f-hosting.s3.amazonaws.com/mission-to-mars.zip"><img class="link-icon"
-                        src="img/icons/disk-icon.png" />Executable Jar</a>
-                <details>
-                    <summary>Gallery</summary>
-                    <div class="modal" onclick="this.parentNode.open=false;">
-                        <div class='embed-container'>
-                            <iframe src='https://www.youtube.com/embed/O0JlTFg7W-8' frameborder='0'
-                                allowfullscreen></iframe>
+        </section>
+        <section class="section software">
+            <header>
+                <h2>Software</h2>
+                <p>Various projects I have tinkered with</p>
+            </header>
+            <div>
+                <article class="card">
+                    <h3>Overwatch Slackbot</h3>
+                    <figure>
+                        <img src="img/figures/fig_overwatch_slackbot.jpg" />
+                    </figure>
+                    <p>Play enough Overwatch and you need something to change things. This slack bot will randomly
+                        assign
+                        roles
+                        to a
+                        team from 2 to 6 players. The slack bot uses DJ Khaled as its icon and also includes one of his
+                        inspirational quotes along with role
+                        assignments.
+                    </p>
+                    <a href="https://github.com/wraith2010/overwatchslackbot"><img class="link-icon"
+                            src="img/icons/github.png" />Overwatch Slack Bot Repo</a>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/slackbot/slackbot-01.png" />
+                                <img src="img/slackbot/slackbot-02.png" />
+                            </div>
                         </div>
-                    </div>
-                </details>
-        </article>
-        <article class="card">
-            <h3>N Queens</h2>
-                <figure>
-                    <img src="img/figures/fig_n_queens.png" />
-                </figure>
-                <p>The N Queen is the problem of placing N chess queens on an [NxN] chessboard so that no two queens
-                    attack each other. This is one of those math problems that takes over my mind from time to time.
-                    When I have an idea worth coding for testing
-                    you can find it here.</p>
-                <a href="https://github.com/wraith2010/queens"><img class="link-icon" src="img/icons/github.png" />N
-                    Queens Repo</a><br />
-                <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle"><img class="link-icon"
-                        src="img/icons/wikipedia.png" />Wikipedia N Queens article</a>
-        </article>
-        <article class="card">
-            <h3>Halftone SVG Generator</h2>
-                <figure>
-                    <img src="img/figures/fig_halftone_svg_generator.png" />
-                </figure>
-                <p>A while back I did a study in turning portraits into halftone version images. I would then cut those
-                    on a laser cutter and even attempted a few etchings in tile and other materials. I wrote this
-                    program to translate images to SVG cut files
-                    in halftone.</p>
-                <a href="https://github.com/wraith2010/halftone-svg-generator"><img class="link-icon"
-                        src="img/icons/github.png" />Halftone SVG Generator Repo</a>
-                <details>
-                    <summary>Gallery</summary>
-                    <div class="modal" onclick="this.parentNode.open=false;">
-                        <div class="modal-content">
-                            <img src="img/halftone/halftone-01.jpg" />
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>Mission Control</h3>
+                    <figure>
+                        <img src="img/figures/fig_mission_control.png" />
+                    </figure>
+                    <p>Marple Presbyterian Church's VBS 2019 theme was "To Mars and Beyond". So I created the mission
+                        control game. It's done in an 8 bit retro look which really seemed to land even with the kids
+                        too
+                        young to know what that is. If you can solve
+                        the security puzzle and complete the launch sequence it trips a relay via webservice which sets
+                        off
+                        a smoke machine.</p>
+                    <a href="https://github.com/wraith2010/misison-control"><img class="link-icon"
+                            src="img/icons/github.png" />Mission Control Repo</a><br />
+                    <a href="https://1031f-hosting.s3.amazonaws.com/mission-to-mars.zip"><img class="link-icon"
+                            src="img/icons/disk-icon.png" />Executable Jar</a>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="embed-container">
+                                <iframe src="https://www.youtube.com/embed/O0JlTFg7W-8" frameborder="0"
+                                    allowfullscreen></iframe>
+                            </div>
                         </div>
-                    </div>
-                </details>
-        </article>
-        <article class="card">
-            <h3>Stencil Tab Tool</h2>
-                <figure>
-                    <img src="img/figures/fig_stencil_tab_tool.png" />
-                </figure>
-                <p>It's really easy to make SVG stencils in Adobe Ilustrator. However one concept that is difficult to
-                    do in Adobe is to add tabs to hold islands in position. This tool breaks up overly long lines and
-                    anchors islands. Still a work in progress.</p>
-                <a href="https://github.com/wraith2010/svgstencilmaker"><img class="link-icon"
-                        src="img/icons/github.png" />SVG Stencil Maker Repo</a>
-                <details>
-                    <summary>Gallery</summary>
-                    <div class="modal" onclick="this.parentNode.open=false;">
-                        <div class="modal-content">
-                            <img src="img/stencil/stencil-01.jpg" />
-                            <img src="img/stencil/stencil-02.jpg" />
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>N Queens</h3>
+                    <figure>
+                        <img src="img/figures/fig_n_queens.png" />
+                    </figure>
+                    <p>The N Queen is the problem of placing N chess queens on an [NxN] chessboard so that no two queens
+                        attack each other. This is one of those math problems that takes over my mind from time to time.
+                        When I have an idea worth coding for testing
+                        you can find it here.</p>
+                    <a href="https://github.com/wraith2010/queens"><img class="link-icon" src="img/icons/github.png" />N
+                        Queens Repo</a><br />
+                    <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle"><img class="link-icon"
+                            src="img/icons/wikipedia.png" />Wikipedia N Queens article</a>
+                </article>
+                <article class="card">
+                    <h3>Halftone SVG Generator</h3>
+                    <figure>
+                        <img src="img/figures/fig_halftone_svg_generator.png" />
+                    </figure>
+                    <p>A while back I did a study in turning portraits into halftone version images. I would then cut
+                        those
+                        on a laser cutter and even attempted a few etchings in tile and other materials. I wrote this
+                        program to translate images to SVG cut files
+                        in halftone.</p>
+                    <a href="https://github.com/wraith2010/halftone-svg-generator"><img class="link-icon"
+                            src="img/icons/github.png" />Halftone SVG Generator Repo</a>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/halftone/halftone-01.jpg" />
+                            </div>
                         </div>
-                    </div>
-                </details>
-        </article>
-    </section>
-    <section class="section builds">
-        <h2>Builds</h2>
-        <p style="width:100%">Creation is a compulsion. Sometimes I remember to take pictures</p>
-        <article class="card build">
-            <h3>Bravo Stage: Chess</h3>
-            <figure>
-                <img src="img/figures/fig_chess.png" />
-            </figure>
-            <p>Bravo Theatre Company put on Chess for their 2019 show. The story involves a politically driven, Cold War
-                era chess tournament between two grandmasters from America and the USSR. I built the stage and the
-                frames to fly the flags in the background.</p>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <img src="img/bravo-chess/bravo-chess-01.jpg" />
-                        <img src="img/bravo-chess/bravo-chess-02.jpg" />
-                        <img src="img/bravo-chess/bravo-chess-03.jpg" />
-                        <img src="img/bravo-chess/bravo-chess-04.jpg" />
-                        <img src="img/bravo-chess/bravo-chess-05.jpg" />
-                        <img src="img/bravo-chess/bravo-chess-06.jpg" />
-                    </div>
-                </div>
-            </details>
-        </article>
-        <article class="card build">
-            <h3>D&D Galleon Build</h3>
-            <figure>
-                <img src="img/figures/fig-galleon.jpg" />
-            </figure>
-            <p>My D&D Group is currently working through the "Storm King's Thunder". The DM wanted a physical model for
-                the AirShip. I shared my cut files on thingiverse if you're interested in making your own.</p>
-            <a href="https://www.thingiverse.com/thing:3591894"><img class="link-icon"
-                    src="img/icons/icon-thingiverse.png" />Cut Files on Thingiverse</a>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <div class='embed-container'>
-                            <iframe src='https://www.youtube.com/embed/X_9rHoD9vlw' frameborder='0'
-                                allowfullscreen></iframe>
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>Stencil Tab Tool</h3>
+                    <figure>
+                        <img src="img/figures/fig_stencil_tab_tool.png" />
+                    </figure>
+                    <p>It's really easy to make SVG stencils in Adobe Ilustrator. However one concept that is difficult
+                        to
+                        do in Adobe is to add tabs to hold islands in position. This tool breaks up overly long lines
+                        and
+                        anchors islands. Still a work in progress.</p>
+                    <a href="https://github.com/wraith2010/svgstencilmaker"><img class="link-icon"
+                            src="img/icons/github.png" />SVG Stencil Maker Repo</a>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/stencil/stencil-01.jpg" />
+                                <img src="img/stencil/stencil-02.jpg" />
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </details>
-        </article>
-        <article class="card">
-            <h3>Bravo Stage: Into the Woods</h3>
-            <figure>
-                <img src="img/figures/fig-into-the-woods.jpg" />
-            </figure>
-            <p>Bravo Theater Company performed "Into the Woods" for its 2018 show. This was one of the largest sets I
-                have been a part of building to date. The show required a library which became an enchanted forest. The
-                set had a second story balcony,
-                a short bridge, and a spiral staircase. The show was amazing and the set looked great.</p>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <img src="img/bravo-into-the-woods/bravo-into-the-woods-01.jpg" />
-                        <img src="img/bravo-into-the-woods/bravo-into-the-woods-02.jpg" />
-                        <img src="img/bravo-into-the-woods/bravo-into-the-woods-03.jpg" />
-                        <img src="img/bravo-into-the-woods/bravo-into-the-woods-04.jpg" />
-                    </div>
-                </div>
-            </details>
-        </article>
-        <article class="card">
-            <h3>Little Mermaid Boat</h3>
-            <figure>
-                <img src="img/figures/fig-little-mermaid.jpg" />
-            </figure>
-            <p>One of the local high schools needed a rolling boat for there production of The Little Mermaid. This
-                project was fun if only for the video of Kristen piloting the boat around the shop.</p>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <img src="img/little-mermaid-boat/little-mermaid-01.jpg" />
-                        <img src="img/little-mermaid-boat/little-mermaid-02.jpg" />
-                        <img src="img/little-mermaid-boat/little-mermaid-03.jpg" />
-                        <img src="img/little-mermaid-boat/little-mermaid-04.jpg" />
-                    </div>
-                </div>
-            </details>
-        </article>
-        <article class="card">
-            <h3>Modular Dungeon Tiles</h3>
-            <figure>
-                <img src="img/figures/fig-modular-tile.jpg" />
-            </figure>
-            <p>I was watching too much of the black magic craft channel, which caused me to think I really needed a set
-                of modular dungeon tiles. I am not currently running a game and probably won't for a little while.
-                However it turned out to be a great
-                lesson is painting fake stone. I posted the cut files on thingiverse if you want to cut your own.</p>
-            <a href="https://www.thingiverse.com/thing:3592915"><img class="link-icon"
-                    src="img/icons/icon-thingiverse.png" />Cut Files on Thingiverse</a>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <img src="img/dnd-tiles/modular-tile-01.jpg" />
-                        <img src="img/dnd-tiles/modular-tile-02.jpg" />
-                        <img src="img/dnd-tiles/modular-tile-03.jpg" />
-                        <img src="img/dnd-tiles/modular-tile-04.jpg" />
-                    </div>
-                </div>
-            </details>
-        </article>
-        <article class="card">
-            <h3>9 Square in the Air</h3>
-            <figure>
-                <img src="img/figures/fig-nine-square.jpg" />
-            </figure>
-            <p>Youth Group is always looking for new games. We saw a metal version of this at our summer retreat and
-                wanted to bring it home. It was going to be a lot of pvc pipe to cut and then we had the brilliant idea.
-                Let the kids do it. They did a great
-                job.
-            </p>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <div class='embed-container'>
-                            <iframe src='https://www.youtube.com/embed/LJ7fDqRtafU' frameborder='0'
-                                allowfullscreen></iframe>
+                    </details>
+                </article>
+            </div>
+        </section>
+        <section class="section builds">
+            <header>
+                <h2>Builds</h2>
+                <p>Creation is a compulsion. Sometimes I remember to take pictures</p>
+            </header>
+            <div>
+                <article class="card build">
+                    <h3>Bravo Stage: Chess</h3>
+                    <figure>
+                        <img src="img/figures/fig_chess.png" />
+                    </figure>
+                    <p>Bravo Theatre Company put on Chess for their 2019 show. The story involves a politically driven,
+                        Cold
+                        War
+                        era chess tournament between two grandmasters from America and the USSR. I built the stage and
+                        the
+                        frames to fly the flags in the background.</p>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/bravo-chess/bravo-chess-01.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-02.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-03.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-04.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-05.jpg" />
+                                <img src="img/bravo-chess/bravo-chess-06.jpg" />
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </details>
-        </article>
-        <article class="card">
-            <h3>Les Miserables: Muskets</h3>
-            <figure>
-                <img src="img/figures/fig-les-mis.jpg" />
-            </figure>
-            <p>Got another prop request from a local high school musical. This time for muskets for Les Miserables. I
-                was happy with this design and it came in for under $4.00 a musket. Everything sourced from Home Depot.
-                The stock is cut from 2"x6". The
-                barrel rest is a 2"x2" with a channel routed down the middle. The barrel is 3/4" schedule 40 electrical
-                conduit. They looked very good stained up.</p>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <img src="img/radnor-les-mis-muskets/build-01.jpg" />
-                        <img src="img/radnor-les-mis-muskets/build-02.jpg" />
-                        <img src="img/radnor-les-mis-muskets/build-03.jpg" />
-                        <img src="img/radnor-les-mis-muskets/build-04.jpg" />
-                        <img src="img/radnor-les-mis-muskets/show-01.jfif" />
-                        <img src="img/radnor-les-mis-muskets/show-02.jfif" />
-                    </div>
-                </div>
-            </details>
-        </article>
-    </section>
-    <section class="section random">
-        <h2>Some Random Stuff</h2>
-        <p style="width:100%">Just some other stuff</p>
-        <article class="card">
-            <h3>Drone Flight</h3>
-            <figure>
-                <img src="img/figures/fig-drone-flight.jpg" />
-            </figure>
-            <p>Finally got my drone out of the box and took it for a flight. It was amazing, can't wait to try this
-                other places.</p>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <div class='embed-container'>
-                            <iframe src='https://www.youtube.com/embed/E5v2KpFB0fg' frameborder='0'
-                                allowfullscreen></iframe>
+                    </details>
+                </article>
+                <article class="card build">
+                    <h3>D&D Galleon Build</h3>
+                    <figure>
+                        <img src="img/figures/fig-galleon.jpg" />
+                    </figure>
+                    <p>My D&D Group is currently working through the "Storm King's Thunder". The DM wanted a physical
+                        model
+                        for
+                        the AirShip. I shared my cut files on thingiverse if you're interested in making your own.</p>
+                    <a href="https://www.thingiverse.com/thing:3591894"><img class="link-icon"
+                            src="img/icons/icon-thingiverse.png" />Cut Files on Thingiverse</a>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <div class="embed-container">
+                                    <iframe src="https://www.youtube.com/embed/X_9rHoD9vlw" frameborder="0'"
+                                        allowfullscreen></iframe>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </details>
-        </article>
-        <article class="card">
-            <h3>Emergency Stream Project</h3>
-            <figure>
-                <img src="img/emergency-stream/emergency-stream-01.jpg" />
-            </figure>
-            <p>I never wanted to be a twich streamer, but I also didn't expect the world to lock down for months. Since
-                people can't go to church, church needs to come to the people. so on short notice I learned how to
-                stream and began cobbling a small setup
-                together. Several iterations latter I think I build a great setup that will extend the reach of the
-                church.</p>
-            <a href="https://www.twitch.tv/marplepresbyteriandigital"><img class="link-icon"
-                    src="img/icons/twitch.png" />MPC Twitch Channel</a><br />
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
-                        <img src="img/emergency-stream/emergency-stream-02.jpg" />
-                        <img src="img/emergency-stream/emergency-stream-03.jpg" />
-                        <img src="img/emergency-stream/emergency-stream-04.jpg" />
-                        <img src="img/emergency-stream/emergency-stream-05.jpg" />
-                    </div>
-                </div>
-            </details>
-        </article>
-        <article class="card">
-            <h3>Building a Light Saber</h3>
-            <figure>
-                <img src="img/russels_saber/01.jpg" />
-            </figure>
-            <p>Many years ago now my cousin and I got together to celebrate a shared fandom of starwars buy building
-                some prop ready light sabers. Slip joint drain pipe from a hardware store, electronics from radio shack,
-                and a dremel rotary tool combined for a certain kind of magic.</p>
-            <details>
-                <summary>Gallery</summary>
-                <div class="modal" onclick="this.parentNode.open=false;">
-                    <div class="modal-content">
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>Bravo Stage: Into the Woods</h3>
+                    <figure>
+                        <img src="img/figures/fig-into-the-woods.jpg" />
+                    </figure>
+                    <p>Bravo Theater Company performed "Into the Woods" for its 2018 show. This was one of the largest
+                        sets
+                        I
+                        have been a part of building to date. The show required a library which became an enchanted
+                        forest.
+                        The
+                        set had a second story balcony,
+                        a short bridge, and a spiral staircase. The show was amazing and the set looked great.</p>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/bravo-into-the-woods/bravo-into-the-woods-01.jpg" />
+                                <img src="img/bravo-into-the-woods/bravo-into-the-woods-02.jpg" />
+                                <img src="img/bravo-into-the-woods/bravo-into-the-woods-03.jpg" />
+                                <img src="img/bravo-into-the-woods/bravo-into-the-woods-04.jpg" />
+                            </div>
+                        </div>
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>Little Mermaid Boat</h3>
+                    <figure>
+                        <img src="img/figures/fig-little-mermaid.jpg" />
+                    </figure>
+                    <p>One of the local high schools needed a rolling boat for there production of The Little Mermaid.
+                        This
+                        project was fun if only for the video of Kristen piloting the boat around the shop.</p>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/little-mermaid-boat/little-mermaid-01.jpg" />
+                                <img src="img/little-mermaid-boat/little-mermaid-02.jpg" />
+                                <img src="img/little-mermaid-boat/little-mermaid-03.jpg" />
+                                <img src="img/little-mermaid-boat/little-mermaid-04.jpg" />
+                            </div>
+                        </div>
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>Modular Dungeon Tiles</h3>
+                    <figure>
+                        <img src="img/figures/fig-modular-tile.jpg" />
+                    </figure>
+                    <p>I was watching too much of the black magic craft channel, which caused me to think I really
+                        needed a
+                        set
+                        of modular dungeon tiles. I am not currently running a game and probably won't for a little
+                        while.
+                        However it turned out to be a great
+                        lesson is painting fake stone. I posted the cut files on thingiverse if you want to cut your
+                        own.
+                    </p>
+                    <a href="https://www.thingiverse.com/thing:3592915"><img class="link-icon"
+                            src="img/icons/icon-thingiverse.png" />Cut Files on Thingiverse</a>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/dnd-tiles/modular-tile-01.jpg" />
+                                <img src="img/dnd-tiles/modular-tile-02.jpg" />
+                                <img src="img/dnd-tiles/modular-tile-03.jpg" />
+                                <img src="img/dnd-tiles/modular-tile-04.jpg" />
+                            </div>
+                        </div>
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>9 Square in the Air</h3>
+                    <figure>
+                        <img src="img/figures/fig-nine-square.jpg" />
+                    </figure>
+                    <p>Youth Group is always looking for new games. We saw a metal version of this at our summer retreat
+                        and
+                        wanted to bring it home. It was going to be a lot of pvc pipe to cut and then we had the
+                        brilliant
+                        idea.
+                        Let the kids do it. They did a great
+                        job.
+                    </p>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <div class="embed-container">
+                                    <iframe src="https://www.youtube.com/embed/LJ7fDqRtafU" frameborder="0"
+                                        allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>Les Miserables: Muskets</h3>
+                    <figure>
+                        <img src="img/figures/fig-les-mis.jpg" />
+                    </figure>
+                    <p>Got another prop request from a local high school musical. This time for muskets for Les
+                        Miserables.
+                        I
+                        was happy with this design and it came in for under $4.00 a musket. Everything sourced from Home
+                        Depot.
+                        The stock is cut from 2"x6". The
+                        barrel rest is a 2"x2" with a channel routed down the middle. The barrel is 3/4" schedule 40
+                        electrical
+                        conduit. They looked very good stained up.</p>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/radnor-les-mis-muskets/build-01.jpg" />
+                                <img src="img/radnor-les-mis-muskets/build-02.jpg" />
+                                <img src="img/radnor-les-mis-muskets/build-03.jpg" />
+                                <img src="img/radnor-les-mis-muskets/build-04.jpg" />
+                                <img src="img/radnor-les-mis-muskets/show-01.jfif" />
+                                <img src="img/radnor-les-mis-muskets/show-02.jfif" />
+                            </div>
+                        </div>
+                    </details>
+                </article>
+            </div>
+        </section>
+        <section class="section random">
+            <header>
+                <h2>Some Random Stuff</h2>
+                <p>Just some other stuff</p>
+            </header>
+            <div>
+                <article class="card">
+                    <h3>Drone Flight</h3>
+                    <figure>
+                        <img src="img/figures/fig-drone-flight.jpg" />
+                    </figure>
+                    <p>Finally got my drone out of the box and took it for a flight. It was amazing, can't wait to try
+                        this
+                        other places.</p>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <div class="embed-container">
+                                    <iframe src="https://www.youtube.com/embed/E5v2KpFB0fg" frameborder="0"
+                                        allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>Emergency Stream Project</h3>
+                    <figure>
+                        <img src="img/emergency-stream/emergency-stream-01.jpg" />
+                    </figure>
+                    <p>I never wanted to be a twich streamer, but I also didn't expect the world to lock down for
+                        months.
+                        Since
+                        people can't go to church, church needs to come to the people. so on short notice I learned how
+                        to
+                        stream and began cobbling a small setup
+                        together. Several iterations latter I think I build a great setup that will extend the reach of
+                        the
+                        church.</p>
+                    <a href="https://www.twitch.tv/marplepresbyteriandigital"><img class="link-icon"
+                            src="img/icons/twitch.png" />MPC Twitch Channel</a><br />
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/emergency-stream/emergency-stream-02.jpg" />
+                                <img src="img/emergency-stream/emergency-stream-03.jpg" />
+                                <img src="img/emergency-stream/emergency-stream-04.jpg" />
+                                <img src="img/emergency-stream/emergency-stream-05.jpg" />
+                            </div>
+                        </div>
+                    </details>
+                </article>
+                <article class="card">
+                    <h3>Building a Light Saber</h3>
+                    <figure>
                         <img src="img/russels_saber/01.jpg" />
-                        <img src="img/russels_saber/02.jpg" />
-                        <img src="img/russels_saber/03.jpg" />
-                        <img src="img/russels_saber/04.jpg" />
-                        <img src="img/russels_saber/05.jpg" />
-                        <img src="img/russels_saber/06.jpg" />
-                        <img src="img/russels_saber/07.jpg" />
-                        <img src="img/russels_saber/08.jpg" />
-                    </div>
+                    </figure>
+                    <p>Many years ago now my cousin and I got together to celebrate a shared fandom of starwars buy
+                        building
+                        some prop ready light sabers. Slip joint drain pipe from a hardware store, electronics from
+                        radio
+                        shack,
+                        and a dremel rotary tool combined for a certain kind of magic.</p>
+                    <details>
+                        <summary>Gallery</summary>
+                        <div class="modal" onclick="this.parentNode.open=false;">
+                            <div class="modal-content">
+                                <img src="img/russels_saber/01.jpg" />
+                                <img src="img/russels_saber/02.jpg" />
+                                <img src="img/russels_saber/03.jpg" />
+                                <img src="img/russels_saber/04.jpg" />
+                                <img src="img/russels_saber/05.jpg" />
+                                <img src="img/russels_saber/06.jpg" />
+                                <img src="img/russels_saber/07.jpg" />
+                                <img src="img/russels_saber/08.jpg" />
+                            </div>
+                        </div>
+                    </details>
+                </article>
+            </div>
+        </section>
+        <section>
+            <footer class="footer">
+                <div style="text-align: right">
+                    <ul>
+                        <h3>Ben Mitchell</h3>
+                        <li />
+                        <a href="https://www.facebook.com/ben.mitchell.7169"><img
+                                src="img/icons/icon-facebook.png" /></a>
+                        <li />
+                        <a href="https://boardgamegeek.com/user/bugsy2010"><img
+                                src="img/icons/icon-board-game-geek.png" /></a>
+                        <li />
+                        <a href="https://www.thingiverse.com/wraith2010"><img
+                                src="img/icons/icon-thingiverse.png" /></a>
+                        <li />
+                        <a href="https://github.com/wraith2010"><img src="img/icons/github.png" /></a>
+                    </ul>
                 </div>
-            </details>
-        </article>
-    </section>
-    <footer class="footer">
-        <div style="text-align: right">
-            <ul>
-                <h3>Ben Mitchell</h3>
-                <li />
-                <a href="https://www.facebook.com/ben.mitchell.7169"><img src="img/icons/icon-facebook.png" /></a>
-                <li />
-                <a href="https://boardgamegeek.com/user/bugsy2010"><img src="img/icons/icon-board-game-geek.png" /></a>
-                <li />
-                <a href="https://www.thingiverse.com/wraith2010"><img src="img/icons/icon-thingiverse.png" /></a>
-                <li />
-                <a href="https://github.com/wraith2010"><img src="img/icons/github.png" /></a>
-            </ul>
-        </div>
-        <div>
-            <ul>
-                <h3>Double Watt Games</h3>
-                <li />
-                <a href="https://www.doublewattgames.com/"><img src="img/icons/icon-website.png" /></a>
-                <li />
-                <a href="https://twitter.com/DoubleWattGames"><img src="img/icons/icon-twitter.png" /></a>
-                <li />
-                <a href="https://www.facebook.com/Double-Watt-Games-465252890645534"><img
-                        src="img/icons/icon-facebook.png" /></a>
-            </ul>
-        </div>
-    </footer>
+                <div>
+                    <ul>
+                        <h3>Double Watt Games</h3>
+                        <li />
+                        <a href="https://www.doublewattgames.com/"><img src="img/icons/icon-website.png" /></a>
+                        <li />
+                        <a href="https://twitter.com/DoubleWattGames"><img src="img/icons/icon-twitter.png" /></a>
+                        <li />
+                        <a href="https://www.facebook.com/Double-Watt-Games-465252890645534"><img
+                                src="img/icons/icon-facebook.png" /></a>
+                    </ul>
+                </div>
+            </footer>
+        </section>
+    </div>
 </body>
 
 </html>

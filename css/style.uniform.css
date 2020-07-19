@@ -2,33 +2,71 @@ body {
     margin: 0;
 }
 
-.header-banner {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+/* ==== sections === */
+
+.section {
+    display: flex;
+    width: 100%;
 }
 
-.header-banner div h1 {
-    color: #ffffff;
+.section header {
+    width: 40%;
 }
 
-.header-banner div h1 {
+.section header h1 {
     margin: 0px;
+}
+
+.section header h2 {
+    margin: 0px;
+}
+
+.section div {
+    width: 55%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.section {
+    font-family: Helvetica, serif;
     color: #ffffff;
 }
 
-.header-banner div p {
+.section header h2 {
+    text-transform: uppercase;
+}
+
+.section header p {
+    margin: 5px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.intro {
+    background-color: #087e8b;
+}
+
+.intro header h1 {
+    color: #ffffff;
+}
+
+.intro header p {
     color: #800080;
 }
 
-
-/* ==== sections === */
+.intro img {
+    width: 55%;
+}
 
 .software {
     background-color: #4B0082;
 }
 
-.software article figure {
+.software header p {
+    color: #087e8b;
+}
+
+.software div article figure {
     float: left;
     width: 100px;
 }
@@ -37,8 +75,16 @@ body {
     background-color: #FFB90F;
 }
 
+.builds header p {
+    color: #087e8b;
+}
+
 .random {
     background-color: #ea2b1f;
+}
+
+.random header p {
+    color: #087e8b;
 }
 
 .random article figure img {
@@ -47,29 +93,6 @@ body {
 
 
 /* ==== end  sections === */
-
-.section {
-    font-family: Helvetica, serif;
-    color: #ffffff;
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-around;
-    flex-flow: wrap;
-}
-
-.section h2 {
-    text-transform: uppercase;
-    width: 100%;
-    text-align: center;
-}
-
-.section p {
-    text-align: center;
-    margin: 5px;
-    font-weight: bold;
-    color: #087e8b;
-    font-size: 20px;
-}
 
 .link-icon {
     width: 15px;
@@ -85,10 +108,9 @@ body {
 
 .card {
     background-color: white;
-    width: 330px;
-    margin-bottom: 30px;
+    width: 45%;
+    margin: 10px;
     border-radius: 10px;
-    transition: all 0.5s ease;
     color: #505050;
     padding: 10px;
 }

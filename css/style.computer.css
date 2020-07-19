@@ -1,24 +1,15 @@
-.header-banner {
-    min-height: 800px;
+.section header {
+    text-align: right;
 }
 
-.header-banner div {
-    margin: 50px;
-    position: absolute;
-    top: 20%;
-}
-
-.header-banner div h1 {
+.section header h1 {
     font-size: 100px;
 }
 
-.section {
-    padding: 10px 200px 10px 200px;
-}
-
-.section h2 {
+.section header h2 {
     font-size: 60px;
-    margin: 0px;
+    float: right;
+    clear: right;
 }
 
 .modal-content img {
