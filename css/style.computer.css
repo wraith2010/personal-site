@@ -155,3 +155,23 @@
 .link-block a img {
     width: 50px;
 }
+
+/* ============ modal content ================ */
+.modal-content {
+    position: fixed;
+    width: 90vw !important;
+    max-height: 90vh;
+    margin: 5vh 5vw 5vh 5vw;
+    padding: 1rem;
+    background-color: #565554;
+    border-radius: 0.5rem;
+    overflow: auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+}
+
+.modal-content img {
+    width: 100%;
+}
