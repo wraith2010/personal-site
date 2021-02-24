@@ -7,7 +7,7 @@ function rotateBackground()
         if(imageIndex>=headerImages.length){
                 imageIndex=0;
         }
-        document.getElementById("rotating-images").src = headerImages[imageIndex];
+        document.getElementById("rotating-images").style.backgroundImage = 'url('+headerImages[imageIndex]+')';
 }
 
 window.setInterval(function(){rotateBackground();}, 10000);
