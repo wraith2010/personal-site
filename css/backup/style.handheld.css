@@ -1,0 +1,64 @@
+
+header h1 {
+    font-size: 2em;
+}
+
+header h2 {
+    font-size: 2em;
+}
+
+header div {
+    width: 100%;
+    margin: auto;
+}
+
+@media (orientation: portrait){
+
+    section {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+        margin: 2rem auto 2rem auto;
+        min-height: 200px;
+    }
+
+    .modal-content {
+        position: fixed;
+        width: 90vw !important;
+        max-height: 90vh;
+        margin: 5vh 5vw 5vh 5vw;
+        padding: 1rem;
+        background-color: #565554;
+        border-radius: 0.5rem;
+        overflow: scroll;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+
+}
+
+@media (orientation: landscape) {
+
+    section {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+        margin: 2rem auto 2rem auto;
+        min-height: 400px;
+    }
+
+    .modal-content {
+        position: fixed;
+        width: 90vw !important;
+        max-height: 90vh;
+        margin: 5vh 5vw 5vh 5vw;
+        padding: 1rem;
+        background-color: #565554;
+        border-radius: 0.5rem;
+        overflow: scroll ;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+}
