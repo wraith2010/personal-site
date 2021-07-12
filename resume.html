@@ -1,31 +1,176 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<title>1031F Solutions</title>
 
-		<link rel="stylesheet" type="text/css" href="css/new/style.uniform.css" />
-	</head>
-	<body>
-		<header>
-			<div>
-				<img src="img/icons/ben_avatar.jpg" />
-			</div>
-			<div>
-				<h1>1031F Solutions</h1>
-				<p>Personal Website of: <span>Ben Mitchell III</span></p>
-			</div>
-		</header>
+<head>
+	<title>1031F Solutions</title>
+
+	<link rel="stylesheet" type="text/css" href="css/new/style.uniform.css" />
+	<link rel="stylesheet" type="text/css" href="css/new/style.articles.resume.css" />
+</head>
+
+<body>
+	<header>
+		<div>
+			<img src="img/icons/ben_avatar.jpg" />
+		</div>
+		<div>
+			<h1>1031F Solutions</h1>
+			<p>Personal Website of: <span>Ben Mitchell III</span></p>
+		</div>
 		<nav>
 			<ul>
-				<li><a href="index2.html">HOME</a></li>
+				<li><a href="index.html">HOME</a></li>
 				<li><a href="software.html">SOFTWARE</a></li>
 				<li><a href="builds.html">BUILDS</a></li>
 				<li><a href="random.html">RANDOM</a></li>
-				<li><a href="resume.html">RESUME</a></li>
+				<li id="current-page"><a href="resume.html">RESUME</a></li>
 			</ul>
 		</nav>
-	<main></main>
+	</header>
+	<main>
+		<section>
+			<h2>Work Experince</h2>
+			<article>
+				<ul class="resume-header">
+					<li>
+						<h3>Medecision</h3>
+					</li>
+					<li>
+						<h3>Senior Developer</h3>
+					</li>
+					<li>
+						<h3>2010 to Present</h3>
+					</li>
+				</ul>
+				<figure>
+					<img src="img/resume/medecision.png" />
+
+				</figure>
+				<p>Medecision is an integrated health solutions company whose software and services are used by leading
+					health plans and care delivery organizations. Companies like HCSC, Highmark, Aetna and many other
+					Blue Cross and Blue Shield companies. My work with the company is focused on but not limited to the
+					Aerial Platform and the downstream uses of its data in Analytics. The aerial platform is designed to
+					facilitate utilization management (acute incidents or individual expense and treatments) as well as
+					diseases management(Chronic care and plans of care).</p>
+				<ul>
+					<h3>Major Projects:</h3>
+					<li><b>Data Analytics</b> – The data collected by the utilization management is analyzed by
+						several machine Learning based techniques in order to do three things. Stratify plan members by
+						utilization levels: who is using emergency rooms regularly instead of meeting with a GP.
+						Identify at risk members or gaps in care: like a diabetic patient who is not getting a regular
+						eye exam or an epileptic who missed a prescription refill. Finally, to make care recommendations
+						like diabetics who get ambulatory in the first 24 hours after a knee surgery have a forty
+						percent less readmittance rate.
+						<ul>
+							<h4>Tech:</h4>
+							<li>Python</li>
+							<li>Mongo</li>
+							<li>TensorFlow</li>
+						</ul>
+					</li>
+					<li><b>Correspondence Server</b> - The Correspondence Server decoupled our correspondence solution
+						from a single application and made it into a service which could manage and track all correspondence
+						requests from any application on the platform. Changing it from an internal module to a
+						standalone server with a rest-based API interface. It managed template to application
+						associations and traced and handled all letter generation requests. In addition, it made the
+						letter request agnostic of the data model eliminating the need for any code changes when
+						integrating with a new application or altering an existing one.
+						<ul>
+							<h4>Tech:</h4>
+							<li>Spring Boot</li>
+							<li>JWT Security</li>
+							<li>JAVA</li>
+							<li>Swagger</li>
+							<li>JPA</li>
+							<li>ORACLE</li>
+						</ul>
+					</li>
+					<li><b>FHIR-API</b> - <a href="http://www.fhir.org/">FHIR</a> (Fast Health Interoperability
+						Resources) is a
+						data interoperability standard. I implemented a REST based api which translates our propietray
+						domain objects to there FHIR equivelent object. This became our external data interoperability
+						channel by which many of our customers integrated by. It also became the channel via which new
+						platform applications would access data from Aerial Care Managment Platform.
+						<ul>
+							<h4>Tech:</h4>
+							<li>FHIR</li>
+							<li>JAVA</li>
+							<li>HIBERNATE</li>
+							<li>ORACLE</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="http://www.medecision.com/">http://www.medecision.com/</a>
+			</article>
+			<article>
+				<ul class="resume-header">
+					<li>
+						<h3>LT Court Tech</h3>
+					</li>
+					<li>
+						<h3>Developer</h3>
+					</li>
+					<li>
+						<h3>2009 to 2010</h3>
+					</li>
+				</ul>
+				<figure><img src="img/resume/ltCourtTech.jpg" /></figure>
+				<ul>
+					<li><a href="https://web.archive.org/web/20090303000734/http://www.lt-holdings.com/">Archived Web
+							Page</a></li>
+				</ul>
+			</article>
+			<article>
+				<ul class="resume-header">
+					<li>
+						<h3>Wingspan</h3>
+					</li>
+					<li>
+						<h3>Developer</h3>
+					</li>
+					<li>
+						<h3>2008 to 2009</h3>
+					</li>
+				</ul>
+				<figure><img src="img/resume/wingspan.svg" /></figure>
+				<ul>
+					<li><a href="https://www.mywingspan.com/">https://www.mywingspan.com/</a></li>
+				</ul>
+			</article>
+			<article>
+				<ul class="resume-header">
+					<li>
+						<h3>Oracle/Adminserver</h3>
+					</li>
+					<li>
+						<h3>Developer</h3>
+					</li>
+					<li>
+						<h3>2005 to 2008</h3>
+					</li>
+				</ul>
+				<figure><img src="img/resume/adminserver.jpg" /></figure>
+
+				<ul>
+					<li><a href="http://www.oracle.com/adminserver">http://www.oracle.com/adminserver</a></li>
+					<li><a href="https://www.oracle.com/corporate/pressrelease/oracle-buys-adminserver-051308.html">Oracle
+							Buys Adminserver</a></li>
+				</ul>
+			</article>
+		</section>
+		<section>
+			<h2>Education</h2>
+			<article>
+				<h3>Widener Univeristy</h3>
+			</article>
+			<article>
+				<h3>University of Pittsburgh</h3>
+			</article>
+		</section>
+
+	</main>
 	<footer>
 	</footer>
 </body>
+
 </html>

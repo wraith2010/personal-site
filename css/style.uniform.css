@@ -36,9 +36,3 @@ section>article>figure>img {
 section>article>a>img {
     width: 100px;
 }
-
-#rotating-images {
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 90vw;
-}

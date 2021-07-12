@@ -1,0 +1,22 @@
+article {
+    width: 30%;
+    margin: 5px;
+    background-color: #FFFFFFDD;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+article>h2 {
+    margin: 0 auto;
+    text-align: center;
+}
+
+article>figure {
+    width: 90%;
+    padding: 0px;
+    margin: 0px auto;
+}
+
+article>figure>img {
+    width: 100%;
+}

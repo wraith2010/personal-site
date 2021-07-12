@@ -1,30 +1,52 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<title>1031F Solutions</title>
-		<link rel="stylesheet" type="text/css" href="css/new/style.uniform.css" />
-	</head>
-	<body>
-		<header>
-			<div>
-				<img src="img/icons/ben_avatar.jpg" />
-			</div>
-			<div>
-				<h1>1031F Solutions</h1>
-				<p>Personal Website of: <span>Ben Mitchell III</span></p>
-			</div>
-		</header>
+
+<head>
+	<title>1031F Solutions</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="css/new/style.uniform.css" />
+	<link rel="stylesheet" type="text/css" href="css/new/style.articles.index.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="script/banner.js"></script>
+</head>
+
+<body onload="advanceBackground()">
+	<header>
+		<div>
+			<img src="img/icons/ben_avatar.jpg" />
+		</div>
+		<div>
+			<h1>1031F Solutions</h1>
+			<p>Personal Website of: <span>Ben Mitchell III</span></p>
+		</div>
 		<nav>
 			<ul>
-				<li><a href="index2.html">HOME</a></li>
+				<li id="current-page"><a href="index.html">HOME</a></li>
 				<li><a href="software.html">SOFTWARE</a></li>
 				<li><a href="builds.html">BUILDS</a></li>
 				<li><a href="random.html">RANDOM</a></li>
 				<li><a href="resume.html">RESUME</a></li>
 			</ul>
 		</nav>
-	<main></main>
+	</header>
+	<main>
+
+		<article>
+			<p>I am interesting in a wide array of things. I am blessed to be able to work on a number of projects and
+				sometimes I remeber to doucment them while there happeing. Some of that doucmentation ends up here.</p>
+			<div>
+				<i class="fa fa-arrow-left" onclick="rewindBackground()"></i>
+				<img id="rotating-images" />
+				<i class="fa fa-arrow-right" onclick="advanceBackground()"></i>
+			</div>
+			<h2 id="caption"></h2>
+		</article>
+
+	</main>
 	<footer>
 	</footer>
 </body>
+
 </html>

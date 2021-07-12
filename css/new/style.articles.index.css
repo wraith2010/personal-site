@@ -1,0 +1,23 @@
+article {
+    width: 100%;
+    margin: 0;
+    background-color: #FFFFFFDD;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+article>h2 {
+    margin: 0 auto;
+    text-align: center;
+}
+
+article>div {
+
+    display: inline-flex;
+}
+
+.fa {
+    margin: auto;
+    font-size: 48px !important;
+}
