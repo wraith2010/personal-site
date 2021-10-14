@@ -1,9 +1,10 @@
+#rotating-images {
+    width: 90vmax;
+}
+
 article {
-    width: 100%;
     margin: 0;
     background-color: #FFFFFFDD;
-    border-radius: 20px;
-    padding: 10px;
     text-align: center;
 }
 

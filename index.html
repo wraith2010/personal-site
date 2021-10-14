@@ -13,15 +13,14 @@
 </head>
 
 <body onload="advanceBackground()">
-	<header>
-		<div>
-			<img src="img/icons/ben_avatar.jpg" />
-		</div>
-		<div>
-			<h1>1031F Solutions</h1>
-			<p>Personal Website of: <span>Ben Mitchell III</span></p>
-		</div>
+	<main>
 		<nav>
+			<div class="rainbow">
+				<img src="img/icons/ben_avatar_clear.png" />
+			</div>
+			<hr class="hr1">
+			<hr>
+			<hr class="hr1">
 			<ul>
 				<li id="current-page"><a href="index.html">HOME</a></li>
 				<li><a href="software.html">SOFTWARE</a></li>
@@ -30,23 +29,28 @@
 				<li><a href="resume.html">RESUME</a></li>
 			</ul>
 		</nav>
-	</header>
-	<main>
-
-		<article>
-			<p>I am interesting in a wide array of things. I am blessed to be able to work on a number of projects and
-				sometimes I remeber to doucment them while there happeing. Some of that doucmentation ends up here.</p>
-			<div>
-				<i class="fa fa-arrow-left" onclick="rewindBackground()"></i>
+		<section>
+			<header>
+				<div>
+					<h1>1031F Solutions</h1>
+					<p>Personal Website of: <span>Ben Mitchell III</span></p>
+				</div>
+			</header>
+			<article>
 				<img id="rotating-images" />
-				<i class="fa fa-arrow-right" onclick="advanceBackground()"></i>
-			</div>
-			<h2 id="caption"></h2>
-		</article>
+				<p>I am interesting in a wide array of things. I am blessed to be able to work on a number of projects
+					and
+					sometimes I remeber to doucment them while there happeing. Some of that doucmentation ends up here.
+				</p>
+				<div>
+					<i class="fa fa-arrow-left" onclick="rewindBackground()"></i>
 
+					<i class="fa fa-arrow-right" onclick="advanceBackground()"></i>
+				</div>
+				<h2 id="caption"></h2>
+			</article>
+		</section>
 	</main>
-	<footer>
-	</footer>
 </body>
 
 </html>
