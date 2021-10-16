@@ -1,5 +1,9 @@
 var imageIndex = -1;
-var images = ["img/slideshow/slide-01.jpg", "img/slideshow/slide-02.jpg", "img/slideshow/slide-03.jpg", "img/slideshow/slide-04.jpg", "img/slideshow/slide-05.jpg"];
+var images = ["img/slideshow/slide-01.jpg",
+                "img/slideshow/slide-02.jpg",
+                "img/slideshow/slide-03.jpg",
+                "img/slideshow/slide-04.jpg",
+                "img/slideshow/slide-05.jpg"];
 var captions = ["Me standing infront of \"Big Ben\" in london. The joke writes its self.",
                "Long horns outside our cabin in Virgina",
                "Teaching light painting to our Youth Group",
@@ -24,7 +28,8 @@ function rewindBackground() {
 }
 
 function sethtml(){
-        document.getElementById("rotating-images").src = images[imageIndex];
+        
+        document.getElementById("rotating-images").style.background =  'linear-gradient(rgba(255, 0, 0, 0.45),rgba(255, 0, 0, 0.45)), url(' + images[imageIndex] + ')';
         document.getElementById("caption").innerText = captions[imageIndex];
 }
 
