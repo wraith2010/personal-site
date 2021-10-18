@@ -1,7 +1,7 @@
 article {
-    margin: 0;
-    background-color: #FFFFFFDD;
+    margin: auto;
     text-align: center;
+    height: 90vh;
 }
 
 article>h2 {
@@ -10,13 +10,31 @@ article>h2 {
 }
 
 section {
-    background-size: cover;
+    background-size: 100% auto !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100vh;
 }
 
-article>div {
+section>article>header {
+    display: inline-block;
+}
 
-    display: inline-flex;
+section>article>header>div {
+    text-align: left;
+}
+
+section>article>header>div>h1 {
+    font-family: Arial;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 4em;
+    color: white;
+    margin: 0px;
+}
+
+#name {
+    color: darkorange;
 }
 
 .fa {
