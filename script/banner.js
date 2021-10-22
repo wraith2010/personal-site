@@ -29,6 +29,7 @@ function rewindBackground() {
 
 function sethtml() {
         document.getElementById("rotating-images").style.background = 'linear-gradient(rgba(0, 0, 0, 0.40),rgba(0, 0, 0, 0.40)), url(' + images[imageIndex] + ')';
+        document.getElementById("rotating-images").style.backgroundRepeat = 'no-repeat';
         document.getElementById("caption").innerText = captions[imageIndex];
 }
 

@@ -105,6 +105,8 @@ main {
 section {
     width: 100%;
     margin-left: 150px;
+    display: inline-flex;
+    flex-wrap: wrap;
 }
 
 .link-icon {

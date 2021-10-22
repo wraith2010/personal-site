@@ -1,22 +1,42 @@
 article {
-    width: 30%;
-    margin: 5px;
+    width: 25%;
+    margin: 20px;
     background-color: #FFFFFFDD;
-    border-radius: 20px;
-    padding: 10px;
+    padding-left: 75px;
 }
 
 article>h2 {
-    margin: 0 auto;
+    width: 90%;
     text-align: center;
+    text-transform: uppercase;
+}
+
+article>header{
+    transform: rotate(90deg) translate(0px, 10px);
+    transform-origin: left top;
+    display: inline-block;
+    background-color: darkorange;
+    width: 100%;
+}
+
+article>header>h2 {
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 
 article>figure {
-    width: 90%;
+    width: 50%;
     padding: 0px;
-    margin: 0px auto;
+    margin: 10px;
+    float: left;
 }
 
 article>figure>img {
     width: 100%;
+}
+
+article>p{
+    font-size: 1.2em;
 }
