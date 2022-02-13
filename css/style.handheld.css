@@ -1,0 +1,38 @@
+aside {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+
+aside>img {
+    float: left;
+    margin: 10px;
+    width: 25%;
+}
+
+aside>h3{
+    margin: 0px 0px 15px 0;
+}
+
+aside>hr {
+    display: none;
+}
+
+
+aside>ul {
+    width: 100%;
+    display: inline-block;
+    padding: 0px;
+}
+
+aside>ul>li {
+    display: inline;
+}
+
+section{
+    width: 100%;
+}
+
+footer>div>ul>li>a>img{
+    width: 20px;
+}
