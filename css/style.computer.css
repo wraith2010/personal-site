@@ -71,19 +71,10 @@ article>header{
 
 article>header>h2 {
     font-size: 2em;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #000000;    
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0px;
 }
 
 article>header>h3 {
     font-size: 1em;
-    font-weight: 700;
-    color: #000000;    
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0px;
 }
 
 article>p {
