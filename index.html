@@ -7,32 +7,45 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" type="text/css" href="css/new/style.uniform.css" />
-	<link rel="stylesheet" type="text/css" href="css/new/style.articles.index.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.uniform.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.computer.css" media="screen and (min-width:1000px)" />
+	<link rel="stylesheet" type="text/css" href="css/style.handheld.css" media="screen and (max-width:1000px)" />
+	<link rel="stylesheet" type="text/css" href="css/style.index.css" />
 	<script type="text/javascript" src="script/banner.js"></script>
 </head>
 
 <body onload="advanceBackground()">
 	<main>
-		<nav>
-			<div id="ben-icon">
-				<img src="img/icons/ben_avatar_clear.png" />
-			</div>
+		<aside>
+			<img src="img/icons/ben_avatar_clear.png" />
+			<h3>1031F Solutions</h3>
+			<h4>Website of<br /><span id="name">Ben Mitchell</span></h4>
 			<hr>
-			<div id="menu">
-				<ul>
-					<li id="current-page"><a href="index.html">HOME</a></li>
-					<li><a href="software.html">SOFTWARE</a></li>
-					<li><a href="builds.html">BUILDS</a></li>
-					<li><a href="random.html">RANDOM</a></li>
-					<li><a href="resume.html">RESUME</a></li>
-				</ul>
-			</div>
+			<ul>
+				<li><a id="current-page" href="index.html">HOME</a></li>
+				<li><a href="software.html">SOFTWARE</a></li>
+				<li><a href="builds.html">BUILDS</a></li>
+				<li><a href="random.html">RANDOM</a></li>
+				<li><a href="resume.html">RESUME</a></li>
+			</ul>
 			<hr>
-			<div class="links">
+		</aside>
+		<section id="rotating-images">
+			<h1>1031F</h1>
+			<p>1031F is a personal website for Ben Mitchell. An archive of my random projects and interests.</p>
+			<ul>
+				<li>Coder</li>
+				<li>Hacker</li>
+				<li>Fabricator</li>
+				<li>Wood Worker</li>
+				<li>Problem Solver</li>
+				<li>Autodiedack</li>
+			</ul>
+		</section>
+		<footer>
+			<div>
+				<h2>Ben Mitchell</h2>
 				<ul>
-					<h2>Ben Mitchell</h2>
 					<li><a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA">
 							<img class="link-image" src="img/icons/youtube_484x484.png" /></a></li>
 					<li><a href="https://boardgamegeek.com/user/bugsy2010"><img class="link-image"
@@ -40,14 +53,16 @@
 					<li><a href="https://www.thingiverse.com/wraith2010"><img class="link-image"
 								src="img/icons/icon-thingiverse.png" /></a></li>
 					<li><a href="https://github.com/wraith2010"><img class="link-image"
-								src="img/icons/github.png" /></a></li>
+								src="img/icons/github.png" /></a>
+					</li>
 					<li><a href="https://www.chess.com/member/wraith2010"><img class="link-image"
 								src="img/icons/chess-icon.png" /></a></li>
 				</ul>
 			</div>
-			<div class="links">
+			<div>
+				<h2>Double Watt Games</h2>
 				<ul>
-					<h2>Double Watt Games</h2>
+
 					<li><a href="https://www.doublewattgames.com/"><img class="link-image"
 								src="img/icons/icon-website.png" /></a></li>
 					<li><a href="https://twitter.com/DoubleWattGames"><img class="link-image"
@@ -56,15 +71,7 @@
 								src="img/icons/icon-facebook.png" /></a></li>
 				</ul>
 			</div>
-		</nav>
-		<section id="rotating-images">
-			<div>
-				<h1>1031F Solutions</h1>
-				<h1>Personal Website</h1>
-				<h1>of: <span id="name">Ben Mitchell III</span></h1>
-			</div>
-			<h2 id="caption"></h2>
-		</section>
+		</footer>
 	</main>
 </body>
 

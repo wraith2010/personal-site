@@ -1,0 +1,61 @@
+aside {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+
+aside>img {
+    float: left;
+    margin: 10px;
+    width: 25%;
+}
+
+aside>h3 {
+    display: inline-block;
+    margin: 15px 0px 15px 0;
+}
+
+aside>hr {
+    display: none;
+}
+
+aside>ul {
+    width: 100%;
+    display: inline-block;
+    padding: 0px;
+}
+
+aside>ul>li {
+    display: inline;
+}
+
+section {
+    width: 100%;
+    background-color: tan;
+}
+
+article {
+    width: 330px;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+article>header{
+    min-height: 75px;
+}
+
+article>header>h2 {
+    font-size: 1.5em;
+}
+
+article>header>h3 {
+    font-size: 1em;
+}
+
+article>a>img {
+    width: 20px;
+}
+
+footer>div>ul>li>a>img {
+    width: 20px;
+}

@@ -1,15 +1,8 @@
 var imageIndex = -1;
-var images = ["img/slideshow/slide-01.jpg",
-        "img/slideshow/slide-02.jpg",
-        "img/slideshow/slide-03.jpg",
-        "img/slideshow/slide-04.jpg",
-        "img/slideshow/slide-05.jpg"];
-var captions = ["Me standing infront of \"Big Ben\" in london. The joke writes its self.",
-        "Long horns outside our cabin in Virgina",
-        "Teaching light painting to our Youth Group",
-        "Riding the Tom Sawyer in Saint louis while visiting for the total eclipse.",
-        "Enjoying a drink in the Piazza San Marco in Venice"]
-
+var images = ["img/slideshow/SlideShow01.png",
+        "img/slideshow/SlideShow02.png",
+        "img/slideshow/SlideShow03.png"]
+var del = 0.01;
 
 function advanceBackground() {
         imageIndex += 1;
@@ -27,10 +20,26 @@ function rewindBackground() {
         sethtml();
 }
 
-function sethtml() {
-        document.getElementById("rotating-images").style.background = 'linear-gradient(rgba(0, 0, 0, 0.40),rgba(0, 0, 0, 0.40)), url(' + images[imageIndex] + ')';
-        document.getElementById("rotating-images").style.backgroundRepeat = 'no-repeat';
-        document.getElementById("caption").innerText = captions[imageIndex];
+function changeOpacity() {
+
+        console.log(Object.keys(document.getElementById("rotating-images").style.filter));
+
+        document.getElementById("rotating-images").style.filter = "brightness(0)";
+
+        if (document.getElementById("rotating-images").style.opacity < 0) {
+                advanceBackground();
+                del = -1 * del;
+        }
+        else if (document.getElementById("rotating-images").style.opacity > 1) {
+                del = -1 * del;
+        }
 }
+
+
+function sethtml() {
+        document.getElementById("rotating-images").style.backgroundImage = 'url(' + images[imageIndex] + ')';
+        document.getElementById("rotating-images").style.backgroundPosition = '50% 50%';
+}
+
 
 window.setInterval(function () { advanceBackground(); }, 10000);
