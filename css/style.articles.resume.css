@@ -60,3 +60,8 @@ article ul>li>ul>h4 {
     display: inline-flex;
     width: 100%;
 }
+
+#resume {
+    width: 80vw;
+    height: 80vh;
+}
