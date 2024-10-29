@@ -1,0 +1,193 @@
+/*https://coolors.co/1f2833-f04208-01baef-f5f5f5-acbfa4*/
+
+body {
+    background-color: #1F2833;
+    display: flex;
+    flex-wrap: wrap;
+    color: whitesmoke;
+}
+
+nav {
+    width: 80vw;
+    margin: 1vh auto 1vh auto;
+    text-align: center;
+}
+
+nav>ul {
+    width: 80vw;
+    margin: 0 auto 0 auto;
+    text-align: center;
+    list-style: none;
+    padding: 20px;
+}
+
+nav>ul>li {
+    display: inline;
+    margin: 2vh;
+}
+
+nav>ul>li>a {
+    font-size: 3em;
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+main {
+    margin: 0 auto;
+    text-align: center;
+    color: whitesmoke;
+}
+
+article {
+    width: 20vw;
+    background-color: #f04208;
+    border-radius: 2vw;
+    padding: 1vw;
+}
+
+article>header {
+    width: auto;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+article>header>h2 {
+    width: 100%;
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 3em;
+    font-weight: bold;
+    color: whitesmoke
+}
+
+article>header>h3 {
+    width: 100%;
+    margin: 1vh 0 2vh 0;
+    color: #01BAEF;
+}
+
+article>figure {
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid black;
+    margin: 5px;
+    background-color: white;
+    padding: 5px;
+    margin: 0 auto 10px auto;
+}
+
+article>figure>img {
+    margin: 0;
+    width: 100%;
+}
+
+article>p {
+    text-align: justify;
+    margin: 0;
+}
+
+article>a {
+    text-align: left;
+    display: block;
+}
+
+article>a>img {
+    width: 1vw;
+    margin: 0 5px 0 0;
+}
+
+article>ul {
+    text-align: left;
+}
+
+article>details {
+    text-align: left;
+}
+
+
+.modal-content>img {
+    width: 100%;
+}
+
+footer {
+    width: 60vw;
+    margin: 2vh auto 2vh auto;
+}
+
+footer>ul {
+    list-style: none;
+    margin: 2vh auto 2vh auto;
+    text-align: center;
+}
+
+footer>ul>li {
+    display: inline;
+}
+
+footer>ul>li>a>img {
+    width: 5vw;
+}
+
+@media only screen and (max-device-width: 480px) {
+
+    nav>ul {
+        width: 100vw;
+        margin: 0 auto 0 auto;
+        text-align: center;
+        list-style: none;
+    }
+
+    main {
+        width: 100vw;
+    }
+
+    section {
+        display: block;
+    }
+
+    article {
+        width: 100vw;
+        margin: 2vh 1vw 2vh 1vw;
+    }
+
+    article>p {
+        font-size: 1.6em;
+    }
+}
+
+@media only screen and (min-device-width: 480px) {
+
+    nav>ul {
+        width: 80vw;
+        margin: 0 auto 0 auto;
+        text-align: center;
+        list-style: none;
+        padding: 20px;
+    }
+
+    main {
+        width: 70vw;
+        background-color: #ACBFA4;
+        border-radius: 2vw;
+    }
+
+    section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2vw 2vh;
+        margin: 2vh auto 2vh auto;
+    }
+
+
+
+    article {
+        width: 20vw;
+    }
+
+    article>p {
+        font-size: 1em;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+}

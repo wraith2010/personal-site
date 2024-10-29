@@ -1,0 +1,55 @@
+main {
+    text-align: center;
+    background-image: url(../img/index/option2.jpg);
+    background-repeat: no-repeat;
+    font-size: 2em;
+    text-shadow: 10px 10px 5px black;
+}
+
+main>p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin: 0 auto 0 auto;
+}
+
+main>ul {
+    font-weight: bold;
+    list-style: none;
+}
+
+@media only screen and (max-device-width: 480px) {
+    main {
+        width: 100vw;
+        background-size: cover;
+        background-position: 90% 100%;
+    }
+
+    main>p {
+        width: 80vw;
+        margin: 0 auto 0 auto;
+        padding: 4vh;
+    }
+}
+
+@media only screen and (min-device-width: 480px) {
+
+    main {
+        width: 60vw;
+        background-size: cover;
+        background-position: center;        
+        margin: 0 auto 0 auto;
+        padding: 10vh;
+        background-origin: content-box;
+    }
+
+    main>p {
+        width: 50vw;
+        margin: 0 auto 0 auto;
+        padding: 10vh;
+    }
+
+    section {
+        width: 100%;
+    }
+
+}
