@@ -1,8 +1,21 @@
-article>figure {
-    float: left;
-    margin: 0 10px 0 0;
+
+
+
+
+@media only screen and (max-device-width: 480px) {
+    article>figure>img {
+        width: 30vw;
+    }
 }
 
-article>figure>img {
-    width: 5vw;
+@media only screen and (min-device-width: 480px) {
+
+    article>figure {
+        float: left;
+        margin: 0 10px 0 0;
+    }
+
+    article>figure>img {
+        width: 5vw;
+    }
 }
