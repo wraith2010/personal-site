@@ -1,0 +1,26 @@
+main {
+    text-align: center;
+    background-image: url(../img/index/option2.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    padding: 0 2vh 0 2vh;
+    height: 700px;
+    font-size: 2em;
+    text-shadow: 10px 10px 5px black;
+    width: 60vw;
+}
+
+main>p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    width: 50vw;
+    margin: 0 auto 0 auto;
+    padding: 10vh;
+}
+
+main>ul {
+    font-weight: bold;
+    list-style: none;    
+}
