@@ -1,62 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-	<title>1031F</title>
-
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<link rel="stylesheet" type="text/css" href="css/main.css" />
-	<link rel="stylesheet" type="text/css" href="css/header.css" />
-	<link rel="stylesheet" type="text/css" href="css/index.css" />
-	
-
+	<title>1031F - Ben Mitchell</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body onload="advanceBackground()">
-	<header>
-		<img src="img/icons/1x/ben-icon-color.png" />
-		<h1>1031F</h1>
-		<h2>Personal Website<br />of Ben Mitchell</h2>
+<body>
+	<header class="site-header">
+		<div class="header-content">
+			<img src="img/icons/1x/ben-icon-color.png" alt="Ben Mitchell" class="profile-image">
+			<div class="header-text">
+				<h1 class="site-title">1031F</h1>
+				<p class="site-subtitle">Ben Mitchell</p>
+			</div>
+		</div>
+		<nav class="main-nav">
+			<ul>
+				<li><a href="index.html" class="active">Home</a></li>
+				<li><a href="software.html">Software</a></li>
+				<li><a href="builds.html">Builds</a></li>
+				<li><a href="random.html">Random</a></li>
+				<li><a href="resume.html">Resume</a></li>
+			</ul>
+		</nav>
 	</header>
-	<nav>
-		<ul>
-			<li><a id="current-page" href="index.html">HOME</a></li>
-			<li><a href="software.html">SOFTWARE</a></li>
-			<li><a href="builds.html">BUILDS</a></li>
-			<li><a href="random.html">RANDOM</a></li>
-			<li><a href="resume.html">RESUME</a></li>
-		</ul>
-	</nav>
-	<main>
-		<p>1031F is a personal website for Ben Mitchell. An archive of my random projects and interests.</p>
-		<ul>
-			<li>Coder</li>
-			<li>Hacker</li>
-			<li>Fabricator</li>
-			<li>Wood Worker</li>
-			<li>Problem Solver</li>
-			<li>Autodiedack</li>
-		</ul>
+
+	<main class="hero-section">
+		<h2 class="hero-title">Welcome</h2>
+		<div class="hero-content">
+			<p class="hero-description">
+				1031F is a personal website for Ben Mitchell. An archive of my random projects and interests.
+			</p>			
+		</div>
 	</main>
-	<footer>
-		<ul>
-			<li><a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA">
-					<img class="link-image" src="img/icons/youtube_484x484.png" /></a></li>
-			<li><a href="https://boardgamegeek.com/user/bugsy2010"><img class="link-image"
-						src="img/icons/icon-board-game-geek.png" /></a></li>
-			<li><a href="https://www.thingiverse.com/wraith2010"><img class="link-image"
-						src="img/icons/icon-thingiverse.png" /></a></li>
-			<li><a href="https://github.com/wraith2010"><img class="link-image" src="img/icons/github.png" /></a>
-			</li>
-			<li><a href="https://www.chess.com/member/wraith2010"><img class="link-image"
-						src="img/icons/chess-icon.png" /></a></li>
-			<li><a href="https://www.doublewattgames.com/"><img class="link-image"
-						src="img/icons/icon-website.png" /></a></li>
-		</ul>
+
+	<footer class="site-footer">
+		<nav class="social-links">
+			<a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+				<img src="img/icons/youtube_484x484.png" alt="YouTube">
+			</a>
+			<a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+				<img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+			</a>
+			<a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+				<img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+			</a>
+			<a href="https://github.com/wraith2010" aria-label="GitHub">
+				<img src="img/icons/github.png" alt="GitHub">
+			</a>
+			<a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+				<img src="img/icons/chess-icon.png" alt="Chess.com">
+			</a>
+			<a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+				<img src="img/icons/icon-website.png" alt="Website">
+			</a>
+		</nav>
 	</footer>
 
+	<script src="js/main.js"></script>
 </body>
 
 </html>
