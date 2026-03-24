@@ -625,6 +625,17 @@ main {
   border-color: var(--border-hover);
 }
 
+/* Vortex cannon principle diagram */
+.vortex-diagram {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: 16px auto;
+  background: #0d1117;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
 /* Embedded video in modal */
 .detail-video {
   position: relative;

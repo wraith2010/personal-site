@@ -1,0 +1,97 @@
+<svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg"
+  aria-label="Animated diagram: horizontal cannon fires a toroidal vortex ring from right to left">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#7ecfff"/>
+    </marker>
+    <marker id="arr-y" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#fbd38d"/>
+    </marker>
+    <radialGradient id="ringGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7ecfff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#7ecfff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Only reveal ring once it clears the aperture -->
+    <clipPath id="canvasClip">
+      <rect x="126" y="0" width="394" height="220"/>
+    </clipPath>
+  </defs>
+
+  <!-- ── Cannon body (lying on its side, aperture faces right) ── -->
+  <!-- Top wall -->
+  <rect x="20" y="88" width="110" height="10" rx="2" fill="#4a5568"/>
+  <!-- Bottom wall -->
+  <rect x="20" y="122" width="110" height="10" rx="2" fill="#4a5568"/>
+  <!-- Back cap (left end) -->
+  <rect x="20" y="88" width="10" height="44" rx="2" fill="#4a5568"/>
+  <!-- Aperture frame — top stub -->
+  <rect x="122" y="88" width="9" height="15" fill="#4a5568"/>
+  <!-- Aperture frame — bottom stub -->
+  <rect x="122" y="117" width="9" height="15" fill="#4a5568"/>
+
+  <!-- Membrane: vertical bar on left, strikes rightward -->
+  <rect x="28" y="88" width="7" height="44" rx="1" fill="#68d391">
+    <animate attributeName="x" values="28;37;28;28" dur="2s" repeatCount="indefinite"
+      keyTimes="0;0.08;0.18;1" calcMode="spline"
+      keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0 0 1 1"/>
+  </rect>
+  <text x="31" y="80" text-anchor="middle" font-size="9" fill="#68d391" font-family="monospace">membrane</text>
+
+  <!-- Aperture label -->
+  <text x="150" y="114" text-anchor="start" font-size="9" fill="#a0aec0" font-family="monospace">aperture</text>
+  <line x1="148" y1="111" x2="133" y2="111" stroke="#a0aec0" stroke-width="0.8"/>
+
+  <!-- ── Vortex ring: travels rightward from aperture ── -->
+  <g clip-path="url(#canvasClip)">
+    <g>
+      <!-- starts just past the aperture mouth, exits canvas at right -->
+      <animateTransform attributeName="transform" type="translate"
+        values="136,110; 515,110" dur="2s" repeatCount="indefinite"
+        keyTimes="0;1" calcMode="spline" keySplines="0.2 0 0.8 1" begin="0.2s"/>
+
+      <!-- Outer glow -->
+      <ellipse cx="0" cy="0" rx="24" ry="34" fill="url(#ringGlow)" opacity="0.5">
+        <animate attributeName="opacity" values="0;0.55;0.35;0" dur="2s"
+          repeatCount="indefinite" keyTimes="0;0.08;0.72;1"/>
+      </ellipse>
+
+      <!-- Top vortex core -->
+      <circle cx="0" cy="-21" r="9" fill="none" stroke="#7ecfff" stroke-width="2.5" opacity="0.9"/>
+      <!-- Bottom vortex core -->
+      <circle cx="0" cy="21" r="9" fill="none" stroke="#7ecfff" stroke-width="2.5" opacity="0.9"/>
+
+      <!-- Circulation: top core CCW (inner face moves backward) -->
+      <path d="M -5,-12 A 9,9 0 1 0 5,-12" fill="none" stroke="#7ecfff"
+        stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- Circulation: bottom core CW -->
+      <path d="M 5,30 A 9,9 0 1 0 -5,30" fill="none" stroke="#7ecfff"
+        stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Self-propulsion arrow (Biot–Savart net forward induction) -->
+      <line x1="14" y1="0" x2="30" y2="0" stroke="#fbd38d" stroke-width="1.8"
+        marker-end="url(#arr-y)" stroke-dasharray="3,2"/>
+
+      <!-- Fog trace ellipse (dashed, marks low-pressure core) -->
+      <ellipse cx="0" cy="0" rx="11" ry="25" fill="none" stroke="#b794f4"
+        stroke-width="1.2" stroke-dasharray="4,3" opacity="0.85"/>
+    </g>
+  </g>
+
+  <!-- ── Legend labels (static) ── -->
+  <text x="208" y="56" font-size="9" fill="#7ecfff" font-family="monospace">vortex core</text>
+  <line x1="228" y1="60" x2="244" y2="76" stroke="#7ecfff" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <text x="208" y="177" font-size="9" fill="#7ecfff" font-family="monospace">vortex core</text>
+  <line x1="228" y1="173" x2="244" y2="156" stroke="#7ecfff" stroke-width="0.8" stroke-dasharray="2,2"/>
+  <text x="155" y="178" font-size="9" fill="#b794f4" font-family="monospace">fog trace</text>
+  <text x="290" y="105" font-size="9" fill="#fbd38d" font-family="monospace">self-propulsion →</text>
+
+  <!-- ── Physics annotations (right side) ── -->
+  <text x="358" y="46" font-size="9" fill="#a0aec0" font-family="monospace">Kelvin–Helmholtz</text>
+  <text x="358" y="58" font-size="9" fill="#a0aec0" font-family="monospace">shear instability</text>
+  <text x="358" y="70" font-size="9" fill="#a0aec0" font-family="monospace">rolls shear layer</text>
+  <text x="358" y="82" font-size="9" fill="#a0aec0" font-family="monospace">into closed loop</text>
+
+  <text x="358" y="148" font-size="9" fill="#a0aec0" font-family="monospace">Biot–Savart:</text>
+  <text x="358" y="160" font-size="9" fill="#a0aec0" font-family="monospace">core induces its</text>
+  <text x="358" y="172" font-size="9" fill="#a0aec0" font-family="monospace">own forward v</text>
+</svg>
