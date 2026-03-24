@@ -2,654 +2,745 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="1031F — Ben Mitchell. Builder, coder, maker. An archive of projects and interests.">
-  <title>1031F — Ben Mitchell</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description"
+		content="1031F — Ben Mitchell. Builder, coder, maker. An archive of projects and interests.">
+	<title>1031F — Ben Mitchell</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-  <!-- ==================== HEADER ==================== -->
-  <header class="site-header">
-    <div class="brand">
-      <img src="img/icons/1x/ben-icon-color.png" alt="Ben Mitchell" class="avatar">
-      <div class="brand-text">
-        <span class="site-title">1031F</span>
-        <span class="site-name">Ben Mitchell</span>
-      </div>
-    </div>
-    <nav class="header-social" aria-label="Social links">
-      <a href="https://github.com/wraith2010" aria-label="GitHub">
-        <img src="img/icons/github.png" alt="GitHub">
-      </a>
-      <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
-        <img src="img/icons/youtube_484x484.png" alt="YouTube">
-      </a>
-      <a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
-        <img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
-      </a>
-      <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
-        <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
-      </a>
-      <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
-        <img src="img/icons/chess-icon.png" alt="Chess.com">
-      </a>
-      <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
-        <img src="img/icons/icon-website.png" alt="Double Watt Games">
-      </a>
-	  <a href="https://www.linkedin.com/in/benjamin-mitchell-540705334/" aria-label="LinkedIn">
-        <img src="img/icons/icon-linkedin.png" alt="LinkedIn">
-      </a>
-    </nav>
-  </header>
+	<!-- ==================== HEADER ==================== -->
+	<header class="site-header">
+		<div class="brand">
+			<img src="img/icons/1x/ben-icon-color.png" alt="Ben Mitchell" class="avatar">
+			<div class="brand-text">
+				<span class="site-title">1031F</span>
+				<span class="site-name">Ben Mitchell</span>
+			</div>
+		</div>
+		<nav class="header-social" aria-label="Social links">
+			<a href="https://github.com/wraith2010" aria-label="GitHub">
+				<img src="img/icons/github.png" alt="GitHub">
+			</a>
+			<a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+				<img src="img/icons/youtube_484x484.png" alt="YouTube">
+			</a>
+			<a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+				<img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+			</a>
+			<a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+				<img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+			</a>
+			<a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+				<img src="img/icons/chess-icon.png" alt="Chess.com">
+			</a>
+			<a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+				<img src="img/icons/icon-website.png" alt="Double Watt Games">
+			</a>
+			<a href="https://www.linkedin.com/in/benjamin-mitchell-540705334/" aria-label="LinkedIn">
+				<img src="img/icons/icon-linkedin.png" alt="LinkedIn">
+			</a>
+		</nav>
+	</header>
 
-  <!-- ==================== MAIN ==================== -->
-  <main>
+	<!-- ==================== MAIN ==================== -->
+	<main>
 
-    <!-- Filter Bar -->
-    <div class="filter-bar" role="tablist" aria-label="Filter projects">
-      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
-      <button class="filter-btn" data-filter="software" role="tab" aria-selected="false">Software</button>
-      <button class="filter-btn" data-filter="builds" role="tab" aria-selected="false">Builds</button>
-      <button class="filter-btn" data-filter="random" role="tab" aria-selected="false">Random</button>
-    </div>
+		<!-- Filter Bar -->
+		<div class="filter-bar" role="tablist" aria-label="Filter projects">
+			<button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+			<button class="filter-btn" data-filter="software" role="tab" aria-selected="false">Software</button>
+			<button class="filter-btn" data-filter="builds" role="tab" aria-selected="false">Builds</button>
+			<button class="filter-btn" data-filter="random" role="tab" aria-selected="false">Random</button>
+		</div>
 
-    <!-- Bento Grid -->
-    <div class="bento-grid" id="bento-grid">
+		<!-- Bento Grid -->
+		<div class="bento-grid" id="bento-grid">
 
-      <!-- ========== ABOUT CARD (not filterable) ========== -->
-      <article class="bento-card card-about span-2x2" data-category="about">
-        <img src="img/index/option4.jpg" alt="Ben Mitchell" class="about-image">
-        <div class="about-text">
-          <h1>Ben Mitchell</h1>
-          <p class="about-tagline">Builder. Coder. Maker.</p>
-          <p class="about-bio">An archive of my random projects and interests — from stage sets to software, D&amp;D builds to Discord bots.</p>
-          <a href="resume.html" class="about-resume-link">View Resume</a>
-        </div>
-      </article>
+			<!-- ========== ABOUT CARD (not filterable) ========== -->
+			<article class="bento-card card-about span-2x2" data-category="about">
+				<img src="img/index/option4.jpg" alt="Ben Mitchell" class="about-image">
+				<div class="about-text">
+					<h1>Ben Mitchell</h1>
+					<p class="about-tagline">Builder. Coder. Maker.</p>
+					<p class="about-bio">An archive of my random projects and interests — from stage sets to software,
+						D&amp;D builds to Discord bots.</p>
+					<a href="resume.html" class="about-resume-link">View Resume</a>
+				</div>
+			</article>
 
-      <!-- ========== SOFTWARE ========== -->
+			<!-- ========== SOFTWARE ========== -->
 
-      <!-- Scribebot — 1×2 tall -->
-      <article class="bento-card span-1x2" data-category="software" tabindex="0" role="button" aria-label="Open Scribebot project">
-        <div class="card-visual">
-          <img src="img/figures/software/fig-scribe-bot-01.png" alt="Scribebot" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-software">Software</span>
-            <div class="card-titles">
-              <h3 class="card-title">Scribebot</h3>
-              <p class="card-subtitle">A Discord Transcriber Bot</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Scribe bot produces a bot which will transcribe the conversation from a Discord voice channel to a text channel. It utilizes Google voice-to-text webservices. The initial use was to transcribe D&amp;D games, but there is great potential as an accessibility tool — for deaf players to read voice comms, or for blind players to have text chat read to them.</p>
-          <div class="detail-links">
-            <a href="https://github.com/wraith2010/scribebot" class="detail-btn">
-              <img src="img/icons/github.png" alt=""> View Repo
-            </a>
-          </div>
-          <h4 class="detail-section-label">Roadmap</h4>
-          <ul class="detail-list">
-            <li>Reverse Direction: text back to speech</li>
-            <li>Improved sequencing</li>
-            <li>Context based event triggering</li>
-          </ul>
-        </div>
-      </article>
+			<!-- Scribebot — 1×2 tall -->
+			<article class="bento-card span-1x2" data-category="software" tabindex="0" role="button"
+				aria-label="Open Scribebot project">
+				<div class="card-visual">
+					<img src="img/figures/software/fig-scribe-bot-01.png" alt="Scribebot" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-software">Software</span>
+						<div class="card-titles">
+							<h3 class="card-title">Scribebot</h3>
+							<p class="card-subtitle">A Discord Transcriber Bot</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Scribe bot produces a bot which will transcribe the conversation from a Discord voice channel to
+						a text channel. It utilizes Google voice-to-text webservices. The initial use was to transcribe
+						D&amp;D games, but there is great potential as an accessibility tool — for deaf players to read
+						voice comms, or for blind players to have text chat read to them.</p>
+					<div class="detail-links">
+						<a href="https://github.com/wraith2010/scribebot" class="detail-btn">
+							<img src="img/icons/github.png" alt=""> View Repo
+						</a>
+					</div>
+					<h4 class="detail-section-label">Roadmap</h4>
+					<ul class="detail-list">
+						<li>Reverse Direction: text back to speech</li>
+						<li>Improved sequencing</li>
+						<li>Context based event triggering</li>
+					</ul>
+				</div>
+			</article>
 
-      <!-- Mission Control — 2×1 wide -->
-      <article class="bento-card span-2x1" data-category="software" tabindex="0" role="button" aria-label="Open Mission Control project">
-        <div class="card-visual">
-          <img src="img/figures/software/fig_mission_control_02.png" alt="Mission Control" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-software">Software</span>
-            <div class="card-titles">
-              <h3 class="card-title">Mission Control</h3>
-              <p class="card-subtitle">A Multi-Media Installation</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Marple Presbyterian Church's VBS 2019 theme was "To Mars and Beyond". I created Mission Control — an 8-bit retro game where solving the security puzzle and completing the launch sequence trips a relay via webservice and sets off a smoke machine.</p>
-          <div class="detail-links">
-            <a href="https://github.com/wraith2010/misison-control" class="detail-btn">
-              <img src="img/icons/github.png" alt=""> View Repo
-            </a>
-            <a href="https://1031f-hosting.s3.amazonaws.com/mission-to-mars.zip" class="detail-btn">
-              <img src="img/icons/disk-icon.png" alt=""> Download
-            </a>
-          </div>
-          <div class="detail-video">
-            <iframe src="https://www.youtube.com/embed/O0JlTFg7W-8" allowfullscreen title="Mission Control demo"></iframe>
-          </div>
-        </div>
-      </article>
+			<!-- Mission Control — 2×1 wide -->
+			<article class="bento-card span-2x1" data-category="software" tabindex="0" role="button"
+				aria-label="Open Mission Control project">
+				<div class="card-visual">
+					<img src="img/mission-control/mission-control-logo.jpg" alt="Mission Control" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-software">Software</span>
+						<div class="card-titles">
+							<h3 class="card-title">Mission Control</h3>
+							<p class="card-subtitle">A Multi-Media Installation</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Marple Presbyterian Church's VBS 2019 theme was "To Mars and Beyond". I created Mission Control —
+						an 8-bit retro game where solving the security puzzle and completing the launch sequence trips a
+						relay via webservice and sets off a smoke machine.</p>
+					<div class="detail-links">
+						<a href="https://github.com/wraith2010/misison-control" class="detail-btn">
+							<img src="img/icons/github.png" alt=""> View Repo
+						</a>
+						<a href="https://1031f-hosting.s3.amazonaws.com/mission-to-mars.zip" class="detail-btn">
+							<img src="img/icons/disk-icon.png" alt=""> Download
+						</a>
+					</div>
+					<div class="detail-video">
+						<iframe src="https://www.youtube.com/embed/O0JlTFg7W-8" allowfullscreen
+							title="Mission Control demo"></iframe>
+					</div>
+				</div>
+			</article>
 
-      <!-- GridlockDM — 2×1 wide -->
-      <article class="bento-card span-2x1" data-category="software" tabindex="0" role="button" aria-label="GridlockDM project">
-        <div class="card-visual">
-          <img src="img/gridlockdm/girdlockdm-logo.jpg" alt="GridlockDM" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-software">Software</span>
-            <div class="card-titles">
-              <h3 class="card-title">GridlockDM</h3>
-              <p class="card-subtitle">Self-Hosted D&amp;D Battle Map</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p><!-- TODO: Add your own description here. Suggested starting point: -->
-            GridlockDM is a self-hosted, real-time multiplayer battle map for D&amp;D 5e. The DM runs the server and players join via a human-readable invite code — no accounts required. Built with Spring Boot and WebSockets, it keeps every connected client (DM, players, and a TV/projector view) in sync in real time.</p>
-          <h4 class="detail-section-label">Features</h4>
-          <ul class="detail-list">
-			<li>Claude image analysis</li>
-            <li>Canvas-based battle map with zoom, pan, and token dragging</li>
-            <li>Per-cell fog of war and zone drawing tools</li>
-            <li>D&amp;D Beyond character import by ID, with PDF fallback</li>
-            <li>Initiative tracking, HP management, and condition status</li>
-            <li>Read-only observer mode for projector / TV display</li>            
-          </ul>
-		  <h4 class="detail-section-label">Tech Stack</h4>
-          <ul class="detail-list">
-            <li>Docker</li>
-            <li>Springboot</li>
-            <li>Postgres</li>
-            <li>Websocket</li>
-            <li>Calude</li>            
-          </ul>
-          <div class="detail-links">
-            <a href="https://github.com/wraith2010/GridlockDM" class="detail-btn">
-              <img src="img/icons/github.png" alt=""> View Repo
-            </a>
-            <!-- TODO: Add a live demo or download link if available -->
-          </div>
-          <!-- TODO: Add screenshots to img/gridlockdm/ and uncomment below -->
-          
-          <div class="detail-gallery">
-            <img src="img/gridlockdm/dm-view-screenshot-01.png" alt="GridlockDM screenshot 1">
-          </div>
-          
-        </div>
-      </article>
+			<!-- GridlockDM — 2×1 wide -->
+			<article class="bento-card span-2x1" data-category="software" tabindex="0" role="button"
+				aria-label="GridlockDM project">
+				<div class="card-visual">
+					<img src="img/gridlockdm/girdlockdm-logo.jpg" alt="GridlockDM" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-software">Software</span>
+						<div class="card-titles">
+							<h3 class="card-title">GridlockDM</h3>
+							<p class="card-subtitle">Self-Hosted D&amp;D Battle Map</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p><!-- TODO: Add your own description here. Suggested starting point: -->
+						GridlockDM is a self-hosted, real-time multiplayer battle map for D&amp;D 5e. The DM runs the
+						server and players join via a human-readable invite code — no accounts required. Built with
+						Spring Boot and WebSockets, it keeps every connected client (DM, players, and a TV/projector
+						view) in sync in real time.</p>
+					<h4 class="detail-section-label">Features</h4>
+					<ul class="detail-list">
+						<li>Claude image analysis</li>
+						<li>Canvas-based battle map with zoom, pan, and token dragging</li>
+						<li>Per-cell fog of war and zone drawing tools</li>
+						<li>D&amp;D Beyond character import by ID, with PDF fallback</li>
+						<li>Initiative tracking, HP management, and condition status</li>
+						<li>Read-only observer mode for projector / TV display</li>
+					</ul>
+					<h4 class="detail-section-label">Tech Stack</h4>
+					<ul class="detail-list">
+						<li>Docker</li>
+						<li>Springboot</li>
+						<li>Postgres</li>
+						<li>Websocket</li>
+						<li>Calude</li>
+					</ul>
+					<div class="detail-links">
+						<a href="https://github.com/wraith2010/GridlockDM" class="detail-btn">
+							<img src="img/icons/github.png" alt=""> View Repo
+						</a>
+						<!-- TODO: Add a live demo or download link if available -->
+					</div>
+					<!-- TODO: Add screenshots to img/gridlockdm/ and uncomment below -->
 
-      <!-- Overwatch Slackbot — 1×1 -->
-      <article class="bento-card span-1x1" data-category="software" tabindex="0" role="button" aria-label="Open Overwatch Slackbot project">
-        <div class="card-visual">
-          <img src="img/figures/software/overwatch.png" alt="Overwatch Bot" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-software">Software</span>
-            <div class="card-titles">
-              <h3 class="card-title">Overwatch Slackbot</h3>
-              <p class="card-subtitle">Role Randomizer</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Play enough Overwatch and you need something to change things up. This Slack bot randomly assigns roles to a team of 2–6 players, using DJ Khaled as its icon alongside one of his inspirational quotes. The role queue system made it obsolete but it's a solid chatbot example.</p>
-          <div class="detail-links">
-            <a href="https://github.com/wraith2010/overwatchslackbot" class="detail-btn">
-              <img src="img/icons/github.png" alt=""> View Repo
-            </a>
-          </div>
-          <div class="detail-gallery">
-            <img src="img/slackbot/slackbot-01.png" alt="Slackbot screenshot 1">
-            <img src="img/slackbot/slackbot-02.png" alt="Slackbot screenshot 2">
-          </div>
-        </div>
-      </article>
+					<div class="detail-gallery">
+						<img src="img/gridlockdm/dm-view-screenshot-01.png" alt="GridlockDM screenshot 1">
+					</div>
 
-      <!-- N Queens — 1×1 -->
-      <article class="bento-card span-1x1" data-category="software" data-id="nqueens" tabindex="0" role="button" aria-label="Open N Queens project">
-        <div class="card-visual">
-          <img src="img/figures/software/fig-n-queens-02.png" alt="N Queens" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-software">Software</span>
-            <div class="card-titles">
-              <h3 class="card-title">N Queens Problem</h3>
-              <p class="card-subtitle">A Study in Computer Science</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>The N Queens problem: place N chess queens on an N×N board so that no two attack each other. The goal is not to find one solution, but to find all solutions for a given N. One of those math problems that takes over my mind from time to time.</p>
-          <div class="detail-links">
-            <a href="https://github.com/wraith2010/queens" class="detail-btn">
-              <img src="img/icons/github.png" alt=""> View Repo
-            </a>
-            <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle" class="detail-btn">
-              <img src="img/icons/wikipedia.png" alt=""> Wikipedia
-            </a>
-          </div>
-          <h4 class="detail-section-label">Play the Puzzle</h4>
-          <div class="nqueens-game">
-            <div class="nq-instructions">
-              <p>Place N queens on an N×N chessboard so that no two queens attack each other. Queens attack horizontally, vertically, and diagonally.</p>
-              <p><strong>Click any square to place or remove a queen.</strong></p>
-            </div>
-            <div class="nq-controls">
-              <label for="nq-boardSize">Board Size (N):</label>
-              <input type="number" id="nq-boardSize" min="4" max="12" value="8">
-              <button id="nq-newGameBtn">New Game</button>
-              <button id="nq-resetBtn">Clear Board</button>
-              <button id="nq-checkBtn">Check Solution</button>
-            </div>
-            <div class="nq-stats">
-              Queens placed: <strong id="nq-queensCount">0</strong> / <strong id="nq-queensNeeded">8</strong>
-            </div>
-            <div id="nq-board"></div>
-            <div id="nq-message"></div>
-          </div>
-        </div>
-      </article>
+				</div>
+			</article>
 
-      <!-- Halftone Generator — 1×1 -->
-      <article class="bento-card span-1x1" data-category="software" tabindex="0" role="button" aria-label="Open Halftone Generator project">
-        <div class="card-visual">
-          <img src="img/figures/software/fig-halftone-generate-01.jpg" alt="Halftone Generator" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-software">Software</span>
-            <div class="card-titles">
-              <h3 class="card-title">Halftone SVG Generator</h3>
-              <p class="card-subtitle">An Art Experiment</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>A study in turning portraits into halftone images for laser cutting — etched into tile and other materials. This program translates images into SVG cut files in halftone.</p>
-          <div class="detail-links">
-            <a href="https://github.com/wraith2010/halftone-svg-generator" class="detail-btn">
-              <img src="img/icons/github.png" alt=""> View Repo
-            </a>
-          </div>
-          <div class="detail-gallery">
-            <img src="img/halftone/halftone-01.jpg" alt="Halftone example">
-          </div>
-        </div>
-      </article>
+			<!-- Overwatch Slackbot — 1×1 -->
+			<article class="bento-card span-1x1" data-category="software" tabindex="0" role="button"
+				aria-label="Open Overwatch Slackbot project">
+				<div class="card-visual">
+					<img src="img/figures/software/overwatch.png" alt="Overwatch Bot" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-software">Software</span>
+						<div class="card-titles">
+							<h3 class="card-title">Overwatch Slackbot</h3>
+							<p class="card-subtitle">Role Randomizer</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Play enough Overwatch and you need something to change things up. This Slack bot randomly assigns
+						roles to a team of 2–6 players, using DJ Khaled as its icon alongside one of his inspirational
+						quotes. The role queue system made it obsolete but it's a solid chatbot example.</p>
+					<div class="detail-links">
+						<a href="https://github.com/wraith2010/overwatchslackbot" class="detail-btn">
+							<img src="img/icons/github.png" alt=""> View Repo
+						</a>
+					</div>
+					<div class="detail-gallery">
+						<img src="img/slackbot/slackbot-01.png" alt="Slackbot screenshot 1">
+						<img src="img/slackbot/slackbot-02.png" alt="Slackbot screenshot 2">
+					</div>
+				</div>
+			</article>
 
-      <!-- Stencil Tab Tool — 1×1 -->
-      <article class="bento-card span-1x1" data-category="software" tabindex="0" role="button" aria-label="Open Stencil Tab Tool project">
-        <div class="card-visual">
-          <img src="img/figures/software/fig-stencil-01.jpg" alt="Stencil Tab Tool" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-software">Software</span>
-            <div class="card-titles">
-              <h3 class="card-title">Stencil Tab Tool</h3>
-              <p class="card-subtitle">Laser Cutter Prep</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Making SVG stencils in Illustrator is easy, but adding tabs to hold islands in position is not. This tool breaks up overly long lines and anchors islands. Still a work in progress.</p>
-          <div class="detail-links">
-            <a href="https://github.com/wraith2010/svgstencilmaker" class="detail-btn">
-              <img src="img/icons/github.png" alt=""> View Repo
-            </a>
-          </div>
-          <div class="detail-gallery">
-            <img src="img/stencil/stencil-01.jpg" alt="Stencil example 1">
-            <img src="img/stencil/stencil-02.jpg" alt="Stencil example 2">
-          </div>
-        </div>
-      </article>
+			<!-- N Queens — 1×1 -->
+			<article class="bento-card span-1x1" data-category="software" data-id="nqueens" tabindex="0" role="button"
+				aria-label="Open N Queens project">
+				<div class="card-visual">
+					<img src="img/figures/software/fig-n-queens-02.png" alt="N Queens" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-software">Software</span>
+						<div class="card-titles">
+							<h3 class="card-title">N Queens Problem</h3>
+							<p class="card-subtitle">A Study in Computer Science</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>The N Queens problem: place N chess queens on an N×N board so that no two attack each other. The
+						goal is not to find one solution, but to find all solutions for a given N. One of those math
+						problems that takes over my mind from time to time.</p>
+					<div class="detail-links">
+						<a href="https://github.com/wraith2010/queens" class="detail-btn">
+							<img src="img/icons/github.png" alt=""> View Repo
+						</a>
+						<a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle" class="detail-btn">
+							<img src="img/icons/wikipedia.png" alt=""> Wikipedia
+						</a>
+					</div>
+					<h4 class="detail-section-label">Play the Puzzle</h4>
+					<div class="nqueens-game">
+						<div class="nq-instructions">
+							<p>Place N queens on an N×N chessboard so that no two queens attack each other. Queens
+								attack horizontally, vertically, and diagonally.</p>
+							<p><strong>Click any square to place or remove a queen.</strong></p>
+						</div>
+						<div class="nq-controls">
+							<label for="nq-boardSize">Board Size (N):</label>
+							<input type="number" id="nq-boardSize" min="4" max="12" value="8">
+							<button id="nq-newGameBtn">New Game</button>
+							<button id="nq-resetBtn">Clear Board</button>
+							<button id="nq-checkBtn">Check Solution</button>
+						</div>
+						<div class="nq-stats">
+							Queens placed: <strong id="nq-queensCount">0</strong> / <strong
+								id="nq-queensNeeded">8</strong>
+						</div>
+						<div id="nq-board"></div>
+						<div id="nq-message"></div>
+					</div>
+				</div>
+			</article>
 
-      <!-- ========== BUILDS ========== -->
+			<!-- Halftone Generator — 1×1 -->
+			<article class="bento-card span-1x1" data-category="software" tabindex="0" role="button"
+				aria-label="Open Halftone Generator project">
+				<div class="card-visual">
+					<img src="img/figures/software/fig-halftone-generate-01.jpg" alt="Halftone Generator"
+						loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-software">Software</span>
+						<div class="card-titles">
+							<h3 class="card-title">Halftone SVG Generator</h3>
+							<p class="card-subtitle">An Art Experiment</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>A study in turning portraits into halftone images for laser cutting — etched into tile and other
+						materials. This program translates images into SVG cut files in halftone.</p>
+					<div class="detail-links">
+						<a href="https://github.com/wraith2010/halftone-svg-generator" class="detail-btn">
+							<img src="img/icons/github.png" alt=""> View Repo
+						</a>
+					</div>
+					<div class="detail-gallery">
+						<img src="img/halftone/halftone-01.jpg" alt="Halftone example">
+					</div>
+				</div>
+			</article>
 
-      <!-- D&D Galleon — 2×2 featured -->
-      <article class="bento-card span-2x2" data-category="builds" tabindex="0" role="button" aria-label="Open D&amp;D Galleon project">
-        <div class="card-visual">
-          <img src="img/figures/fig-galleon.jpg" alt="D&D Galleon" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-builds">Builds</span>
-            <div class="card-titles">
-              <h3 class="card-title">D&amp;D Galleon</h3>
-              <p class="card-subtitle">A Not-So-Miniature Model</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>My D&amp;D group is working through "Storm King's Thunder" and the DM wanted a physical model for the Airship. I built it and shared the cut files on Thingiverse if you want to make your own.</p>
-          <div class="detail-links">
-            <a href="https://www.thingiverse.com/thing:3591894" class="detail-btn">
-              <img src="img/icons/icon-thingiverse.png" alt=""> Cut Files
-            </a>
-          </div>
-          <div class="detail-gallery">
-            <img src="img/galleon-build/galleon-build-01.jpg" alt="Galleon build">
-          </div>
-          <div class="detail-video">
-            <iframe src="https://www.youtube.com/embed/X_9rHoD9vlw" allowfullscreen title="D&amp;D Galleon build video"></iframe>
-          </div>
-        </div>
-      </article>
+			<!-- Stencil Tab Tool — 1×1 -->
+			<article class="bento-card span-1x1" data-category="software" tabindex="0" role="button"
+				aria-label="Open Stencil Tab Tool project">
+				<div class="card-visual">
+					<img src="img/figures/software/fig-stencil-01.jpg" alt="Stencil Tab Tool" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-software">Software</span>
+						<div class="card-titles">
+							<h3 class="card-title">Stencil Tab Tool</h3>
+							<p class="card-subtitle">Laser Cutter Prep</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Making SVG stencils in Illustrator is easy, but adding tabs to hold islands in position is not.
+						This tool breaks up overly long lines and anchors islands. Still a work in progress.</p>
+					<div class="detail-links">
+						<a href="https://github.com/wraith2010/svgstencilmaker" class="detail-btn">
+							<img src="img/icons/github.png" alt=""> View Repo
+						</a>
+					</div>
+					<div class="detail-gallery">
+						<img src="img/stencil/stencil-01.jpg" alt="Stencil example 1">
+						<img src="img/stencil/stencil-02.jpg" alt="Stencil example 2">
+					</div>
+				</div>
+			</article>
 
-      <!-- Chess Stage — 1×2 tall -->
-      <article class="bento-card span-1x2" data-category="builds" tabindex="0" role="button" aria-label="Open Chess Stage project">
-        <div class="card-visual">
-          <img src="img/figures/fig_chess.png" alt="Chess Stage" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-builds">Builds</span>
-            <div class="card-titles">
-              <h3 class="card-title">Chess Stage</h3>
-              <p class="card-subtitle">Bravo Theatre Co. 2019</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Bravo Theatre Company put on Chess for their 2019 show — a politically driven Cold War era chess tournament between grandmasters from America and the USSR. I built the stage and the frames to fly the flags in the background.</p>
-          <div class="detail-gallery">
-            <img src="img/bravo-chess/bravo-chess-01.jpg" alt="Chess stage 1">
-            <img src="img/bravo-chess/bravo-chess-02.jpg" alt="Chess stage 2">
-            <img src="img/bravo-chess/bravo-chess-03.jpg" alt="Chess stage 3">
-            <img src="img/bravo-chess/bravo-chess-04.jpg" alt="Chess stage 4">
-            <img src="img/bravo-chess/bravo-chess-05.jpg" alt="Chess stage 5">
-            <img src="img/bravo-chess/bravo-chess-06.jpg" alt="Chess stage 6">
-          </div>
-        </div>
-      </article>
+			<!-- ========== BUILDS ========== -->
 
-      <!-- Into the Woods — 1×2 tall -->
-      <article class="bento-card span-1x2" data-category="builds" tabindex="0" role="button" aria-label="Open Into the Woods project">
-        <div class="card-visual">
-          <img src="img/figures/fig-into-the-woods.jpg" alt="Into the Woods Stage" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-builds">Builds</span>
-            <div class="card-titles">
-              <h3 class="card-title">Into the Woods</h3>
-              <p class="card-subtitle">Bravo Theatre Co. 2018</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>One of the largest sets I have been part of building. The show required a library that became an enchanted forest — complete with a second-story balcony, a short bridge, and a spiral staircase.</p>
-          <div class="detail-gallery">
-            <img src="img/bravo-into-the-woods/bravo-into-the-woods-01.jpg" alt="Into the Woods 1">
-            <img src="img/bravo-into-the-woods/bravo-into-the-woods-02.jpg" alt="Into the Woods 2">
-            <img src="img/bravo-into-the-woods/bravo-into-the-woods-03.jpg" alt="Into the Woods 3">
-            <img src="img/bravo-into-the-woods/bravo-into-the-woods-04.jpg" alt="Into the Woods 4">
-          </div>
-        </div>
-      </article>
+			<!-- D&D Galleon — 2×2 featured -->
+			<article class="bento-card span-2x2" data-category="builds" tabindex="0" role="button"
+				aria-label="Open D&amp;D Galleon project">
+				<div class="card-visual">
+					<img src="img/dnd-galleon/galleon-logo.jpg" alt="D&D Galleon" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">D&amp;D Galleon</h3>
+							<p class="card-subtitle">A Not-So-Miniature Model</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>My D&amp;D group is working through "Storm King's Thunder" and the DM wanted a physical model for
+						the Airship. I built it and shared the cut files on Thingiverse if you want to make your own.
+					</p>
+					<div class="detail-links">
+						<a href="https://www.thingiverse.com/thing:3591894" class="detail-btn">
+							<img src="img/icons/icon-thingiverse.png" alt=""> Cut Files
+						</a>
+					</div>
+					<div class="detail-gallery">
+						<img src="img/galleon-build/galleon-build-01.jpg" alt="Galleon build">
+					</div>
+					<div class="detail-video">
+						<iframe src="https://www.youtube.com/embed/X_9rHoD9vlw" allowfullscreen
+							title="D&amp;D Galleon build video"></iframe>
+					</div>
+				</div>
+			</article>
 
-      <!-- Prop Row Boat — 1×1 -->
-      <article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button" aria-label="Open Prop Row Boat project">
-        <div class="card-visual">
-          <img src="img/figures/fig-little-mermaid.jpg" alt="Prop Row Boat" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-builds">Builds</span>
-            <div class="card-titles">
-              <h3 class="card-title">Prop Row Boat</h3>
-              <p class="card-subtitle">The Little Mermaid — RHS</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>A local high school needed a rolling boat for their production of The Little Mermaid. Fun project, especially the video of Kristen piloting it around the shop.</p>
-          <div class="detail-gallery">
-            <img src="img/little-mermaid-boat/little-mermaid-01.jpg" alt="Boat 1">
-            <img src="img/little-mermaid-boat/little-mermaid-02.jpg" alt="Boat 2">
-            <img src="img/little-mermaid-boat/little-mermaid-03.jpg" alt="Boat 3">
-            <img src="img/little-mermaid-boat/little-mermaid-04.jpg" alt="Boat 4">
-          </div>
-        </div>
-      </article>
+			<!-- Chess Stage — 1×2 tall -->
+			<article class="bento-card span-1x2" data-category="builds" tabindex="0" role="button"
+				aria-label="Open Chess Stage project">
+				<div class="card-visual">
+					<img src="img/figures/fig_chess.png" alt="Chess Stage" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">Chess Stage</h3>
+							<p class="card-subtitle">Bravo Theatre Co. 2019</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Bravo Theatre Company put on Chess for their 2019 show — a politically driven Cold War era chess
+						tournament between grandmasters from America and the USSR. I built the stage and the frames to
+						fly the flags in the background.</p>
+					<div class="detail-gallery">
+						<img src="img/bravo-chess/bravo-chess-01.jpg" alt="Chess stage 1">
+						<img src="img/bravo-chess/bravo-chess-02.jpg" alt="Chess stage 2">
+						<img src="img/bravo-chess/bravo-chess-03.jpg" alt="Chess stage 3">
+						<img src="img/bravo-chess/bravo-chess-04.jpg" alt="Chess stage 4">
+						<img src="img/bravo-chess/bravo-chess-05.jpg" alt="Chess stage 5">
+						<img src="img/bravo-chess/bravo-chess-06.jpg" alt="Chess stage 6">
+					</div>
+				</div>
+			</article>
 
-      <!-- Dungeon Tiles — 1×1 -->
-      <article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button" aria-label="Open Dungeon Tiles project">
-        <div class="card-visual">
-          <img src="img/figures/fig-modular-tile.jpg" alt="Dungeon Tiles" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-builds">Builds</span>
-            <div class="card-titles">
-              <h3 class="card-title">Dungeon Tiles</h3>
-              <p class="card-subtitle">Laser Cut Modular</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Too much Black Magic Craft led me to build a set of modular dungeon tiles — a great lesson in painting fake stone. Cut files on Thingiverse if you want to make your own.</p>
-          <div class="detail-links">
-            <a href="https://www.thingiverse.com/thing:3592915" class="detail-btn">
-              <img src="img/icons/icon-thingiverse.png" alt=""> Cut Files
-            </a>
-          </div>
-          <div class="detail-gallery">
-            <img src="img/dnd-tiles/modular-tile-01.jpg" alt="Dungeon tiles 1">
-            <img src="img/dnd-tiles/modular-tile-02.jpg" alt="Dungeon tiles 2">
-            <img src="img/dnd-tiles/modular-tile-03.jpg" alt="Dungeon tiles 3">
-            <img src="img/dnd-tiles/modular-tile-04.jpg" alt="Dungeon tiles 4">
-          </div>
-        </div>
-      </article>
+			<!-- Into the Woods — 1×2 tall -->
+			<article class="bento-card span-1x2" data-category="builds" tabindex="0" role="button"
+				aria-label="Open Into the Woods project">
+				<div class="card-visual">
+					<img src="img//bravo-into-the-woods/bravo-into-the-woods-01.jpg" alt="Into the Woods Stage" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">Into the Woods</h3>
+							<p class="card-subtitle">Bravo Theatre Co. 2018</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>One of the largest sets I have been part of building. The show required a library that became an
+						enchanted forest — complete with a second-story balcony, a short bridge, and a spiral staircase.
+					</p>
+					<div class="detail-gallery">
+						<img src="img/bravo-into-the-woods/bravo-into-the-woods-01.jpg" alt="Into the Woods 1">
+						<img src="img/bravo-into-the-woods/bravo-into-the-woods-02.jpg" alt="Into the Woods 2">
+						<img src="img/bravo-into-the-woods/bravo-into-the-woods-03.jpg" alt="Into the Woods 3">
+						<img src="img/bravo-into-the-woods/bravo-into-the-woods-04.jpg" alt="Into the Woods 4">
+					</div>
+				</div>
+			</article>
 
-      <!-- 9 Square — 1×1 -->
-      <article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button" aria-label="Open 9 Square project">
-        <div class="card-visual">
-          <img src="img/figures/fig-nine-square.jpg" alt="9 Square" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-builds">Builds</span>
-            <div class="card-titles">
-              <h3 class="card-title">9 Square</h3>
-              <p class="card-subtitle">A Youth Group Game</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Youth Group is always looking for new games. We saw a metal version at summer retreat and decided to build one — and had the brilliant idea of letting the kids cut all the PVC pipe. They did a great job.</p>
-          <div class="detail-gallery">
-            <img src="img/nine-square/nine-square-01.jpg" alt="9 Square build">
-          </div>
-          <div class="detail-video">
-            <iframe src="https://www.youtube.com/embed/LJ7fDqRtafU" allowfullscreen title="9 Square demo"></iframe>
-          </div>
-        </div>
-      </article>
+			<!-- Prop Row Boat — 1×1 -->
+			<article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button"
+				aria-label="Open Prop Row Boat project">
+				<div class="card-visual">
+					<img src="img/figures/fig-little-mermaid.jpg" alt="Prop Row Boat" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">Prop Row Boat</h3>
+							<p class="card-subtitle">The Little Mermaid — RHS</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>A local high school needed a rolling boat for their production of The Little Mermaid. Fun
+						project, especially the video of Kristen piloting it around the shop.</p>
+					<div class="detail-gallery">
+						<img src="img/little-mermaid-boat/little-mermaid-01.jpg" alt="Boat 1">
+						<img src="img/little-mermaid-boat/little-mermaid-02.jpg" alt="Boat 2">
+						<img src="img/little-mermaid-boat/little-mermaid-03.jpg" alt="Boat 3">
+						<img src="img/little-mermaid-boat/little-mermaid-04.jpg" alt="Boat 4">
+					</div>
+				</div>
+			</article>
 
-      <!-- Prop Muskets — 1×1 -->
-      <article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button" aria-label="Open Prop Muskets project">
-        <div class="card-visual">
-          <img src="img/figures/fig-les-mis.jpg" alt="Prop Muskets" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-builds">Builds</span>
-            <div class="card-titles">
-              <h3 class="card-title">Prop Muskets</h3>
-              <p class="card-subtitle">Les Misérables — RHS</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Prop muskets for a local high school's production of Les Misérables. Under $4.00 each, sourced entirely from Home Depot — stock from 2"×6", barrel from 3/4" electrical conduit. They looked great stained up.</p>
-          <div class="detail-gallery">
-            <img src="img/radnor-les-mis-muskets/build-01.jpg" alt="Musket build 1">
-            <img src="img/radnor-les-mis-muskets/build-02.jpg" alt="Musket build 2">
-            <img src="img/radnor-les-mis-muskets/build-03.jpg" alt="Musket build 3">
-            <img src="img/radnor-les-mis-muskets/build-04.jpg" alt="Musket build 4">
-            <img src="img/radnor-les-mis-muskets/show-01.jfif" alt="Musket in show 1">
-            <img src="img/radnor-les-mis-muskets/show-02.jfif" alt="Musket in show 2">
-          </div>
-        </div>
-      </article>
+			<!-- Dungeon Tiles — 1×1 -->
+			<article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button"
+				aria-label="Open Dungeon Tiles project">
+				<div class="card-visual">
+					<img src="img/figures/fig-modular-tile.jpg" alt="Dungeon Tiles" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">Dungeon Tiles</h3>
+							<p class="card-subtitle">Laser Cut Modular</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Too much Black Magic Craft led me to build a set of modular dungeon tiles — a great lesson in
+						painting fake stone. Cut files on Thingiverse if you want to make your own.</p>
+					<div class="detail-links">
+						<a href="https://www.thingiverse.com/thing:3592915" class="detail-btn">
+							<img src="img/icons/icon-thingiverse.png" alt=""> Cut Files
+						</a>
+					</div>
+					<div class="detail-gallery">
+						<img src="img/dnd-tiles/modular-tile-01.jpg" alt="Dungeon tiles 1">
+						<img src="img/dnd-tiles/modular-tile-02.jpg" alt="Dungeon tiles 2">
+						<img src="img/dnd-tiles/modular-tile-03.jpg" alt="Dungeon tiles 3">
+						<img src="img/dnd-tiles/modular-tile-04.jpg" alt="Dungeon tiles 4">
+					</div>
+				</div>
+			</article>
 
-      <!-- Vortex Cannon — 1×1 -->
-      <article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button" aria-label="Open Vortex Cannon project">
-        <div class="card-visual">
-          <img src="img/figures/fig-vortex.jpg" alt="Vortex Cannon" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-builds">Builds</span>
-            <div class="card-titles">
-              <h3 class="card-title">Vortex Cannon</h3>
-              <p class="card-subtitle">VBS 2021 Science Demo</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>Built for a science demo at MPC VBS. The cannon (a trash can) produces super stable vortexes of air that knock over light things at a distance. A fog machine makes the rings visible mid-flight.</p>
-          <div class="detail-video">
-            <iframe src="https://www.youtube.com/embed/W4qZ1YoZQzI" allowfullscreen title="Vortex Cannon demo"></iframe>
-          </div>
-        </div>
-      </article>
+			<!-- 9 Square — 1×1 -->
+			<article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button"
+				aria-label="Open 9 Square project">
+				<div class="card-visual">
+					<img src="img/figures/fig-nine-square.jpg" alt="9 Square" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">9 Square</h3>
+							<p class="card-subtitle">A Youth Group Game</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Youth Group is always looking for new games. We saw a metal version at summer retreat and decided
+						to build one — and had the brilliant idea of letting the kids cut all the PVC pipe. They did a
+						great job.</p>
+					<div class="detail-gallery">
+						<img src="img/nine-square/nine-square-01.jpg" alt="9 Square build">
+					</div>
+					<div class="detail-video">
+						<iframe src="https://www.youtube.com/embed/LJ7fDqRtafU" allowfullscreen
+							title="9 Square demo"></iframe>
+					</div>
+				</div>
+			</article>
 
-      <!-- ========== RANDOM ========== -->
+			<!-- Prop Muskets — 1×1 -->
+			<article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button"
+				aria-label="Open Prop Muskets project">
+				<div class="card-visual">
+					<img src="img/figures/fig-les-mis.jpg" alt="Prop Muskets" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">Prop Muskets</h3>
+							<p class="card-subtitle">Les Misérables — RHS</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Prop muskets for a local high school's production of Les Misérables. Under $4.00 each, sourced
+						entirely from Home Depot — stock from 2"×6", barrel from 3/4" electrical conduit. They looked
+						great stained up.</p>
+					<div class="detail-gallery">
+						<img src="img/radnor-les-mis-muskets/build-01.jpg" alt="Musket build 1">
+						<img src="img/radnor-les-mis-muskets/build-02.jpg" alt="Musket build 2">
+						<img src="img/radnor-les-mis-muskets/build-03.jpg" alt="Musket build 3">
+						<img src="img/radnor-les-mis-muskets/build-04.jpg" alt="Musket build 4">
+						<img src="img/radnor-les-mis-muskets/show-01.jfif" alt="Musket in show 1">
+						<img src="img/radnor-les-mis-muskets/show-02.jfif" alt="Musket in show 2">
+					</div>
+				</div>
+			</article>
 
-      <!-- MPC Twitch — 2×1 wide -->
-      <article class="bento-card span-2x1" data-category="random" tabindex="0" role="button" aria-label="Open MPC Twitch project">
-        <div class="card-visual">
-          <img src="img/emergency-stream/emergency-stream-01.jpg" alt="MPC Twitch Studio" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-random">Random</span>
-            <div class="card-titles">
-              <h3 class="card-title">MPC Twitch</h3>
-              <p class="card-subtitle">Mini TV Studio</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>I never wanted to be a Twitch streamer, but the world locked down. Since people couldn't go to church, church had to come to them. On short notice I learned to stream and started cobbling a setup together. Several iterations later, Marple Presbyterian has a full multicam studio — handy for funerals, weddings, and everything in between.</p>
-          <div class="detail-links">
-            <a href="https://www.twitch.tv/marplepresbyteriandigital" class="detail-btn">
-              <img src="img/icons/twitch.png" alt=""> MPC Channel
-            </a>
-          </div>
-          <div class="detail-gallery">
-            <img src="img/emergency-stream/emergency-stream-02.jpg" alt="Stream setup 2">
-            <img src="img/emergency-stream/emergency-stream-03.jpg" alt="Stream setup 3">
-            <img src="img/emergency-stream/emergency-stream-04.jpg" alt="Stream setup 4">
-            <img src="img/emergency-stream/emergency-stream-05.jpg" alt="Stream setup 5">
-          </div>
-        </div>
-      </article>
+			<!-- Vortex Cannon — 1×1 -->
+			<article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button"
+				aria-label="Open Vortex Cannon project">
+				<div class="card-visual">
+					<img src="img/figures/fig-vortex.jpg" alt="Vortex Cannon" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">Vortex Cannon</h3>
+							<p class="card-subtitle">VBS 2021 Science Demo</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Built for a science demo at MPC VBS, this vortex cannon demonstrates one of fluid dynamics' most
+						elegant phenomena: the <strong>toroidal vortex ring</strong>. The cannon body is a standard
+						trash can with an opening cut in the bottom and a trash bag stretched tightly across the top as
+						a membrane. When the membrane is struck, a pulse of air is forced through the aperture.</p>
+					<p>At the exit hole, air near the edge is slowed by friction with the rim while air at the centre
+						travels faster — a velocity gradient known as <em>shear flow</em>. Kelvin–Helmholtz instability
+						causes this shear layer to roll up into a closed, self-reinforcing loop: the vortex ring. By the
+						Biot–Savart law, each segment of the rotating core induces a velocity field on every other
+						segment, and the net result is a donut-shaped structure that propels itself forward at a steady
+						speed. Circulation (Γ) is conserved, so the ring resists breakup over long distances — enough to
+						topple a tower of cups several metres away. Injecting fog from a smoke machine traces the ring
+						mid-flight by condensing inside the low-pressure core, making the otherwise invisible fluid
+						structure pop into view.</p>
 
-      <!-- Drone Flight — 1×1 -->
-      <article class="bento-card span-1x1" data-category="random" tabindex="0" role="button" aria-label="Open Drone Flight project">
-        <div class="card-visual">
-          <img src="img/figures/fig-drone-flight.jpg" alt="Drone Flight" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-random">Random</span>
-            <div class="card-titles">
-              <h3 class="card-title">Drone Flight</h3>
-              <p class="card-subtitle">Parrot 2 Test Flight</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>I bought a refurbished Parrot 2 when they were on sale. Many months later I finally got it out of the box and took it for a first flight. Take a flight around the house with me as I shake down the Parrot.</p>
-          <div class="detail-video">
-            <iframe src="https://www.youtube.com/embed/E5v2KpFB0fg" allowfullscreen title="Drone flight video"></iframe>
-          </div>
-        </div>
-      </article>
+					<!-- Vortex ring principle diagram -->
+					<img class="vortex-diagram" src="img/figures/vortex-diagram.svg"
+						alt="Animated diagram: horizontal cannon fires a toroidal vortex ring rightward">
 
-      <!-- Light Saber — 1×1 -->
-      <article class="bento-card span-1x1" data-category="random" tabindex="0" role="button" aria-label="Open Light Saber project">
-        <div class="card-visual">
-          <img src="img/figures/russles-saber.jpg" alt="Light Saber" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-random">Random</span>
-            <div class="card-titles">
-              <h3 class="card-title">Light Saber</h3>
-              <p class="card-subtitle">Home Depot Prop Build</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>My cousin and I built prop-ready light sabers to celebrate our shared fandom of Star Wars. Slip joint drain pipe, electronics from Radio Shack, and a Dremel rotary tool — a certain kind of magic.</p>
-          <div class="detail-gallery">
-            <img src="img/russels_saber/01.jpg" alt="Saber build 1">
-            <img src="img/russels_saber/02.jpg" alt="Saber build 2">
-            <img src="img/russels_saber/03.jpg" alt="Saber build 3">
-            <img src="img/russels_saber/04.jpg" alt="Saber build 4">
-            <img src="img/russels_saber/05.jpg" alt="Saber build 5">
-            <img src="img/russels_saber/06.jpg" alt="Saber build 6">
-            <img src="img/russels_saber/07.jpg" alt="Saber build 7">
-            <img src="img/russels_saber/08.jpg" alt="Saber build 8">
-          </div>
-        </div>
-      </article>
+					<div class="detail-video">
+						<iframe src="https://www.youtube.com/embed/W4qZ1YoZQzI" allowfullscreen
+							title="Vortex Cannon demo"></iframe>
+					</div>
+				</div>
+			</article>
 
-      <!-- Chess — 1×1 -->
-      <article class="bento-card span-1x1" data-category="random" tabindex="0" role="button" aria-label="Open Chess project">
-        <div class="card-visual">
-          <img src="img/figures/chess.jpg" alt="Chess" loading="lazy">
-          <div class="card-overlay">
-            <span class="card-tag tag-random">Random</span>
-            <div class="card-titles">
-              <h3 class="card-title">Chess</h3>
-              <p class="card-subtitle">Geniuses and Me Too</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-detail" hidden>
-          <p>I love chess. Far from the greatest player, but I'll play with anyone who wants a game. Find me on chess.com or in person.</p>
-          <div class="detail-links">
-            <a href="https://www.chess.com/member/wraith2010" class="detail-btn">
-              <img src="img/icons/chess-icon.png" alt=""> Wraith2010 on Chess.com
-            </a>
-          </div>
-        </div>
-      </article>
+			<!-- ========== RANDOM ========== -->
 
-    </div><!-- /.bento-grid -->
-  </main>
+			<!-- MPC Twitch — 2×1 wide -->
+			<article class="bento-card span-2x1" data-category="random" tabindex="0" role="button"
+				aria-label="Open MPC Twitch project">
+				<div class="card-visual">
+					<img src="img/emergency-stream/emergency-stream-01.jpg" alt="MPC Twitch Studio" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-random">Random</span>
+						<div class="card-titles">
+							<h3 class="card-title">MPC Twitch</h3>
+							<p class="card-subtitle">Mini TV Studio</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>I never wanted to be a Twitch streamer, but the world locked down. Since people couldn't go to
+						church, church had to come to them. On short notice I learned to stream and started cobbling a
+						setup together. Several iterations later, Marple Presbyterian has a full multicam studio — handy
+						for funerals, weddings, and everything in between.</p>
+					<div class="detail-links">
+						<a href="https://www.twitch.tv/marplepresbyteriandigital" class="detail-btn">
+							<img src="img/icons/twitch.png" alt=""> MPC Channel
+						</a>
+					</div>
+					<div class="detail-gallery">
+						<img src="img/emergency-stream/emergency-stream-02.jpg" alt="Stream setup 2">
+						<img src="img/emergency-stream/emergency-stream-03.jpg" alt="Stream setup 3">
+						<img src="img/emergency-stream/emergency-stream-04.jpg" alt="Stream setup 4">
+						<img src="img/emergency-stream/emergency-stream-05.jpg" alt="Stream setup 5">
+					</div>
+				</div>
+			</article>
 
-  <!-- ==================== MODAL ==================== -->
-  <div class="modal-overlay" id="modal-overlay" hidden>
-    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div class="modal-topbar">
-        <button class="modal-close" id="modal-close" aria-label="Close project details">✕</button>
-      </div>
-      <div class="modal-hero">
-        <img id="modal-image" src="" alt="">
-      </div>
-      <div class="modal-body">
-        <div class="modal-meta">
-          <span class="modal-tag" id="modal-tag"></span>
-          <h2 class="modal-title" id="modal-title"></h2>
-          <p class="modal-subtitle" id="modal-subtitle"></p>
-        </div>
-        <div class="modal-content" id="modal-content"></div>
-      </div>
-    </div>
-  </div>
+			<!-- Drone Flight — 1×1 -->
+			<article class="bento-card span-1x1" data-category="random" tabindex="0" role="button"
+				aria-label="Open Drone Flight project">
+				<div class="card-visual">
+					<img src="img/drone-flight/drone-flight-logo.jpg" alt="Drone Flight" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-random">Random</span>
+						<div class="card-titles">
+							<h3 class="card-title">Drone Flight</h3>
+							<p class="card-subtitle">Parrot 2 Test Flight</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>I bought a refurbished Parrot 2 when they were on sale. Many months later I finally got it out of
+						the box and took it for a first flight. Take a flight around the house with me as I shake down
+						the Parrot.</p>
+					<div class="detail-video">
+						<iframe src="https://www.youtube.com/embed/E5v2KpFB0fg" allowfullscreen
+							title="Drone flight video"></iframe>
+					</div>
 
-  <!-- ==================== LIGHTBOX ==================== -->
-  <div class="lightbox-overlay" id="lightbox" hidden>
-    <button class="lightbox-close" id="lightbox-close" aria-label="Close image">✕</button>
-    <img class="lightbox-image" id="lightbox-image" src="" alt="">
-  </div>
+					<div class="detail-video">
+						<iframe src="https://www.youtube.com/embed/dnNI_Hr0_So" allowfullscreen
+							title="Drone flight video"></iframe>
+					</div>
+					<div class="detail-video">
+						<iframe src="https://www.youtube.com/embed/oE3592dAcSE" allowfullscreen
+							title="Drone flight video"></iframe>
+					</div>
+				</div>
+			</article>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="site-footer">
-    <nav class="social-links" aria-label="Social links">
-      <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
-        <img src="img/icons/youtube_484x484.png" alt="YouTube">
-      </a>
-      <a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
-        <img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
-      </a>
-      <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
-        <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
-      </a>
-      <a href="https://github.com/wraith2010" aria-label="GitHub">
-        <img src="img/icons/github.png" alt="GitHub">
-      </a>
-      <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
-        <img src="img/icons/chess-icon.png" alt="Chess.com">
-      </a>
-      <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
-        <img src="img/icons/icon-website.png" alt="Double Watt Games">
-      </a>
-    </nav>
-    <p class="footer-copy">© 2026 Ben Mitchell</p>
-  </footer>
+			<!-- Light Saber — 1×1 -->
+			<article class="bento-card span-1x1" data-category="random" tabindex="0" role="button"
+				aria-label="Open Light Saber project">
+				<div class="card-visual">
+					<img src="img/figures/russles-saber.jpg" alt="Light Saber" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-random">Random</span>
+						<div class="card-titles">
+							<h3 class="card-title">Light Saber</h3>
+							<p class="card-subtitle">Home Depot Prop Build</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>My cousin and I built prop-ready light sabers to celebrate our shared fandom of Star Wars. Slip
+						joint drain pipe, electronics from Radio Shack, and a Dremel rotary tool — a certain kind of
+						magic.</p>
+					<div class="detail-gallery">
+						<img src="img/russels_saber/01.jpg" alt="Saber build 1">
+						<img src="img/russels_saber/02.jpg" alt="Saber build 2">
+						<img src="img/russels_saber/03.jpg" alt="Saber build 3">
+						<img src="img/russels_saber/04.jpg" alt="Saber build 4">
+						<img src="img/russels_saber/05.jpg" alt="Saber build 5">
+						<img src="img/russels_saber/06.jpg" alt="Saber build 6">
+						<img src="img/russels_saber/07.jpg" alt="Saber build 7">
+						<img src="img/russels_saber/08.jpg" alt="Saber build 8">
+					</div>
+				</div>
+			</article>
 
-  <script src="js/main.js"></script>
+			<!-- Chess — 1×1 -->
+			<article class="bento-card span-1x1" data-category="random" tabindex="0" role="button"
+				aria-label="Open Chess project">
+				<div class="card-visual">
+					<img src="img/chess-com/chess-com-logo.jpg" alt="Chess" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-random">Random</span>
+						<div class="card-titles">
+							<h3 class="card-title">Chess</h3>
+							<p class="card-subtitle">Geniuses and Me Too</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>I have a deep, abiding love for chess and a remarkable talent for making my opponents feel like geniuses. My openings are solid. My middlegame is creative. My endgame is a crime scene.</p>
+					<p>Still very much a student of the game, and happy to be one. If you play — casually, seriously, or anywhere in between — pull up a board. Good conversation tends to follow.</p>
+					<div class="detail-links">
+						<a href="https://www.chess.com/member/wraith2010" class="detail-btn">
+							<img src="img/icons/chess-icon.png" alt=""> Wraith2010 on Chess.com
+						</a>
+					</div>
+				</div>
+			</article>
+
+		</div><!-- /.bento-grid -->
+	</main>
+
+	<!-- ==================== MODAL ==================== -->
+	<div class="modal-overlay" id="modal-overlay" hidden>
+		<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+			<div class="modal-topbar">
+				<button class="modal-close" id="modal-close" aria-label="Close project details">✕</button>
+			</div>
+			<div class="modal-hero">
+				<img id="modal-image" src="" alt="">
+			</div>
+			<div class="modal-body">
+				<div class="modal-meta">
+					<span class="modal-tag" id="modal-tag"></span>
+					<h2 class="modal-title" id="modal-title"></h2>
+					<p class="modal-subtitle" id="modal-subtitle"></p>
+				</div>
+				<div class="modal-content" id="modal-content"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ==================== LIGHTBOX ==================== -->
+	<div class="lightbox-overlay" id="lightbox" hidden>
+		<button class="lightbox-close" id="lightbox-close" aria-label="Close image">✕</button>
+		<img class="lightbox-image" id="lightbox-image" src="" alt="">
+	</div>
+
+	<!-- ==================== FOOTER ==================== -->
+	<footer class="site-footer">
+		<nav class="social-links" aria-label="Social links">
+			<a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+				<img src="img/icons/youtube_484x484.png" alt="YouTube">
+			</a>
+			<a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+				<img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+			</a>
+			<a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+				<img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+			</a>
+			<a href="https://github.com/wraith2010" aria-label="GitHub">
+				<img src="img/icons/github.png" alt="GitHub">
+			</a>
+			<a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+				<img src="img/icons/chess-icon.png" alt="Chess.com">
+			</a>
+			<a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+				<img src="img/icons/icon-website.png" alt="Double Watt Games">
+			</a>
+		</nav>
+		<p class="footer-copy">© 2026 Ben Mitchell</p>
+	</footer>
+
+	<script src="js/main.js"></script>
 </body>
 
 </html>
