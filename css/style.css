@@ -543,6 +543,42 @@ main {
   margin-bottom: 16px;
 }
 
+/* Inline prose links inside modal paragraphs */
+.modal-content p a {
+  color: var(--lime);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--lime) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--ease);
+}
+
+.modal-content p a:hover {
+  text-decoration-color: var(--lime);
+}
+
+/* Instructional figure inside card detail */
+.detail-figure {
+  margin: 4px 0 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--card-bg);
+}
+
+.detail-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.detail-figure figcaption {
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  font-style: italic;
+}
+
 .detail-section-label {
   font-family: var(--font-head);
   font-size: 0.75rem;
@@ -562,6 +598,38 @@ main {
 
 .detail-list li {
   margin-bottom: 5px;
+}
+
+/* Paint step list */
+.paint-steps {
+  list-style: decimal;
+  padding-left: 22px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin: 12px 0;
+}
+
+.paint-steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.swatch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  flex-shrink: 0;
+}
+
+.swatch-wash {
+  background: #111111;
+  box-shadow: inset 0 0 0 3px #1a1a2e;
+  border-color: rgba(255,255,255,0.25);
 }
 
 /* Modal link buttons */
@@ -601,6 +669,39 @@ main {
   border-color: var(--lime);
 }
 
+/* Channel card thumbnail link */
+.channel-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--card-bg);
+  margin: 10px 0 4px;
+  transition: all var(--ease);
+}
+
+.channel-card:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+.channel-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.channel-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 /* Gallery grid inside modal */
 .detail-gallery {
   display: grid;
@@ -625,6 +726,38 @@ main {
   border-color: var(--border-hover);
 }
 
+/* Before / after comparison */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.before-after figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.before-after img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+.before-after figcaption {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* Vortex cannon principle diagram */
 .vortex-diagram {
   display: block;
@@ -634,6 +767,18 @@ main {
   background: #0d1117;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
+}
+
+/* Video gallery grid */
+.detail-video-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.detail-video-gallery .detail-video {
+  margin-top: 0;
 }
 
 /* Embedded video in modal */

@@ -94,7 +94,8 @@
 				</div>
 				<div class="card-detail" hidden>
 					<p>Scribe bot produces a bot which will transcribe the conversation from a Discord voice channel to
-						a text channel. It utilizes Google voice-to-text webservices. The initial use was to transcribe
+						a text channel. It utilizes <a href="https://cloud.google.com/speech-to-text" target="_blank"
+							rel="noopener">Google Speech-to-Text</a> webservices. The initial use was to transcribe
 						D&amp;D games, but there is great potential as an accessibility tool — for deaf players to read
 						voice comms, or for blind players to have text chat read to them.</p>
 					<div class="detail-links">
@@ -137,60 +138,10 @@
 						</a>
 					</div>
 					<div class="detail-video">
-						<iframe src="https://www.youtube.com/embed/O0JlTFg7W-8" allowfullscreen
-							title="Mission Control demo"></iframe>
+						<iframe src="https://www.youtube.com/embed/O0JlTFg7W-8"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen title="Mission Control demo"></iframe>
 					</div>
-				</div>
-			</article>
-
-			<!-- GridlockDM — 2×1 wide -->
-			<article class="bento-card span-2x1" data-category="software" tabindex="0" role="button"
-				aria-label="GridlockDM project">
-				<div class="card-visual">
-					<img src="img/gridlockdm/girdlockdm-logo.jpg" alt="GridlockDM" loading="lazy">
-					<div class="card-overlay">
-						<span class="card-tag tag-software">Software</span>
-						<div class="card-titles">
-							<h3 class="card-title">GridlockDM</h3>
-							<p class="card-subtitle">Self-Hosted D&amp;D Battle Map</p>
-						</div>
-					</div>
-				</div>
-				<div class="card-detail" hidden>
-					<p><!-- TODO: Add your own description here. Suggested starting point: -->
-						GridlockDM is a self-hosted, real-time multiplayer battle map for D&amp;D 5e. The DM runs the
-						server and players join via a human-readable invite code — no accounts required. Built with
-						Spring Boot and WebSockets, it keeps every connected client (DM, players, and a TV/projector
-						view) in sync in real time.</p>
-					<h4 class="detail-section-label">Features</h4>
-					<ul class="detail-list">
-						<li>Claude image analysis</li>
-						<li>Canvas-based battle map with zoom, pan, and token dragging</li>
-						<li>Per-cell fog of war and zone drawing tools</li>
-						<li>D&amp;D Beyond character import by ID, with PDF fallback</li>
-						<li>Initiative tracking, HP management, and condition status</li>
-						<li>Read-only observer mode for projector / TV display</li>
-					</ul>
-					<h4 class="detail-section-label">Tech Stack</h4>
-					<ul class="detail-list">
-						<li>Docker</li>
-						<li>Springboot</li>
-						<li>Postgres</li>
-						<li>Websocket</li>
-						<li>Calude</li>
-					</ul>
-					<div class="detail-links">
-						<a href="https://github.com/wraith2010/GridlockDM" class="detail-btn">
-							<img src="img/icons/github.png" alt=""> View Repo
-						</a>
-						<!-- TODO: Add a live demo or download link if available -->
-					</div>
-					<!-- TODO: Add screenshots to img/gridlockdm/ and uncomment below -->
-
-					<div class="detail-gallery">
-						<img src="img/gridlockdm/dm-view-screenshot-01.png" alt="GridlockDM screenshot 1">
-					</div>
-
 				</div>
 			</article>
 
@@ -287,11 +238,32 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>A study in turning portraits into halftone images for laser cutting — etched into tile and other
-						materials. This program translates images into SVG cut files in halftone.</p>
+					<p>Before digital printing, newspapers reproduced photographs using a trick called
+						<a href="https://en.wikipedia.org/wiki/Halftone" target="_blank" rel="noopener">halftone</a>
+						— breaking a continuous-tone image into a grid of dots that vary in size. Larger dots read as
+						dark areas, smaller dots as light. Your eye blends them into a full image from a distance, even
+						though up close it's just ink circles on paper.</p>
+					<p>This tool applies the same principle to laser cutting — converting a portrait into an SVG of
+						sized circles that a laser etches into tile, wood, or other flat materials. The result is a
+						permanent halftone portrait you can hold.</p>
+
+					<div class="before-after">
+						<figure>
+							<img src="img/halftone/PXL_20240516_192216992.jpg" alt="Original photo">
+							<figcaption>Before</figcaption>
+						</figure>
+						<figure>
+							<img src="img/halftone/halftone.svg" alt="Halftone SVG output">
+							<figcaption>After</figcaption>
+						</figure>
+					</div>
+
 					<div class="detail-links">
+						<a href="halftone-converter.html" class="detail-btn">
+							<img src="img/icons/icon-website.png" target="_blank" rel="noopener" alt=""> Try It Yourself
+						</a>
 						<a href="https://github.com/wraith2010/halftone-svg-generator" class="detail-btn">
-							<img src="img/icons/github.png" alt=""> View Repo
+							<img src="img/icons/github.png" target="_blank" rel="noopener" alt=""> View Repo
 						</a>
 					</div>
 					<div class="detail-gallery">
@@ -328,10 +300,56 @@
 				</div>
 			</article>
 
+			<!-- GridlockDM — 2×1 wide -->
+			<article class="bento-card span-2x2" data-category="software" tabindex="0" role="button"
+				aria-label="GridlockDM project">
+				<div class="card-visual">
+					<img src="img/gridlockdm/girdlockdm-logo.jpg" alt="GridlockDM" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-software">Software</span>
+						<div class="card-titles">
+							<h3 class="card-title">GridlockDM</h3>
+							<p class="card-subtitle">Self-Hosted D&amp;D Battle Map</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>GridlockDM is a self-hosted, real-time multiplayer battle map for D&amp;D 5e. The DM runs the
+						server and players join via a human-readable invite code — no accounts required. Built with
+						Spring Boot and WebSockets, it keeps every connected client (DM, players, and a TV/projector
+						view) in sync in real time.</p>
+					<h4 class="detail-section-label">Features</h4>
+					<ul class="detail-list">
+						<li>Claude image analysis</li>
+						<li>Canvas-based battle map with zoom, pan, and token dragging</li>
+						<li>Per-cell fog of war and zone drawing tools</li>
+						<li>D&amp;D Beyond character import by ID, with PDF fallback</li>
+						<li>Initiative tracking, HP management, and condition status</li>
+						<li>Read-only observer mode for projector / TV display</li>
+					</ul>
+					<h4 class="detail-section-label">Tech Stack</h4>
+					<ul class="detail-list">
+						<li>Docker</li>
+						<li>Springboot</li>
+						<li>Postgres</li>
+						<li>Websocket</li>
+						<li>Claude</li>
+					</ul>
+					<div class="detail-links">
+						<a href="https://github.com/wraith2010/GridlockDM" class="detail-btn">
+							<img src="img/icons/github.png" alt=""> View Repo
+						</a>
+					</div>
+					<div class="detail-gallery">
+						<img src="img/gridlockdm/dm-view-screenshot-01.png" alt="GridlockDM screenshot 1">
+					</div>
+				</div>
+			</article>
+
 			<!-- ========== BUILDS ========== -->
 
-			<!-- D&D Galleon — 2×2 featured -->
-			<article class="bento-card span-2x2" data-category="builds" tabindex="0" role="button"
+			<!-- D&D Galleon — 1×1 featured -->
+			<article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button"
 				aria-label="Open D&amp;D Galleon project">
 				<div class="card-visual">
 					<img src="img/dnd-galleon/galleon-logo.jpg" alt="D&D Galleon" loading="lazy">
@@ -356,8 +374,9 @@
 						<img src="img/galleon-build/galleon-build-01.jpg" alt="Galleon build">
 					</div>
 					<div class="detail-video">
-						<iframe src="https://www.youtube.com/embed/X_9rHoD9vlw" allowfullscreen
-							title="D&amp;D Galleon build video"></iframe>
+						<iframe src="https://www.youtube.com/embed/X_9rHoD9vlw"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen title="D&amp;D Galleon build video"></iframe>
 					</div>
 				</div>
 			</article>
@@ -366,7 +385,7 @@
 			<article class="bento-card span-1x2" data-category="builds" tabindex="0" role="button"
 				aria-label="Open Chess Stage project">
 				<div class="card-visual">
-					<img src="img/figures/fig_chess.png" alt="Chess Stage" loading="lazy">
+					<img src="img/bravo-chess/bravo-chess-01.jpg" alt="Chess Stage" loading="lazy">
 					<div class="card-overlay">
 						<span class="card-tag tag-builds">Builds</span>
 						<div class="card-titles">
@@ -376,9 +395,18 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>Bravo Theatre Company put on Chess for their 2019 show — a politically driven Cold War era chess
-						tournament between grandmasters from America and the USSR. I built the stage and the frames to
-						fly the flags in the background.</p>
+					<p><a href="https://en.wikipedia.org/wiki/Chess_(musical)" target="_blank" rel="noopener">Chess</a>
+						is a politically charged Cold War musical pitting grandmasters from America and the USSR against
+						each other — loosely mirroring the real-life rivalry of Bobby Fischer and Boris Spassky. Bravo
+						put it on for their 2019 show, and I built the stage and the frames to fly the flags in the
+						background. Simple construction by design — keeping it clean lets the flags and the actors
+						carry the scene.</p>
+					<div class="detail-links">
+						<a href="https://www.facebook.com/bravotheatrecompany/" class="detail-btn" target="_blank"
+							rel="noopener">
+							<img src="img/icons/icon-website.png" alt=""> Bravo Theatre Co.
+						</a>
+					</div>
 					<div class="detail-gallery">
 						<img src="img/bravo-chess/bravo-chess-01.jpg" alt="Chess stage 1">
 						<img src="img/bravo-chess/bravo-chess-02.jpg" alt="Chess stage 2">
@@ -394,7 +422,8 @@
 			<article class="bento-card span-1x2" data-category="builds" tabindex="0" role="button"
 				aria-label="Open Into the Woods project">
 				<div class="card-visual">
-					<img src="img//bravo-into-the-woods/bravo-into-the-woods-01.jpg" alt="Into the Woods Stage" loading="lazy">
+					<img src="img//bravo-into-the-woods/bravo-into-the-woods-01.jpg" alt="Into the Woods Stage"
+						loading="lazy">
 					<div class="card-overlay">
 						<span class="card-tag tag-builds">Builds</span>
 						<div class="card-titles">
@@ -407,6 +436,12 @@
 					<p>One of the largest sets I have been part of building. The show required a library that became an
 						enchanted forest — complete with a second-story balcony, a short bridge, and a spiral staircase.
 					</p>
+					<div class="detail-links">
+						<a href="https://www.facebook.com/bravotheatrecompany/" class="detail-btn" target="_blank"
+							rel="noopener">
+							<img src="img/icons/icon-website.png" alt=""> Bravo Theatre Co.
+						</a>
+					</div>
 					<div class="detail-gallery">
 						<img src="img/bravo-into-the-woods/bravo-into-the-woods-01.jpg" alt="Into the Woods 1">
 						<img src="img/bravo-into-the-woods/bravo-into-the-woods-02.jpg" alt="Into the Woods 2">
@@ -420,7 +455,7 @@
 			<article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button"
 				aria-label="Open Prop Row Boat project">
 				<div class="card-visual">
-					<img src="img/figures/fig-little-mermaid.jpg" alt="Prop Row Boat" loading="lazy">
+					<img src="img/little-mermaid-boat/little-mermaid-01.jpg" alt="Prop Row Boat" loading="lazy">
 					<div class="card-overlay">
 						<span class="card-tag tag-builds">Builds</span>
 						<div class="card-titles">
@@ -430,8 +465,14 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>A local high school needed a rolling boat for their production of The Little Mermaid. Fun
-						project, especially the video of Kristen piloting it around the shop.</p>
+					<p>A local high school was putting on <em>The Little Mermaid</em>. One of the dads procured a real
+						launch rowboat for the "Kiss the Girl" scene — thematically great, but practically a problem:
+						real rowboats are twenty feet long. When the eels spin the boat at the end of the number, it
+						was going to take out every child on the stage. Sub-optimal.</p>
+					<p>A trip to Harbor Freight for cheap casters and Home Depot for a sheet of vinyl siding — the
+						kind that looks like an '80s basement but impossibly white and incredibly flexible — and a
+						couple hours of kitbashing later, the boat was ready to roll. The real highlight was watching
+						Kristen pilot the finished prop around the shop at full speed.</p>
 					<div class="detail-gallery">
 						<img src="img/little-mermaid-boat/little-mermaid-01.jpg" alt="Boat 1">
 						<img src="img/little-mermaid-boat/little-mermaid-02.jpg" alt="Boat 2">
@@ -455,9 +496,32 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>Too much Black Magic Craft led me to build a set of modular dungeon tiles — a great lesson in
-						painting fake stone. Cut files on Thingiverse if you want to make your own.</p>
+					<p>I was watching toooo much <a href="https://www.youtube.com/@BlackMagicCraftOfficial"
+							target="_blank" rel="noopener">Black Magic Craft</a>. His foam dungeon tiles gave me an
+						idea — but my skills lean more toward CNC than hand-drawn artistry, so I reached for the laser
+						cutter and some cheap underlayment from Home Depot instead. I did steal his paint technique
+						though, and it works just as well on wood. All paint is
+						<a href="https://www.michaels.com/product/2oz-acrylic-paint-by-craft-smart-10694310"
+							target="_blank" rel="noopener">Craft Smart</a> or the equivalent bargain line from your
+						local craft store.
+					</p>
+					<ol class="paint-steps">
+						<li><span class="swatch" style="background:#111111;"></span>Black — Primer Coat</li>
+						<li><span class="swatch" style="background:#555555;"></span>Dark Grey — Full Coat</li>
+						<li><span class="swatch" style="background:#c4a87a;"></span>Light Tan — Dry Brush</li>
+						<li><span class="swatch swatch-wash"></span>Black Wash</li>
+					</ol>
+
+					<a href="https://www.youtube.com/@BlackMagicCraftOfficial" target="_blank" rel="noopener"
+						class="channel-card">
+						<img src="img/icons/youtube_484x484.png" alt="YouTube" class="channel-thumb">
+						<span class="channel-name">Black Magic Craft</span>
+					</a>
 					<div class="detail-links">
+						<a href="https://www.youtube.com/@BlackMagicCraftOfficial" class="detail-btn" target="_blank"
+							rel="noopener">
+							<img src="img/icons/youtube_484x484.png" alt=""> Black Magic Craft
+						</a>
 						<a href="https://www.thingiverse.com/thing:3592915" class="detail-btn">
 							<img src="img/icons/icon-thingiverse.png" alt=""> Cut Files
 						</a>
@@ -485,6 +549,10 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
+					<figure class="detail-figure">
+						<img src="img/nine-square/how_to_play_9_square_image.webp" alt="How to play 9 Square diagram">
+						<figcaption>How to Play 9 Square</figcaption>
+					</figure>
 					<p>Youth Group is always looking for new games. We saw a metal version at summer retreat and decided
 						to build one — and had the brilliant idea of letting the kids cut all the PVC pipe. They did a
 						great job.</p>
@@ -492,8 +560,9 @@
 						<img src="img/nine-square/nine-square-01.jpg" alt="9 Square build">
 					</div>
 					<div class="detail-video">
-						<iframe src="https://www.youtube.com/embed/LJ7fDqRtafU" allowfullscreen
-							title="9 Square demo"></iframe>
+						<iframe src="https://www.youtube.com/embed/LJ7fDqRtafU"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen title="9 Square demo"></iframe>
 					</div>
 				</div>
 			</article>
@@ -559,8 +628,9 @@
 						alt="Animated diagram: horizontal cannon fires a toroidal vortex ring rightward">
 
 					<div class="detail-video">
-						<iframe src="https://www.youtube.com/embed/W4qZ1YoZQzI" allowfullscreen
-							title="Vortex Cannon demo"></iframe>
+						<iframe src="https://www.youtube.com/embed/W4qZ1YoZQzI"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen title="Vortex Cannon demo"></iframe>
 					</div>
 				</div>
 			</article>
@@ -571,7 +641,7 @@
 			<article class="bento-card span-2x1" data-category="random" tabindex="0" role="button"
 				aria-label="Open MPC Twitch project">
 				<div class="card-visual">
-					<img src="img/emergency-stream/emergency-stream-01.jpg" alt="MPC Twitch Studio" loading="lazy">
+					<img src="img/mpc-twitch/mpc-twitch-logo.jpg" alt="MPC Twitch Studio" loading="lazy">
 					<div class="card-overlay">
 						<span class="card-tag tag-random">Random</span>
 						<div class="card-titles">
@@ -595,6 +665,7 @@
 						<img src="img/emergency-stream/emergency-stream-03.jpg" alt="Stream setup 3">
 						<img src="img/emergency-stream/emergency-stream-04.jpg" alt="Stream setup 4">
 						<img src="img/emergency-stream/emergency-stream-05.jpg" alt="Stream setup 5">
+						<img src="img/mpc-twitch/PXL_20251213_145831196.jpg" alt="Stream setup 6">
 					</div>
 				</div>
 			</article>
@@ -613,21 +684,41 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>I bought a refurbished Parrot 2 when they were on sale. Many months later I finally got it out of
-						the box and took it for a first flight. Take a flight around the house with me as I shake down
-						the Parrot.</p>
-					<div class="detail-video">
-						<iframe src="https://www.youtube.com/embed/E5v2KpFB0fg" allowfullscreen
-							title="Drone flight video"></iframe>
-					</div>
-
-					<div class="detail-video">
-						<iframe src="https://www.youtube.com/embed/dnNI_Hr0_So" allowfullscreen
-							title="Drone flight video"></iframe>
-					</div>
-					<div class="detail-video">
-						<iframe src="https://www.youtube.com/embed/oE3592dAcSE" allowfullscreen
-							title="Drone flight video"></iframe>
+					<p>I picked up a refurbished
+						<a href="https://en.wikipedia.org/wiki/Parrot_AR.Drone" target="_blank" rel="noopener">Parrot
+							AR.Drone 2.0</a>
+						on the cheap — one of the first mass-market camera drones, released in 2012 and controlled
+						entirely
+						over Wi-Fi from a phone. Ahead of its time then, a paperweight now. The FAA's
+						<a href="https://www.faa.gov/uas/getting_started/remote_id" target="_blank"
+							rel="noopener">Remote ID rule</a>
+						(fully enforced since September 2023) requires drones over 250g to broadcast live ID and
+						location data.
+						The AR.Drone 2.0 has no Remote ID hardware, no upgrade path, and Parrot never made it compliant
+						—
+						meaning it can only legally fly inside an
+						<a href="https://www.faa.gov/uas/getting_started/remote_id/fria" target="_blank"
+							rel="noopener">FAA-Recognized Identification Area (FRIA)</a>. So I definetly never do
+						that.... ever.
+						I'd love to get back into it someday and try some FPV flight — just with hardware from this
+						decade.
+					</p>
+					<div class="detail-video-gallery">
+						<div class="detail-video">
+							<iframe src="https://www.youtube.com/embed/E5v2KpFB0fg"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen title="Drone flight video 1"></iframe>
+						</div>
+						<div class="detail-video">
+							<iframe src="https://www.youtube.com/embed/dnNI_Hr0_So"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen title="Drone flight video 2"></iframe>
+						</div>
+						<div class="detail-video">
+							<iframe src="https://www.youtube.com/embed/oE3592dAcSE"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen title="Drone flight video 3"></iframe>
+						</div>
 					</div>
 				</div>
 			</article>
@@ -676,8 +767,10 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>I have a deep, abiding love for chess and a remarkable talent for making my opponents feel like geniuses. My openings are solid. My middlegame is creative. My endgame is a crime scene.</p>
-					<p>Still very much a student of the game, and happy to be one. If you play — casually, seriously, or anywhere in between — pull up a board. Good conversation tends to follow.</p>
+					<p>I have a deep, abiding love for chess and a remarkable talent for making my opponents feel like
+						geniuses. My openings are solid. My middlegame is creative. My endgame is a crime scene.</p>
+					<p>Still very much a student of the game, and happy to be one. If you play — casually, seriously, or
+						anywhere in between — pull up a board. Good conversation tends to follow.</p>
 					<div class="detail-links">
 						<a href="https://www.chess.com/member/wraith2010" class="detail-btn">
 							<img src="img/icons/chess-icon.png" alt=""> Wraith2010 on Chess.com
