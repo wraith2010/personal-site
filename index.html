@@ -126,9 +126,24 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>Marple Presbyterian Church's VBS 2019 theme was "To Mars and Beyond". I created Mission Control —
-						an 8-bit retro game where solving the security puzzle and completing the launch sequence trips a
-						relay via webservice and sets off a smoke machine.</p>
+					<p>VBS — Vacation Bible School — is a week-long summer camp run by the church. Ours runs at
+						night because most of our volunteers have day jobs. In 2019 the theme was "To Mars and Beyond,"
+						and I built Mission Control: a physical launch console that actually launches a rocket.</p>
+					<p>The sequence works like this: first, a 9-button version of
+						<a href="https://en.wikipedia.org/wiki/Simon_(game)" target="_blank" rel="noopener">Simon</a>
+						— the pattern grows one flash at a time until you've successfully mirrored a sequence of six.
+						Then you're prompted to hit a series of buttons and flip a guarded blast-control toggle (the
+						kind with a safety cover you have to lift first). Finally a large red button starts blinking.
+						Hit it, and a countdown begins — and when it reaches zero, a smoke machine fires under a big
+						prop rocket across the room.</p>
+					<p>The control panel runs on a
+						<a href="https://en.wikipedia.org/wiki/Raspberry_Pi" target="_blank"
+							rel="noopener">Raspberry Pi 3</a>
+						with GPIO expander chips to get enough pins for all the buttons and lights. The Pi drives
+						sprite-based 8-bit animations on a monitor mounted just above the panel — an animated
+						character walks you through each step and mirrors the physical controls on screen so you
+						always know what to do next.</p>
+					<p>The build took a month. It was worth every hour.</p>
 					<div class="detail-links">
 						<a href="https://github.com/wraith2010/misison-control" class="detail-btn">
 							<img src="img/icons/github.png" alt=""> View Repo
@@ -137,10 +152,19 @@
 							<img src="img/icons/disk-icon.png" alt=""> Download
 						</a>
 					</div>
-					<div class="detail-video">
-						<iframe src="https://www.youtube.com/embed/O0JlTFg7W-8"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen title="Mission Control demo"></iframe>
+					<div class="detail-video-gallery">
+						<div class="detail-video">
+							<p class="detail-video-label">Full Demo</p>
+							<iframe src="https://www.youtube.com/embed/O0JlTFg7W-8"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen title="Mission Control demo"></iframe>
+						</div>
+						<div class="detail-video">
+							<p class="detail-video-label">Receiver Board Build &amp; Test</p>
+							<iframe src="https://www.youtube.com/embed/inKz8a8cP9g"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen title="Mission Control receiver board build and test"></iframe>
+						</div>
 					</div>
 				</div>
 			</article>
@@ -433,9 +457,14 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>One of the largest sets I have been part of building. The show required a library that became an
-						enchanted forest — complete with a second-story balcony, a short bridge, and a spiral staircase.
-					</p>
+					<p>I signed up for this build expecting to be the third banana in the bunch. Then bananas one and
+						two had to bow out, and suddenly I was running the show. Fortunately the director had a strong
+						vision and my father-in-law was willing to back me up.</p>
+					<p>The set transforms a library into an enchanted forest — second-story balcony, a short bridge,
+						and a spiral staircase that had to look elegant, survive actors dancing on it, and not destroy
+						the budget. The staircase is a series of triangles and risers wrapped in flexible plywood to
+						fake the curve, then finished out with scraps to finesse the shape. From the back it's pure
+						construction logic. From the third row it looks like it grew there.</p>
 					<div class="detail-links">
 						<a href="https://www.facebook.com/bravotheatrecompany/" class="detail-btn" target="_blank"
 							rel="noopener">
@@ -553,9 +582,20 @@
 						<img src="img/nine-square/how_to_play_9_square_image.webp" alt="How to play 9 Square diagram">
 						<figcaption>How to Play 9 Square</figcaption>
 					</figure>
-					<p>Youth Group is always looking for new games. We saw a metal version at summer retreat and decided
-						to build one — and had the brilliant idea of letting the kids cut all the PVC pipe. They did a
-						great job.</p>
+					<p>Nine players each stand in one square of a 3×3 grid of elevated PVC frames. A ball is batted
+						upward through the grid — if it lands in your square without you getting it up, you're out and
+						rotate to the back of the line. The center square is the hot seat.</p>
+					<p>We spotted a commercial metal version at summer retreat and decided to build our own for about
+						$150 in PVC. The key hardware is
+						<a href="https://www.amazon.com/stores/FORMUFIT/page/4F161CF3-5245-4B33-B540-3A5106EFE36B?lp_asin=B00MNIZMBO&ref_=cm_sw_r_ud_ast_store_2HSBG2N8JMX3K1546BZP&store_ref=bl_ast_dp_brandlogo_sto"
+							target="_blank" rel="noopener">FORMUFIT furniture-grade connectors</a> — designed for
+						building structures rather than running water, so they offer configurations a plumber would
+						never need: multi-port hubs, adjustable-angle joints, flat end caps, and rail fittings that let
+						you build frames, racks, and grids out of standard PVC. We had the brilliant idea of letting the kids cut all the pipe
+						themselves. They did a great job.</p>
+					<p>It lives permanently in the youth group room and gets requested constantly — including by adults,
+						who we've learned to politely decline after several incidents involving ceiling lights and
+						prescription eyewear.</p>
 					<div class="detail-gallery">
 						<img src="img/nine-square/nine-square-01.jpg" alt="9 Square build">
 					</div>
@@ -581,9 +621,22 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>Prop muskets for a local high school's production of Les Misérables. Under $4.00 each, sourced
-						entirely from Home Depot — stock from 2"×6", barrel from 3/4" electrical conduit. They looked
-						great stained up.</p>
+					<p>The school had originally planned to rent muskets from a prop house. Then they arrived —
+						flat cardboard cutouts. The actors were not thrilled. I was asked to fix it.</p>
+					<p>Twenty muskets, under $4.00 each, sourced entirely from Home Depot. The stock shape came from
+						a
+						<a href="https://en.wikipedia.org/wiki/Brown_Bess" target="_blank" rel="noopener">Brown
+							Bess</a>
+						silhouette — laser cut into a template, then traced onto cheap 2×6 framing lumber. The 2D
+						shape came off the band saw; the 3D taper then got rough cut on the band saw and sanded and
+						planed into its final form. A channel routed into the stock accepts a length of 3/4"
+						electrical conduit for the barrel. Pocket screws and glue bring it all together.</p>
+					<p>I'm the builder on this crew, not the painter — the rest of the team made them look
+						period-accurate and genuinely beautiful. My only contribution to the finish was not
+						messing it up.</p>
+					<p>The unglamorous postscript: after all of that, I had to carry twenty replica muskets
+						across a school parking lot. Turns out realistic-looking weapons and school property are a
+						stressful combination regardless of context.</p>
 					<div class="detail-gallery">
 						<img src="img/radnor-les-mis-muskets/build-01.jpg" alt="Musket build 1">
 						<img src="img/radnor-les-mis-muskets/build-02.jpg" alt="Musket build 2">
@@ -652,9 +705,21 @@
 				</div>
 				<div class="card-detail" hidden>
 					<p>I never wanted to be a Twitch streamer, but the world locked down. Since people couldn't go to
-						church, church had to come to them. On short notice I learned to stream and started cobbling a
-						setup together. Several iterations later, Marple Presbyterian has a full multicam studio — handy
-						for funerals, weddings, and everything in between.</p>
+						church, church had to come to them.</p>
+					<p>Version 1 was a personal laptop and a bad webcam on a tripod a few feet in front of the pulpit.
+						From there it grew — iteration by iteration — into something real: a
+						<a href="https://www.logitech.com/en-us/products/webcams/brio-4k-webcam.html" target="_blank" rel="noopener">Logitech Brio</a>
+						for the main shot,
+						<a href="https://www.wyze.com/" target="_blank" rel="noopener">Wyze cameras</a>
+						running custom firmware for additional angles, all fed through
+						<a href="https://streamlabs.com/" target="_blank" rel="noopener">Streamlabs OBS</a>
+						and edited in
+						<a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" rel="noopener">DaVinci Resolve</a>.
+						Audio runs through the worship space sound system — a
+						<a href="https://mackie.com/en/products/mixers/profxv3-series/ProFX22v3.html" target="_blank" rel="noopener">Mackie ProFX22v3</a>
+						— so the mix the congregation hears is the mix that goes out.</p>
+					<p>The setup now lives in the sound booth, fully integrated. One of the church's youth runs it
+						every week. I am happy to be the backup.</p>
 					<div class="detail-links">
 						<a href="https://www.twitch.tv/marplepresbyteriandigital" class="detail-btn">
 							<img src="img/icons/twitch.png" alt=""> MPC Channel
@@ -737,9 +802,14 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>My cousin and I built prop-ready light sabers to celebrate our shared fandom of Star Wars. Slip
-						joint drain pipe, electronics from Radio Shack, and a Dremel rotary tool — a certain kind of
-						magic.</p>
+					<p>Around 1998, my cousin and I decided to build lightsabers. Not buy them — build them. The
+						hilt is assembled from hardware store plumbing: slip-joint sink drain pipe for the body,
+						sump pump hose for grip texture, faucet knobs for detail. The electronics came from Radio
+						Shack: battery holders, a momentary contact switch, some LEDs, and — in a moment of
+						ambition that seemed completely reasonable at the time — a jeep headlight.</p>
+					<p>The first time we powered it on, it was extraordinarily bright. It was also extremely hot.
+						And it drained the batteries in seconds. These three facts are directly related.</p>
+					<p>It was perfect.</p>
 					<div class="detail-gallery">
 						<img src="img/russels_saber/01.jpg" alt="Saber build 1">
 						<img src="img/russels_saber/02.jpg" alt="Saber build 2">
