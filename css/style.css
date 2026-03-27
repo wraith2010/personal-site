@@ -798,6 +798,15 @@ main {
 }
 
 /* Vortex cannon principle diagram */
+.chess-board-gif {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin: 16px auto 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
 .vortex-diagram {
   display: block;
   width: 100%;
