@@ -135,14 +135,16 @@
 						Then you're prompted to hit a series of buttons and flip a guarded blast-control toggle (the
 						kind with a safety cover you have to lift first). Finally a large red button starts blinking.
 						Hit it, and a countdown begins — and when it reaches zero, a smoke machine fires under a big
-						prop rocket across the room.</p>
+						prop rocket across the room.
+					</p>
 					<p>The control panel runs on a
-						<a href="https://en.wikipedia.org/wiki/Raspberry_Pi" target="_blank"
-							rel="noopener">Raspberry Pi 3</a>
+						<a href="https://en.wikipedia.org/wiki/Raspberry_Pi" target="_blank" rel="noopener">Raspberry Pi
+							3</a>
 						with GPIO expander chips to get enough pins for all the buttons and lights. The Pi drives
 						sprite-based 8-bit animations on a monitor mounted just above the panel — an animated
 						character walks you through each step and mirrors the physical controls on screen so you
-						always know what to do next.</p>
+						always know what to do next.
+					</p>
 					<p>The build took a month. It was worth every hour.</p>
 					<div class="detail-links">
 						<a href="https://github.com/wraith2010/misison-control" class="detail-btn">
@@ -266,7 +268,8 @@
 						<a href="https://en.wikipedia.org/wiki/Halftone" target="_blank" rel="noopener">halftone</a>
 						— breaking a continuous-tone image into a grid of dots that vary in size. Larger dots read as
 						dark areas, smaller dots as light. Your eye blends them into a full image from a distance, even
-						though up close it's just ink circles on paper.</p>
+						though up close it's just ink circles on paper.
+					</p>
 					<p>This tool applies the same principle to laser cutting — converting a portrait into an SVG of
 						sized circles that a laser etches into tile, wood, or other flat materials. The result is a
 						permanent halftone portrait you can hold.</p>
@@ -386,9 +389,17 @@
 					</div>
 				</div>
 				<div class="card-detail" hidden>
-					<p>My D&amp;D group is working through "Storm King's Thunder" and the DM wanted a physical model for
-						the Airship. I built it and shared the cut files on Thingiverse if you want to make your own.
-					</p>
+					<p>Our D&amp;D group was running "Storm King's Thunder" and the DM needed something for the airship.
+						Buying a model wasn't really an option — nothing on the market was the right scale for a party
+						of five or six, and a paper printout felt like giving up.</p>
+					<p>I pulled up a few existing battle maps for reference, then designed my own cut files from scratch
+						in Illustrator. The ship is laser cut from <a
+							href="https://shop.glowforge.com/collections/plywood" target="_blank"
+							rel="noopener">Glowforge Proofgrade</a> maple plywood — it comes pre-masked
+						with a light varnish, so the finish is clean right off the machine with no extra work. It's a
+						bit oversized for smaller tables, but that's intentional: with a large party, you need the
+						real estate.</p>
+					<p>Cut files are on Thingiverse if you want to build your own.</p>
 					<div class="detail-links">
 						<a href="https://www.thingiverse.com/thing:3591894" class="detail-btn">
 							<img src="img/icons/icon-thingiverse.png" alt=""> Cut Files
@@ -591,8 +602,10 @@
 							target="_blank" rel="noopener">FORMUFIT furniture-grade connectors</a> — designed for
 						building structures rather than running water, so they offer configurations a plumber would
 						never need: multi-port hubs, adjustable-angle joints, flat end caps, and rail fittings that let
-						you build frames, racks, and grids out of standard PVC. We had the brilliant idea of letting the kids cut all the pipe
-						themselves. They did a great job.</p>
+						you build frames, racks, and grids out of standard PVC. We had the brilliant idea of letting the
+						kids cut all the pipe
+						themselves. They did a great job.
+					</p>
 					<p>It lives permanently in the youth group room and gets requested constantly — including by adults,
 						who we've learned to politely decline after several incidents involving ceiling lights and
 						prescription eyewear.</p>
@@ -630,7 +643,8 @@
 						silhouette — laser cut into a template, then traced onto cheap 2×6 framing lumber. The 2D
 						shape came off the band saw; the 3D taper then got rough cut on the band saw and sanded and
 						planed into its final form. A channel routed into the stock accepts a length of 3/4"
-						electrical conduit for the barrel. Pocket screws and glue bring it all together.</p>
+						electrical conduit for the barrel. Pocket screws and glue bring it all together.
+					</p>
 					<p>I'm the builder on this crew, not the painter — the rest of the team made them look
 						period-accurate and genuinely beautiful. My only contribution to the finish was not
 						messing it up.</p>
@@ -688,6 +702,84 @@
 				</div>
 			</article>
 
+			<!-- Homelab — 1×1 -->
+			<article class="bento-card span-1x1" data-category="builds" tabindex="0" role="button"
+				aria-label="Open Homelab project">
+				<div class="card-visual">
+					<img src="img/home-lab/homelab-logo.jpg" alt="Homelab" loading="lazy">
+					<div class="card-overlay">
+						<span class="card-tag tag-builds">Builds</span>
+						<div class="card-titles">
+							<h3 class="card-title">Homelab</h3>
+							<p class="card-subtitle">The Server Farm We Have at Home</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-detail" hidden>
+					<p>Every good homelab starts with "I just need somewhere to put this old server" and ends with a
+						rack, a UPS, a NAS, and a KVM console you tell yourself was a practical purchase.</p>
+					<p>The backbone is a <a
+							href="https://www.amazon.com/StarTech-com-Adjustable-Levelers-Management-4POSTRACK25U/dp/B00O6GNLQE"
+							target="_blank" rel="noopener">StarTech 25U open-frame rack</a> on casters — adjustable
+						depth means nothing is bolted in forever, which matters when the plan changes every six months.
+						Power comes from a <a
+							href="https://www.amazon.com/CyberPower-CP1500PFCRM2U-Sinewave-Outlets-Rackmount/dp/B0B354X985"
+							target="_blank" rel="noopener">CyberPower 1500VA PFC Sinewave UPS</a> for the critical gear,
+						backed up by a <a
+							href="https://www.amazon.com/CyberPower-CPS1215RMS-Protector-Outlets-Rackmount/dp/B00077INZU"
+							target="_blank" rel="noopener">CyberPower 12-outlet rackmount PDU</a> for everything else.
+					</p>
+					<p>The compute node is a <a
+							href="https://www.amazon.com/Virtualization-Dell-PowerEdge-R710-Refurbished/dp/B00HDAO70E"
+							target="_blank" rel="noopener">Dell PowerEdge R710</a> — dual X5670 six-core CPUs, 144 GB
+						RAM, and six 2 TB drives. It is loud enough that the closet door stays closed. Storage lives on
+						a <a href="https://www.amazon.com/QNAP-TS-832PXU-RP-4G-High-Speed-Rackmount-TS-832PXU-RP-4G-US/dp/B08JJV9LFW"
+							target="_blank" rel="noopener">QNAP TS-832PXU-RP NAS</a> with dual 10 GbE and redundant PSU,
+						because if you're going to do it you may as well do it right. The whole rack is managed through
+						an <a href="https://www.amazon.com/MT-Viki-Monitor-Integrated-Keyboard-Support/dp/B0881RVKM5"
+							target="_blank" rel="noopener">MT-Viki 8-port KVM console</a> with a built-in 17" LCD and
+						touchpad — one drawer to rule them all.</p>
+					<h3>Hosted Services</h3>
+					<div class="software-stack">
+						<a href="https://www.proxmox.com" target="_blank" rel="noopener" class="software-stack-item">
+							<img src="img/home-lab/proxmox-logo.jpg" alt="Proxmox">
+							<span>Proxmox</span>
+						</a>
+						<a href="https://docs.paperless-ngx.com" target="_blank" rel="noopener"
+							class="software-stack-item">
+							<img src="img/home-lab/paperless-ngx.png" alt="Paperless-ngx">
+							<span>Paperless-ngx</span>
+						</a>
+						<a href="https://www.jenkins.io" target="_blank" rel="noopener" class="software-stack-item">
+							<img src="img/home-lab/jenkins-logo.jpg" alt="Jenkins">
+							<span>Jenkins</span>
+						</a>
+						<a href="https://www.postgresql.org" target="_blank" rel="noopener" class="software-stack-item">
+							<img src="img/home-lab/postgresql-logo.svg" alt="PostgreSQL">
+							<span>PostgreSQL</span>
+						</a>
+						<a href="https://n8n.io" target="_blank" rel="noopener" class="software-stack-item">
+							<img src="img/home-lab/n8n-logo-5d74.png" alt="n8n">
+							<span>n8n</span>
+						</a>
+						<a href="https://www.minecraft.net" target="_blank" rel="noopener" class="software-stack-item">
+							<img src="img/home-lab/minecraft-logo.jpg" alt="Minecraft">
+							<span>Minecraft</span>
+						</a>
+						<a href="https://www.plex.tv" target="_blank" rel="noopener" class="software-stack-item">
+							<img src="img/home-lab/plex-logo.jpg" alt="Plex">
+							<span>Plex</span>
+						</a>
+					</div>
+					<h3>Images</h3>
+					<div class="detail-gallery">
+						<img src="img/home-lab/PXL_20250812_220753418.jpg" alt="Homelab 1">
+						<img src="img/home-lab/PXL_20250812_220803882.jpg" alt="Homelab 2">
+					</div>
+				</div>
+
+			</article>
+
 			<!-- ========== RANDOM ========== -->
 
 			<!-- MPC Twitch — 2×1 wide -->
@@ -708,16 +800,20 @@
 						church, church had to come to them.</p>
 					<p>Version 1 was a personal laptop and a bad webcam on a tripod a few feet in front of the pulpit.
 						From there it grew — iteration by iteration — into something real: a
-						<a href="https://www.logitech.com/en-us/products/webcams/brio-4k-webcam.html" target="_blank" rel="noopener">Logitech Brio</a>
+						<a href="https://www.logitech.com/en-us/products/webcams/brio-4k-webcam.html" target="_blank"
+							rel="noopener">Logitech Brio</a>
 						for the main shot,
 						<a href="https://www.wyze.com/" target="_blank" rel="noopener">Wyze cameras</a>
 						running custom firmware for additional angles, all fed through
 						<a href="https://streamlabs.com/" target="_blank" rel="noopener">Streamlabs OBS</a>
 						and edited in
-						<a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" rel="noopener">DaVinci Resolve</a>.
+						<a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank"
+							rel="noopener">DaVinci Resolve</a>.
 						Audio runs through the worship space sound system — a
-						<a href="https://mackie.com/en/products/mixers/profxv3-series/ProFX22v3.html" target="_blank" rel="noopener">Mackie ProFX22v3</a>
-						— so the mix the congregation hears is the mix that goes out.</p>
+						<a href="https://mackie.com/en/products/mixers/profxv3-series/ProFX22v3.html" target="_blank"
+							rel="noopener">Mackie ProFX22v3</a>
+						— so the mix the congregation hears is the mix that goes out.
+					</p>
 					<p>The setup now lives in the sound booth, fully integrated. One of the church's youth runs it
 						every week. I am happy to be the backup.</p>
 					<div class="detail-links">

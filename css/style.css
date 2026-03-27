@@ -726,6 +726,45 @@ main {
   border-color: var(--border-hover);
 }
 
+/* Software stack logo grid */
+.software-stack {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.software-stack-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: border-color var(--ease), background var(--ease);
+}
+
+.software-stack-item:hover {
+  border-color: var(--border-hover);
+  background: var(--surface);
+}
+
+.software-stack-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.software-stack-item span {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 /* Before / after comparison */
 .before-after {
   display: grid;
