@@ -309,6 +309,7 @@ main {
 .tag-software { background: var(--lime);  color: #0c0c0c; }
 .tag-builds   { background: var(--coral); color: #fff; }
 .tag-random   { background: var(--sky);   color: #0c0c0c; }
+.tag-venture  { background: #a78bfa;      color: #fff; }
 
 /* Card text */
 .card-titles {
