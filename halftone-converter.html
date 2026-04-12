@@ -1,701 +1,743 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Halftone Studio</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Halftone Studio — convert images to SVG halftone patterns.">
+  <title>Halftone Studio — 1031F</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .halftone-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
 
-  :root {
-    --bg: #f0ebe3;
-    --ink: #1a1714;
-    --accent: #c43e1c;
-    --muted: #9e978d;
-    --card: #e8e2d8;
-    --card-hover: #ddd6ca;
-    --radius: 10px;
-  }
+    .page-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
 
-  body {
-    font-family: 'Space Mono', monospace;
-    background: var(--bg);
-    color: var(--ink);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+    .page-header h1 {
+      font-family: var(--font-head);
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
 
-  /* Grain overlay */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 128px;
-    z-index: 9999;
-  }
+    .page-header h1 span {
+      color: var(--lime);
+    }
 
-  header {
-    padding: 40px 40px 0;
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+    .page-header p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
 
-  h1 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 3.2rem;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
+    /* Upload zone */
+    .upload-zone {
+      border: 2px dashed var(--border-hover);
+      border-radius: var(--radius);
+      padding: 60px 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      margin-bottom: 32px;
+      background: transparent;
+    }
 
-  h1 span {
-    color: var(--accent);
-    font-style: italic;
-  }
+    .upload-zone:hover,
+    .upload-zone.dragover {
+      border-color: var(--lime);
+      background: rgba(201, 241, 53, 0.04);
+    }
 
-  .subtitle {
-    font-size: 0.72rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding-bottom: 4px;
-  }
+    .upload-zone .icon {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+      display: block;
+      opacity: 0.4;
+    }
 
-  .app {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px 40px 60px;
-  }
+    .upload-zone p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
 
-  /* Upload zone */
-  .upload-zone {
-    border: 2px dashed var(--muted);
-    border-radius: var(--radius);
-    padding: 60px 40px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    margin-bottom: 32px;
-    position: relative;
-    background: transparent;
-  }
+    .upload-zone p strong {
+      color: var(--text);
+      display: block;
+      font-size: 1rem;
+      font-family: var(--font-head);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
 
-  .upload-zone:hover, .upload-zone.dragover {
-    border-color: var(--accent);
-    background: rgba(196, 62, 28, 0.04);
-  }
+    .upload-zone input { display: none; }
 
-  .upload-zone .icon {
-    font-size: 2.4rem;
-    margin-bottom: 12px;
-    display: block;
-    opacity: 0.5;
-  }
+    .formats {
+      margin-top: 14px;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
 
-  .upload-zone p {
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
+    /* Workspace */
+    .workspace {
+      display: none;
+      gap: 24px;
+    }
 
-  .upload-zone p strong {
-    color: var(--ink);
-    display: block;
-    font-size: 1rem;
-    margin-bottom: 4px;
-  }
-
-  .upload-zone input { display: none; }
-
-  .formats {
-    margin-top: 14px;
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    opacity: 0.7;
-  }
-
-  /* Layout */
-  .workspace {
-    display: none;
-    gap: 32px;
-  }
-
-  .workspace.active {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-  }
-
-  /* Controls panel */
-  .controls {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .control-group {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 20px;
-  }
-
-  .control-group label {
-    display: block;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-
-  .control-group .value {
-    float: right;
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 4px;
-    background: var(--bg);
-    border-radius: 2px;
-    outline: none;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    border: 3px solid var(--bg);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  }
-
-  input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    border: 3px solid var(--bg);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  }
-
-  .size-inputs {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .size-inputs input[type="number"] {
-    font-family: 'Space Mono', monospace;
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid var(--muted);
-    border-radius: 6px;
-    background: var(--bg);
-    color: var(--ink);
-    font-size: 0.85rem;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .size-inputs input[type="number"]:focus {
-    border-color: var(--accent);
-  }
-
-  .size-inputs .times {
-    font-size: 0.8rem;
-    color: var(--muted);
-    flex-shrink: 0;
-  }
-
-  .shape-toggle {
-    display: flex;
-    gap: 6px;
-  }
-
-  .shape-toggle button {
-    flex: 1;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    padding: 7px 10px;
-    border: 1px solid var(--muted);
-    border-radius: 6px;
-    background: var(--bg);
-    color: var(--muted);
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    transition: all 0.2s;
-  }
-
-  .shape-toggle button.active {
-    background: var(--ink);
-    color: var(--bg);
-    border-color: var(--ink);
-  }
-
-  .color-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .color-row input[type="color"] {
-    -webkit-appearance: none;
-    width: 36px;
-    height: 36px;
-    border: 2px solid var(--muted);
-    border-radius: 6px;
-    cursor: pointer;
-    background: none;
-    padding: 2px;
-  }
-
-  .color-row input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-  .color-row input[type="color"]::-webkit-color-swatch { border: none; border-radius: 3px; }
-
-  .color-row span {
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
-
-  /* Buttons */
-  .btn {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.78rem;
-    padding: 14px 20px;
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    transition: all 0.2s;
-    width: 100%;
-    text-align: center;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  .btn-primary:hover {
-    background: #a83518;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(196,62,28,0.3);
-  }
-
-  .btn-secondary {
-    background: var(--ink);
-    color: var(--bg);
-  }
-
-  .btn-secondary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--muted);
-    padding: 10px 16px;
-    font-size: 0.7rem;
-  }
-
-  .btn-ghost:hover {
-    border-color: var(--ink);
-    color: var(--ink);
-  }
-
-  /* Preview area */
-  .preview-area {
-    position: relative;
-  }
-
-  .preview-container {
-    background: #fff;
-    border-radius: var(--radius);
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
-  }
-
-  .preview-container svg {
-    max-width: 100%;
-    max-height: 70vh;
-    display: block;
-  }
-
-  .preview-label {
-    position: absolute;
-    top: 12px;
-    left: 16px;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    background: rgba(255,255,255,0.85);
-    padding: 4px 8px;
-    border-radius: 4px;
-    z-index: 2;
-  }
-
-  .preview-meta {
-    margin-top: 12px;
-    display: flex;
-    gap: 20px;
-    font-size: 0.68rem;
-    color: var(--muted);
-  }
-
-  .preview-meta span strong {
-    color: var(--ink);
-  }
-
-  /* Hidden canvas */
-  #sourceCanvas { display: none; }
-
-  .spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid var(--card);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .loading-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    color: var(--muted);
-    font-size: 0.78rem;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    header { padding: 24px 20px 0; }
-    h1 { font-size: 2.2rem; }
-    .app { padding: 20px 20px 40px; }
     .workspace.active {
-      grid-template-columns: 1fr;
+      display: grid;
+      grid-template-columns: 280px 1fr;
     }
+
+    /* Controls panel */
     .controls {
-      order: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
-    .preview-area { order: 1; }
-    .upload-zone { padding: 40px 20px; }
-  }
-</style>
+
+    .control-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+
+    .control-group label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-family: var(--font-head);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .control-group .value {
+      float: right;
+      color: var(--lime);
+      font-weight: 700;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 3px;
+      background: var(--border-hover);
+      border-radius: 2px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--lime);
+      cursor: pointer;
+      border: 2px solid var(--card);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--lime);
+      cursor: pointer;
+      border: 2px solid var(--card);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .size-inputs {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .size-inputs input[type="number"] {
+      font-family: var(--font-body);
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.85rem;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .size-inputs input[type="number"]:focus {
+      border-color: var(--lime);
+    }
+
+    .size-inputs .times {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .shape-toggle {
+      display: flex;
+      gap: 6px;
+    }
+
+    .shape-toggle button {
+      flex: 1;
+      font-family: var(--font-head);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 7px 10px;
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text-muted);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: all 0.2s;
+    }
+
+    .shape-toggle button.active {
+      background: var(--lime);
+      color: #0c0c0c;
+      border-color: var(--lime);
+    }
+
+    .shape-toggle button:hover:not(.active) {
+      border-color: var(--text-muted);
+      color: var(--text);
+    }
+
+    .color-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .color-row input[type="color"] {
+      -webkit-appearance: none;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      background: none;
+      padding: 2px;
+    }
+
+    .color-row input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-row input[type="color"]::-webkit-color-swatch { border: none; border-radius: 4px; }
+
+    .color-row span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .invert-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .invert-row input[type="checkbox"] {
+      accent-color: var(--lime);
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+
+    .invert-row label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    /* Action buttons */
+    .btn {
+      font-family: var(--font-head);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--lime);
+      color: #0c0c0c;
+    }
+
+    .btn-primary:hover {
+      background: #d4f54a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(201, 241, 53, 0.25);
+    }
+
+    .btn-secondary {
+      background: var(--card-hover);
+      color: var(--text);
+      border: 1px solid var(--border-hover);
+    }
+
+    .btn-secondary:hover {
+      background: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      font-size: 0.72rem;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--text-muted);
+      color: var(--text);
+    }
+
+    /* Preview area */
+    .preview-area {
+      position: relative;
+      min-width: 0;
+    }
+
+    .preview-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-container svg {
+      max-width: 100%;
+      max-height: 70vh;
+      display: block;
+    }
+
+    .preview-label {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      font-family: var(--font-head);
+      font-weight: 600;
+      background: rgba(22, 22, 22, 0.85);
+      padding: 4px 8px;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .preview-meta {
+      margin-top: 12px;
+      display: flex;
+      gap: 20px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .preview-meta span strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    #sourceCanvas { display: none; }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--border-hover);
+      border-top-color: var(--lime);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .halftone-page { padding: 24px 16px 60px; }
+      .page-header h1 { font-size: 1.75rem; }
+      .workspace.active {
+        grid-template-columns: 1fr;
+      }
+      .controls { order: 2; }
+      .preview-area { order: 1; }
+      .upload-zone { padding: 40px 20px; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>Halftone <span>Studio</span></h1>
-  <div class="subtitle">Image → SVG converter</div>
-</header>
-
-<div class="app">
-  <div class="upload-zone" id="uploadZone">
-    <span class="icon">◉</span>
-    <p>
-      <strong>Drop an image here or click to browse</strong>
-      Supports any browser-readable image format
-    </p>
-    <div class="formats">PNG · JPG · WEBP · GIF · BMP · AVIF · TIFF · SVG · ICO · HEIC*</div>
-    <input type="file" id="fileInput" accept="image/*">
-  </div>
-
-  <div class="workspace" id="workspace">
-    <div class="controls">
-      <div class="control-group">
-        <label>Dot density <span class="value" id="densityVal">30</span></label>
-        <input type="range" id="density" min="8" max="100" value="30">
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header">
+    <div class="brand">
+      <img src="img/icons/1x/ben-icon-color.png" alt="Ben Mitchell" class="avatar">
+      <div class="brand-text">
+        <span class="site-title"><a href="index.html">1031F</a></span>
+        <span class="site-name">Ben Mitchell</span>
       </div>
+    </div>
+    <nav class="header-social" aria-label="Social links">
+      <a href="https://github.com/wraith2010" aria-label="GitHub">
+        <img src="img/icons/github.png" alt="GitHub">
+      </a>
+      <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+        <img src="img/icons/youtube_484x484.png" alt="YouTube">
+      </a>
+      <a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+        <img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+      </a>
+      <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+        <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+      </a>
+      <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+        <img src="img/icons/chess-icon.png" alt="Chess.com">
+      </a>
+      <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+        <img src="img/icons/icon-website.png" alt="Double Watt Games">
+      </a>
+      <a href="https://www.thecroningroup.tech/" aria-label="The Cronin Group">
+        <img src="img/icons/icon-website.png" alt="The Cronin Group">
+      </a>
+      <a href="https://www.linkedin.com/in/benjamin-mitchell-540705334/" aria-label="LinkedIn">
+        <img src="img/icons/icon-linkedin.png" alt="LinkedIn">
+      </a>
+    </nav>
+  </header>
 
-      <div class="control-group">
-        <label>Max dot size <span class="value" id="dotSizeVal">1.0×</span></label>
-        <input type="range" id="dotSize" min="50" max="150" value="100" step="5">
-      </div>
+  <!-- ==================== MAIN ==================== -->
+  <main class="halftone-page">
 
-      <div class="control-group">
-        <label>Output width (px)</label>
-        <div class="size-inputs">
-          <input type="number" id="outWidth" min="100" max="8000" value="800">
-          <span class="times">×</span>
-          <input type="number" id="outHeight" min="100" max="8000" value="600" readonly style="opacity:0.6;">
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label>Dot shape</label>
-        <div class="shape-toggle" id="shapeToggle">
-          <button class="active" data-shape="circle">Circle</button>
-          <button data-shape="square">Square</button>
-          <button data-shape="diamond">Diamond</button>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label>Colors</label>
-        <div class="color-row" style="margin-bottom:8px;">
-          <input type="color" id="dotColor" value="#1a1714">
-          <span>Dot color</span>
-        </div>
-        <div class="color-row">
-          <input type="color" id="bgColor" value="#ffffff">
-          <span>Background</span>
-        </div>
-      </div>
-
-      <div class="control-group" style="background:transparent;padding:0;">
-        <label style="margin-bottom: 4px;">
-          <input type="checkbox" id="invertCheck" style="vertical-align: middle; margin-right: 6px;">
-          Invert brightness
-        </label>
-      </div>
-
-      <button class="btn btn-primary" id="regenerateBtn">Regenerate</button>
-      <button class="btn btn-secondary" id="downloadBtn">Download SVG</button>
-      <button class="btn btn-ghost" id="resetBtn">↻ New image</button>
+    <div class="page-header">
+      <h1>Halftone <span>Studio</span></h1>
+      <p>Convert images to SVG halftone patterns</p>
     </div>
 
-    <div class="preview-area">
-      <div class="preview-container" id="previewContainer">
-        <div class="loading-state" id="loadingState" style="display:none;">
-          <div class="spinner"></div>
-          <span>Generating halftone…</span>
-        </div>
-      </div>
-      <div class="preview-label">Preview</div>
-      <div class="preview-meta" id="previewMeta"></div>
+    <div class="upload-zone" id="uploadZone">
+      <span class="icon">◉</span>
+      <p>
+        <strong>Drop an image here or click to browse</strong>
+        Supports any browser-readable image format
+      </p>
+      <div class="formats">PNG · JPG · WEBP · GIF · BMP · AVIF · TIFF · SVG · ICO · HEIC*</div>
+      <input type="file" id="fileInput" accept="image/*">
     </div>
-  </div>
-</div>
 
-<canvas id="sourceCanvas"></canvas>
+    <div class="workspace" id="workspace">
+      <div class="controls">
+        <div class="control-group">
+          <label>Dot density <span class="value" id="densityVal">30</span></label>
+          <input type="range" id="density" min="8" max="100" value="30">
+        </div>
 
-<script>
-const uploadZone = document.getElementById('uploadZone');
-const fileInput = document.getElementById('fileInput');
-const workspace = document.getElementById('workspace');
-const previewContainer = document.getElementById('previewContainer');
-const loadingState = document.getElementById('loadingState');
-const previewMeta = document.getElementById('previewMeta');
-const densitySlider = document.getElementById('density');
-const densityVal = document.getElementById('densityVal');
-const dotSizeSlider = document.getElementById('dotSize');
-const dotSizeVal = document.getElementById('dotSizeVal');
-const outWidthInput = document.getElementById('outWidth');
-const outHeightInput = document.getElementById('outHeight');
-const shapeToggle = document.getElementById('shapeToggle');
-const dotColorInput = document.getElementById('dotColor');
-const bgColorInput = document.getElementById('bgColor');
-const invertCheck = document.getElementById('invertCheck');
-const regenerateBtn = document.getElementById('regenerateBtn');
-const downloadBtn = document.getElementById('downloadBtn');
-const resetBtn = document.getElementById('resetBtn');
-const canvas = document.getElementById('sourceCanvas');
-const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        <div class="control-group">
+          <label>Max dot size <span class="value" id="dotSizeVal">1.0×</span></label>
+          <input type="range" id="dotSize" min="50" max="150" value="100" step="5">
+        </div>
 
-let currentImage = null;
-let currentSVG = '';
-let aspectRatio = 1;
-let currentShape = 'circle';
+        <div class="control-group">
+          <label>Output width (px)</label>
+          <div class="size-inputs">
+            <input type="number" id="outWidth" min="100" max="8000" value="800">
+            <span class="times">×</span>
+            <input type="number" id="outHeight" min="100" max="8000" value="600" readonly style="opacity:0.5;">
+          </div>
+        </div>
 
-// Upload handlers
-uploadZone.addEventListener('click', () => fileInput.click());
-fileInput.addEventListener('change', e => { if (e.target.files[0]) loadImage(e.target.files[0]); });
+        <div class="control-group">
+          <label>Dot shape</label>
+          <div class="shape-toggle" id="shapeToggle">
+            <button class="active" data-shape="circle">Circle</button>
+            <button data-shape="square">Square</button>
+            <button data-shape="diamond">Diamond</button>
+          </div>
+        </div>
 
-uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-uploadZone.addEventListener('drop', e => {
-  e.preventDefault();
-  uploadZone.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file && file.type.startsWith('image/')) loadImage(file);
-});
+        <div class="control-group">
+          <label>Colors</label>
+          <div class="color-row" style="margin-bottom:8px;">
+            <input type="color" id="dotColor" value="#c9f135">
+            <span>Dot color</span>
+          </div>
+          <div class="color-row">
+            <input type="color" id="bgColor" value="#0c0c0c">
+            <span>Background</span>
+          </div>
+        </div>
 
-// Paste support
-document.addEventListener('paste', e => {
-  const items = e.clipboardData.items;
-  for (const item of items) {
-    if (item.type.startsWith('image/')) {
-      loadImage(item.getAsFile());
-      break;
-    }
-  }
-});
+        <div class="control-group" style="background: transparent; border-color: transparent; padding: 0 4px;">
+          <div class="invert-row">
+            <input type="checkbox" id="invertCheck">
+            <label for="invertCheck">Invert brightness</label>
+          </div>
+        </div>
 
-// Shape toggle
-shapeToggle.addEventListener('click', e => {
-  const btn = e.target.closest('button');
-  if (!btn) return;
-  shapeToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  currentShape = btn.dataset.shape;
-});
+        <button class="btn btn-primary" id="regenerateBtn">Regenerate</button>
+        <button class="btn btn-secondary" id="downloadBtn">Download SVG</button>
+        <button class="btn btn-ghost" id="resetBtn">↻ New image</button>
+      </div>
 
-// Slider display updates
-densitySlider.addEventListener('input', () => { densityVal.textContent = densitySlider.value; });
-dotSizeSlider.addEventListener('input', () => { dotSizeVal.textContent = (dotSizeSlider.value / 100).toFixed(1) + '×'; });
+      <div class="preview-area">
+        <div class="preview-container" id="previewContainer">
+          <div class="loading-state" id="loadingState" style="display:none;">
+            <div class="spinner"></div>
+            <span>Generating halftone…</span>
+          </div>
+        </div>
+        <div class="preview-label">Preview</div>
+        <div class="preview-meta" id="previewMeta"></div>
+      </div>
+    </div>
 
-// Width → height sync
-outWidthInput.addEventListener('input', () => {
-  const w = parseInt(outWidthInput.value) || 800;
-  outHeightInput.value = Math.round(w / aspectRatio);
-});
+  </main>
 
-// Actions
-regenerateBtn.addEventListener('click', generate);
-downloadBtn.addEventListener('click', downloadSVG);
-resetBtn.addEventListener('click', () => {
-  workspace.classList.remove('active');
-  uploadZone.style.display = '';
-  currentImage = null;
-  currentSVG = '';
-  fileInput.value = '';
-});
+  <footer class="site-footer">
+    <p class="footer-copy">© 2026 Ben Mitchell</p>
+    <p class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a></p>
+  </footer>
 
-function loadImage(file) {
-  const img = new Image();
-  img.onload = () => {
-    currentImage = img;
-    aspectRatio = img.width / img.height;
-    outWidthInput.value = Math.min(img.width, 800);
-    outHeightInput.value = Math.round(Math.min(img.width, 800) / aspectRatio);
-    uploadZone.style.display = 'none';
-    workspace.classList.add('active');
-    generate();
-  };
-  img.onerror = () => alert('Could not load that image. Try another format.');
-  img.src = URL.createObjectURL(file);
-}
+  <canvas id="sourceCanvas"></canvas>
 
-function generate() {
-  if (!currentImage) return;
+  <script>
+  const uploadZone = document.getElementById('uploadZone');
+  const fileInput = document.getElementById('fileInput');
+  const workspace = document.getElementById('workspace');
+  const previewContainer = document.getElementById('previewContainer');
+  const loadingState = document.getElementById('loadingState');
+  const previewMeta = document.getElementById('previewMeta');
+  const densitySlider = document.getElementById('density');
+  const densityVal = document.getElementById('densityVal');
+  const dotSizeSlider = document.getElementById('dotSize');
+  const dotSizeVal = document.getElementById('dotSizeVal');
+  const outWidthInput = document.getElementById('outWidth');
+  const outHeightInput = document.getElementById('outHeight');
+  const shapeToggle = document.getElementById('shapeToggle');
+  const dotColorInput = document.getElementById('dotColor');
+  const bgColorInput = document.getElementById('bgColor');
+  const invertCheck = document.getElementById('invertCheck');
+  const regenerateBtn = document.getElementById('regenerateBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const canvas = document.getElementById('sourceCanvas');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-  const svgEl = previewContainer.querySelector('svg');
-  if (svgEl) svgEl.remove();
-  loadingState.style.display = 'flex';
+  let currentImage = null;
+  let currentSVG = '';
+  let aspectRatio = 1;
+  let currentShape = 'circle';
 
-  // Use requestAnimationFrame + setTimeout to let UI update
-  requestAnimationFrame(() => setTimeout(doGenerate, 30));
-}
+  // Upload handlers
+  uploadZone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) loadImage(e.target.files[0]); });
 
-function doGenerate() {
-  const outW = parseInt(outWidthInput.value) || 800;
-  const outH = parseInt(outHeightInput.value) || 600;
-  const cols = parseInt(densitySlider.value);
-  const dotScale = parseInt(dotSizeSlider.value) / 100;
-  const dotColor = dotColorInput.value;
-  const bgColor = bgColorInput.value;
-  const invert = invertCheck.checked;
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+  uploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) loadImage(file);
+  });
 
-  // Draw image to canvas at a resolution matching columns
-  const sampleCols = cols;
-  const cellSize = 1;
-  const sampleRows = Math.round(sampleCols / aspectRatio);
-
-  canvas.width = sampleCols;
-  canvas.height = sampleRows;
-  ctx.drawImage(currentImage, 0, 0, sampleCols, sampleRows);
-
-  const imageData = ctx.getImageData(0, 0, sampleCols, sampleRows);
-  const pixels = imageData.data;
-
-  const svgCellW = outW / sampleCols;
-  const svgCellH = outH / sampleRows;
-  const maxRadius = (Math.min(svgCellW, svgCellH) / 2) * dotScale;
-
-  let dots = [];
-  let dotCount = 0;
-
-  for (let y = 0; y < sampleRows; y++) {
-    for (let x = 0; x < sampleCols; x++) {
-      const i = (y * sampleCols + x) * 4;
-      const r = pixels[i], g = pixels[i + 1], b = pixels[i + 2], a = pixels[i + 3];
-      // Perceived brightness
-      let brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-      if (a < 128) continue; // skip transparent
-      if (invert) brightness = 1 - brightness;
-
-      // Darker → bigger dot
-      const size = (1 - brightness) * maxRadius;
-      if (size < 0.3) continue;
-
-      const cx = (x + 0.5) * svgCellW;
-      const cy = (y + 0.5) * svgCellH;
-
-      if (currentShape === 'circle') {
-        dots.push(`<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${size.toFixed(2)}"/>`);
-      } else if (currentShape === 'square') {
-        const s = size * 1.6;
-        dots.push(`<rect x="${(cx - s/2).toFixed(2)}" y="${(cy - s/2).toFixed(2)}" width="${s.toFixed(2)}" height="${s.toFixed(2)}"/>`);
-      } else if (currentShape === 'diamond') {
-        const s = size * 1.4;
-        dots.push(`<polygon points="${cx.toFixed(2)},${(cy - s).toFixed(2)} ${(cx + s).toFixed(2)},${cy.toFixed(2)} ${cx.toFixed(2)},${(cy + s).toFixed(2)} ${(cx - s).toFixed(2)},${cy.toFixed(2)}"/>`);
+  // Paste support
+  document.addEventListener('paste', e => {
+    const items = e.clipboardData.items;
+    for (const item of items) {
+      if (item.type.startsWith('image/')) {
+        loadImage(item.getAsFile());
+        break;
       }
-      dotCount++;
     }
+  });
+
+  // Shape toggle
+  shapeToggle.addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    shapeToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentShape = btn.dataset.shape;
+  });
+
+  // Slider display updates
+  densitySlider.addEventListener('input', () => { densityVal.textContent = densitySlider.value; });
+  dotSizeSlider.addEventListener('input', () => { dotSizeVal.textContent = (dotSizeSlider.value / 100).toFixed(1) + '×'; });
+
+  // Width → height sync
+  outWidthInput.addEventListener('input', () => {
+    const w = parseInt(outWidthInput.value) || 800;
+    outHeightInput.value = Math.round(w / aspectRatio);
+  });
+
+  // Actions
+  regenerateBtn.addEventListener('click', generate);
+  downloadBtn.addEventListener('click', downloadSVG);
+  resetBtn.addEventListener('click', () => {
+    workspace.classList.remove('active');
+    uploadZone.style.display = '';
+    currentImage = null;
+    currentSVG = '';
+    fileInput.value = '';
+  });
+
+  function loadImage(file) {
+    const img = new Image();
+    img.onload = () => {
+      currentImage = img;
+      aspectRatio = img.width / img.height;
+      outWidthInput.value = Math.min(img.width, 800);
+      outHeightInput.value = Math.round(Math.min(img.width, 800) / aspectRatio);
+      uploadZone.style.display = 'none';
+      workspace.classList.add('active');
+      generate();
+    };
+    img.onerror = () => alert('Could not load that image. Try another format.');
+    img.src = URL.createObjectURL(file);
   }
 
-  // Build SVG
-  currentSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${outW} ${outH}" width="${outW}" height="${outH}">
+  function generate() {
+    if (!currentImage) return;
+
+    const svgEl = previewContainer.querySelector('svg');
+    if (svgEl) svgEl.remove();
+    loadingState.style.display = 'flex';
+
+    requestAnimationFrame(() => setTimeout(doGenerate, 30));
+  }
+
+  function doGenerate() {
+    const outW = parseInt(outWidthInput.value) || 800;
+    const outH = parseInt(outHeightInput.value) || 600;
+    const cols = parseInt(densitySlider.value);
+    const dotScale = parseInt(dotSizeSlider.value) / 100;
+    const dotColor = dotColorInput.value;
+    const bgColor = bgColorInput.value;
+    const invert = invertCheck.checked;
+
+    const sampleCols = cols;
+    const sampleRows = Math.round(sampleCols / aspectRatio);
+
+    canvas.width = sampleCols;
+    canvas.height = sampleRows;
+    ctx.drawImage(currentImage, 0, 0, sampleCols, sampleRows);
+
+    const imageData = ctx.getImageData(0, 0, sampleCols, sampleRows);
+    const pixels = imageData.data;
+
+    const svgCellW = outW / sampleCols;
+    const svgCellH = outH / sampleRows;
+    const maxRadius = (Math.min(svgCellW, svgCellH) / 2) * dotScale;
+
+    let dots = [];
+    let dotCount = 0;
+
+    for (let y = 0; y < sampleRows; y++) {
+      for (let x = 0; x < sampleCols; x++) {
+        const i = (y * sampleCols + x) * 4;
+        const r = pixels[i], g = pixels[i + 1], b = pixels[i + 2], a = pixels[i + 3];
+        let brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        if (a < 128) continue;
+        if (invert) brightness = 1 - brightness;
+
+        const size = (1 - brightness) * maxRadius;
+        if (size < 0.3) continue;
+
+        const cx = (x + 0.5) * svgCellW;
+        const cy = (y + 0.5) * svgCellH;
+
+        if (currentShape === 'circle') {
+          dots.push(`<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${size.toFixed(2)}"/>`);
+        } else if (currentShape === 'square') {
+          const s = size * 1.6;
+          dots.push(`<rect x="${(cx - s/2).toFixed(2)}" y="${(cy - s/2).toFixed(2)}" width="${s.toFixed(2)}" height="${s.toFixed(2)}"/>`);
+        } else if (currentShape === 'diamond') {
+          const s = size * 1.4;
+          dots.push(`<polygon points="${cx.toFixed(2)},${(cy - s).toFixed(2)} ${(cx + s).toFixed(2)},${cy.toFixed(2)} ${cx.toFixed(2)},${(cy + s).toFixed(2)} ${(cx - s).toFixed(2)},${cy.toFixed(2)}"/>`);
+        }
+        dotCount++;
+      }
+    }
+
+    currentSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${outW} ${outH}" width="${outW}" height="${outH}">
 <rect width="${outW}" height="${outH}" fill="${bgColor}"/>
 <g fill="${dotColor}">
 ${dots.join('\n')}
 </g>
 </svg>`;
 
-  loadingState.style.display = 'none';
+    loadingState.style.display = 'none';
 
-  // Inject preview
-  const existing = previewContainer.querySelector('svg');
-  if (existing) existing.remove();
-  previewContainer.insertAdjacentHTML('beforeend', currentSVG);
+    const existing = previewContainer.querySelector('svg');
+    if (existing) existing.remove();
+    previewContainer.insertAdjacentHTML('beforeend', currentSVG);
 
-  // File size estimate
-  const sizeKB = (new Blob([currentSVG]).size / 1024).toFixed(1);
-  previewMeta.innerHTML = `
-    <span><strong>${outW}×${outH}</strong> px</span>
-    <span><strong>${dotCount.toLocaleString()}</strong> dots</span>
-    <span><strong>${sizeKB}</strong> KB</span>
-    <span><strong>${currentShape}</strong></span>
-  `;
-}
+    const sizeKB = (new Blob([currentSVG]).size / 1024).toFixed(1);
+    previewMeta.innerHTML = `
+      <span><strong>${outW}×${outH}</strong> px</span>
+      <span><strong>${dotCount.toLocaleString()}</strong> dots</span>
+      <span><strong>${sizeKB}</strong> KB</span>
+      <span><strong>${currentShape}</strong></span>
+    `;
+  }
 
-function downloadSVG() {
-  if (!currentSVG) return;
-  const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'halftone.svg';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-</script>
+  function downloadSVG() {
+    if (!currentSVG) return;
+    const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'halftone.svg';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+  </script>
 </body>
 </html>

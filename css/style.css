@@ -943,6 +943,22 @@ main {
   color: var(--text-dim);
 }
 
+.footer-legal {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+
+.footer-legal a {
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-legal a:hover {
+  color: var(--lime);
+}
+
 
 /* ====================================
    RESPONSIVE
