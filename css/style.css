@@ -22,6 +22,7 @@
   --lime:         #c9f135;   /* software  */
   --coral:        #ff5050;   /* builds    */
   --sky:          #40c4ff;   /* random    */
+  --amber:        #fbbf24;   /* goals     */
 
   /* Layout */
   --gap:          12px;
@@ -195,6 +196,11 @@ main {
   color: #0c0c0c;
   border-color: var(--sky);
 }
+.filter-btn.active[data-filter="goals"] {
+  background: var(--amber);
+  color: #0c0c0c;
+  border-color: var(--amber);
+}
 
 
 /* ====================================
@@ -309,6 +315,7 @@ main {
 .tag-software { background: var(--lime);  color: #0c0c0c; }
 .tag-builds   { background: var(--coral); color: #fff; }
 .tag-random   { background: var(--sky);   color: #0c0c0c; }
+.tag-goals    { background: var(--amber); color: #0c0c0c; }
 .tag-venture  { background: #a78bfa;      color: #fff; }
 
 /* Card text */

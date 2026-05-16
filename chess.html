@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chess — 1031F</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    .chess-page {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px 80px;
+    }
+    h1.chess-title {
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--lime);
+    }
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .board-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rank-labels {
+      display: flex;
+      flex-direction: column;
+      height: 560px;
+      justify-content: space-around;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: right;
+      width: 14px;
+    }
+    .file-labels {
+      display: flex;
+      width: 560px;
+      justify-content: space-around;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 4px 0;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(8, 70px);
+      grid-template-rows: repeat(8, 70px);
+      border: 3px solid var(--border-hover);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    }
+    .sq {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: filter 0.1s;
+    }
+    .sq:hover { filter: brightness(1.1); }
+    .sq.light { background: #f0d9b5; }
+    .sq.dark  { background: #b58863; }
+    .sq.selected { background: #f6f669 !important; }
+    .sq.in-check { background: #e74c3c !important; }
+    /* Dot indicator for valid empty squares */
+    .sq.hint-move::after {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background: rgba(0, 0, 0, 0.18);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    /* Ring indicator for capture squares */
+    .sq.hint-capture::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 5px solid rgba(0, 0, 0, 0.22);
+      border-radius: 0;
+      pointer-events: none;
+    }
+    .piece {
+      font-size: 50px;
+      line-height: 1;
+      user-select: none;
+      position: relative;
+      z-index: 1;
+    }
+    .piece.white {
+      color: #fff;
+      text-shadow: 0 1px 3px #000, 0 0 6px rgba(0,0,0,0.5);
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+    }
+    .piece.black {
+      color: #1a1a1a;
+      text-shadow: 0 1px 2px rgba(200,200,200,0.4);
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 18px;
+      min-width: 560px;
+    }
+    .panel h3 {
+      font-family: var(--font-head);
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+    }
+    .captured-row {
+      font-size: 22px;
+      min-height: 28px;
+      letter-spacing: 2px;
+    }
+    .status-bar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 24px;
+      min-width: 560px;
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--border-hover);
+      flex-shrink: 0;
+    }
+    .dot.white-dot { background: #fff; }
+    .dot.black-dot { background: #111; }
+    .check-badge {
+      background: #e74c3c;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 1px;
+    }
+    .winner-badge {
+      color: var(--lime);
+      font-size: 22px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 28px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color var(--ease), background var(--ease);
+      letter-spacing: 0.5px;
+    }
+    .btn:hover {
+      border-color: var(--lime);
+      background: var(--card-hover);
+    }
+    /* Promotion overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .promo-box {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      text-align: center;
+      border: 1px solid var(--border-hover);
+    }
+    .promo-box h2 {
+      font-family: var(--font-head);
+      margin-bottom: 18px;
+      font-size: 20px;
+      color: var(--lime);
+    }
+    .promo-pieces {
+      display: flex;
+      gap: 12px;
+    }
+    .promo-piece {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      cursor: pointer;
+      transition: border-color var(--ease), background var(--ease);
+    }
+    .promo-piece:hover {
+      border-color: var(--lime);
+      background: var(--card-hover);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header">
+    <div class="brand">
+      <img src="img/icons/1x/ben-icon-color.png" alt="Ben Mitchell" class="avatar">
+      <div class="brand-text">
+        <span class="site-title"><a href="index.html">1031F</a></span>
+        <span class="site-name">Ben Mitchell</span>
+      </div>
+    </div>
+    <nav class="header-social" aria-label="Social links">
+      <a href="https://github.com/wraith2010" aria-label="GitHub">
+        <img src="img/icons/github.png" alt="GitHub">
+      </a>
+      <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+        <img src="img/icons/youtube_484x484.png" alt="YouTube">
+      </a>
+      <a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+        <img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+      </a>
+      <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+        <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+      </a>
+      <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+        <img src="img/icons/chess-icon.png" alt="Chess.com">
+      </a>
+      <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+        <img src="img/icons/icon-website.png" alt="Double Watt Games">
+      </a>
+      <a href="https://www.thecroningroup.tech/" aria-label="The Cronin Group">
+        <img src="img/icons/icon-website.png" alt="The Cronin Group">
+      </a>
+      <a href="https://www.linkedin.com/in/benjamin-mitchell-540705334/" aria-label="LinkedIn">
+        <img src="img/icons/icon-linkedin.png" alt="LinkedIn">
+      </a>
+    </nav>
+  </header>
+
+  <!-- ==================== MAIN ==================== -->
+  <main class="chess-page">
+<div id="root"></div>
+  </main>
+<script type="text/babel">
+const { useState, useCallback } = React;
+
+// ─── Constants ────────────────────────────────────────────────────────────────
+
+const SYM = {
+  white: { K: '♔', Q: '♕', R: '♖', B: '♗', N: '♘', P: '♙' },
+  black: { K: '♚', Q: '♛', R: '♜', B: '♝', N: '♞', P: '♟' },
+};
+
+// ─── Board helpers ────────────────────────────────────────────────────────────
+
+function inB(r, c) { return r >= 0 && r < 8 && c >= 0 && c < 8; }
+
+function copyBoard(b) { return b.map(row => row.map(sq => sq ? { ...sq } : null)); }
+
+function initBoard() {
+  const b = Array(8).fill(null).map(() => Array(8).fill(null));
+  const back = ['R','N','B','Q','K','B','N','R'];
+  for (let c = 0; c < 8; c++) {
+    b[0][c] = { type: back[c], color: 'black' };
+    b[1][c] = { type: 'P',     color: 'black' };
+    b[6][c] = { type: 'P',     color: 'white' };
+    b[7][c] = { type: back[c], color: 'white' };
+  }
+  return b;
+}
+
+// ─── Attack squares (for check detection — no castling, no move legality) ────
+
+function getAttacks(board, r, c) {
+  const p = board[r][c];
+  if (!p) return [];
+  const { type, color } = p;
+  const out = [];
+
+  if (type === 'P') {
+    const d = color === 'white' ? -1 : 1;
+    for (const dc of [-1, 1])
+      if (inB(r+d, c+dc)) out.push([r+d, c+dc]);
+
+  } else if (type === 'N') {
+    for (const [dr, dc] of [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]])
+      if (inB(r+dr, c+dc)) out.push([r+dr, c+dc]);
+
+  } else if (type === 'K') {
+    for (const [dr, dc] of [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]])
+      if (inB(r+dr, c+dc)) out.push([r+dr, c+dc]);
+
+  } else {
+    const dirs =
+      type === 'B' ? [[-1,-1],[-1,1],[1,-1],[1,1]] :
+      type === 'R' ? [[-1,0],[1,0],[0,-1],[0,1]] :
+      /* Q */        [[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]];
+    for (const [dr, dc] of dirs) {
+      let nr = r+dr, nc = c+dc;
+      while (inB(nr, nc)) {
+        out.push([nr, nc]);
+        if (board[nr][nc]) break;
+        nr += dr; nc += dc;
+      }
+    }
+  }
+  return out;
+}
+
+function isAttacked(board, r, c, byColor) {
+  for (let rr = 0; rr < 8; rr++)
+    for (let cc = 0; cc < 8; cc++)
+      if (board[rr][cc]?.color === byColor)
+        if (getAttacks(board, rr, cc).some(([ar, ac]) => ar === r && ac === c))
+          return true;
+  return false;
+}
+
+function findKing(board, color) {
+  for (let r = 0; r < 8; r++)
+    for (let c = 0; c < 8; c++)
+      if (board[r][c]?.type === 'K' && board[r][c]?.color === color)
+        return [r, c];
+  return null;
+}
+
+function isInCheck(board, color) {
+  const pos = findKing(board, color);
+  if (!pos) return false;
+  return isAttacked(board, pos[0], pos[1], color === 'white' ? 'black' : 'white');
+}
+
+// ─── Pseudo-legal moves (ignoring check) ──────────────────────────────────────
+
+function pseudoMoves(board, r, c, epTarget, castRights) {
+  const p = board[r][c];
+  if (!p) return [];
+  const { type, color } = p;
+  const opp = color === 'white' ? 'black' : 'white';
+  const mv = [];
+
+  if (type === 'P') {
+    const d = color === 'white' ? -1 : 1;
+    const startRow = color === 'white' ? 6 : 1;
+    if (inB(r+d, c) && !board[r+d][c]) {
+      mv.push({ r: r+d, c, mt: 'normal' });
+      if (r === startRow && !board[r+2*d][c])
+        mv.push({ r: r+2*d, c, mt: 'dp' });  // double push
+    }
+    for (const dc of [-1, 1]) {
+      const nr = r+d, nc = c+dc;
+      if (!inB(nr, nc)) continue;
+      if (board[nr][nc]?.color === opp)
+        mv.push({ r: nr, c: nc, mt: 'normal' });
+      if (epTarget && epTarget[0] === nr && epTarget[1] === nc)
+        mv.push({ r: nr, c: nc, mt: 'ep' });
+    }
+
+  } else if (type === 'N') {
+    for (const [dr, dc] of [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]) {
+      const nr = r+dr, nc = c+dc;
+      if (inB(nr, nc) && board[nr][nc]?.color !== color)
+        mv.push({ r: nr, c: nc, mt: 'normal' });
+    }
+
+  } else if (type === 'K') {
+    for (const [dr, dc] of [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]) {
+      const nr = r+dr, nc = c+dc;
+      if (inB(nr, nc) && board[nr][nc]?.color !== color)
+        mv.push({ r: nr, c: nc, mt: 'normal' });
+    }
+    // Castling (path-attack check happens in legalMoves)
+    const br = color === 'white' ? 7 : 0;
+    if (r === br && c === 4 && castRights[color]) {
+      const cr = castRights[color];
+      if (cr.ks && !board[br][5] && !board[br][6] &&
+          board[br][7]?.type === 'R' && board[br][7]?.color === color)
+        mv.push({ r: br, c: 6, mt: 'ck' });  // castle kingside
+      if (cr.qs && !board[br][3] && !board[br][2] && !board[br][1] &&
+          board[br][0]?.type === 'R' && board[br][0]?.color === color)
+        mv.push({ r: br, c: 2, mt: 'cq' });  // castle queenside
+    }
+
+  } else {
+    const dirs =
+      type === 'B' ? [[-1,-1],[-1,1],[1,-1],[1,1]] :
+      type === 'R' ? [[-1,0],[1,0],[0,-1],[0,1]] :
+      /* Q */        [[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]];
+    for (const [dr, dc] of dirs) {
+      let nr = r+dr, nc = c+dc;
+      while (inB(nr, nc)) {
+        if (board[nr][nc]) { if (board[nr][nc].color !== color) mv.push({ r: nr, c: nc, mt: 'normal' }); break; }
+        mv.push({ r: nr, c: nc, mt: 'normal' });
+        nr += dr; nc += dc;
+      }
+    }
+  }
+  return mv;
+}
+
+// Apply move → new board (does NOT promote — caller handles that)
+function applyMove(board, fr, fc, mv) {
+  const nb = copyBoard(board);
+  const p = nb[fr][fc];
+  nb[mv.r][mv.c] = p;
+  nb[fr][fc] = null;
+  if (mv.mt === 'ep') {
+    nb[mv.r + (p.color === 'white' ? 1 : -1)][mv.c] = null;
+  }
+  if (mv.mt === 'ck') {
+    const br = p.color === 'white' ? 7 : 0;
+    nb[br][5] = nb[br][7]; nb[br][7] = null;
+  }
+  if (mv.mt === 'cq') {
+    const br = p.color === 'white' ? 7 : 0;
+    nb[br][3] = nb[br][0]; nb[br][0] = null;
+  }
+  return nb;
+}
+
+// Legal moves: pseudo-moves filtered for check, with castling path validation
+function legalMoves(board, r, c, epTarget, castRights) {
+  const p = board[r][c];
+  if (!p) return [];
+  const { color } = p;
+  const opp = color === 'white' ? 'black' : 'white';
+
+  return pseudoMoves(board, r, c, epTarget, castRights).filter(mv => {
+    if (mv.mt === 'ck') {
+      const br = color === 'white' ? 7 : 0;
+      if (isAttacked(board, br, 4, opp) ||
+          isAttacked(board, br, 5, opp) ||
+          isAttacked(board, br, 6, opp)) return false;
+    }
+    if (mv.mt === 'cq') {
+      const br = color === 'white' ? 7 : 0;
+      if (isAttacked(board, br, 4, opp) ||
+          isAttacked(board, br, 3, opp) ||
+          isAttacked(board, br, 2, opp)) return false;
+    }
+    return !isInCheck(applyMove(board, r, c, mv), color);
+  });
+}
+
+function allLegalMoves(board, color, epTarget, castRights) {
+  const out = [];
+  for (let r = 0; r < 8; r++)
+    for (let c = 0; c < 8; c++)
+      if (board[r][c]?.color === color)
+        legalMoves(board, r, c, epTarget, castRights)
+          .forEach(m => out.push({ fr: r, fc: c, ...m }));
+  return out;
+}
+
+function updatedCastRights(rights, piece, fromR, fromC) {
+  const n = { white: { ...rights.white }, black: { ...rights.black } };
+  if (piece.type === 'K') { n[piece.color] = { ks: false, qs: false }; }
+  else if (piece.type === 'R') {
+    if (piece.color === 'white') { if (fromC === 0) n.white.qs = false; if (fromC === 7) n.white.ks = false; }
+    else                          { if (fromC === 0) n.black.qs = false; if (fromC === 7) n.black.ks = false; }
+  }
+  return n;
+}
+
+function gameStatus(board, color, epTarget, castRights) {
+  const moves = allLegalMoves(board, color, epTarget, castRights);
+  if (moves.length === 0)
+    return isInCheck(board, color) ? 'checkmate' : 'stalemate';
+  return isInCheck(board, color) ? 'check' : 'playing';
+}
+
+// ─── Initial state ────────────────────────────────────────────────────────────
+
+const INIT = () => ({
+  board:      initBoard(),
+  turn:       'white',
+  sel:        null,     // [r, c] or null
+  hints:      [],       // legal moves for selected piece
+  epTarget:   null,     // [r, c]
+  castRights: { white: { ks: true, qs: true }, black: { ks: true, qs: true } },
+  status:     'playing',
+  capW:       [],       // white pieces captured (taken from white)
+  capB:       [],       // black pieces captured (taken from black)
+  promo:      null,     // { r, c, color } when awaiting promotion choice
+});
+
+// ─── App ──────────────────────────────────────────────────────────────────────
+
+function App() {
+  const [gs, setGs] = useState(INIT);
+
+  const clickSquare = useCallback((r, c) => {
+    setGs(prev => {
+      if (prev.promo) return prev;
+      if (prev.status === 'checkmate' || prev.status === 'stalemate') return prev;
+
+      const { board, turn, sel, hints, epTarget, castRights } = prev;
+      const clicked = board[r][c];
+
+      // Nothing selected → select own piece
+      if (!sel) {
+        if (!clicked || clicked.color !== turn) return prev;
+        const h = legalMoves(board, r, c, epTarget, castRights);
+        return { ...prev, sel: [r, c], hints: h };
+      }
+
+      // Click same square → deselect
+      if (sel[0] === r && sel[1] === c) return { ...prev, sel: null, hints: [] };
+
+      // Click another own piece → re-select
+      if (clicked?.color === turn) {
+        const h = legalMoves(board, r, c, epTarget, castRights);
+        return { ...prev, sel: [r, c], hints: h };
+      }
+
+      // Try to execute move
+      const mv = hints.find(m => m.r === r && m.c === c);
+      if (!mv) return { ...prev, sel: null, hints: [] };
+
+      const mover = board[sel[0]][sel[1]];
+      const nb = applyMove(board, sel[0], sel[1], mv);
+
+      // Track captures
+      let capW = [...prev.capW], capB = [...prev.capB];
+      const cap = board[r][c];
+      if (cap) { if (cap.color === 'white') capW.push(cap.type); else capB.push(cap.type); }
+      if (mv.mt === 'ep') { if (mover.color === 'white') capB.push('P'); else capW.push('P'); }
+
+      // Update castling rights
+      let cr = updatedCastRights(castRights, mover, sel[0], sel[1]);
+      if (cap?.type === 'R') {
+        if (cap.color === 'white') { if (c === 0) cr.white.qs = false; if (c === 7) cr.white.ks = false; }
+        else                        { if (c === 0) cr.black.qs = false; if (c === 7) cr.black.ks = false; }
+      }
+
+      // En passant target for next move
+      const newEp = mv.mt === 'dp'
+        ? [sel[0] + (mover.color === 'white' ? -1 : 1), sel[1]]
+        : null;
+
+      // Pawn promotion?
+      const promoRow = mover.color === 'white' ? 0 : 7;
+      if (mover.type === 'P' && r === promoRow) {
+        return { ...prev, board: nb, capW, capB, castRights: cr, epTarget: newEp, sel: null, hints: [], promo: { r, c, color: mover.color } };
+      }
+
+      const nextTurn = turn === 'white' ? 'black' : 'white';
+      const st = gameStatus(nb, nextTurn, newEp, cr);
+
+      return { ...prev, board: nb, turn: nextTurn, sel: null, hints: [], epTarget: newEp, castRights: cr, capW, capB, status: st, promo: null };
+    });
+  }, []);
+
+  const choosePromo = useCallback((type) => {
+    setGs(prev => {
+      if (!prev.promo) return prev;
+      const { r, c, color } = prev.promo;
+      const nb = copyBoard(prev.board);
+      nb[r][c] = { type, color };
+      const nextTurn = color === 'white' ? 'black' : 'white';
+      const st = gameStatus(nb, nextTurn, prev.epTarget, prev.castRights);
+      return { ...prev, board: nb, turn: nextTurn, promo: null, status: st };
+    });
+  }, []);
+
+  const newGame = useCallback(() => setGs(INIT()), []);
+
+  const { board, turn, sel, hints, status, capW, capB, promo } = gs;
+
+  const hintSet    = new Set(hints.map(m => `${m.r},${m.c}`));
+  const captureSet = new Set(hints.filter(m => board[m.r][m.c] || m.mt === 'ep').map(m => `${m.r},${m.c}`));
+
+  const checkSq = (status === 'check' || status === 'checkmate') ? findKing(board, turn) : null;
+  const opponent = turn === 'white' ? 'black' : 'white';
+
+  return (
+    <div className="game-container">
+      <h1 className="chess-title">♟ Chess</h1>
+
+      {/* Captured black pieces (taken by white) */}
+      <div className="panel">
+        <h3>White captured</h3>
+        <div className="captured-row">
+          {capB.map((t, i) => <span key={i}>{SYM.black[t]}</span>)}
+        </div>
+      </div>
+
+      {/* Status bar */}
+      <div className="status-bar">
+        {status === 'checkmate' ? (
+          <span className="winner-badge">
+            {opponent === 'white' ? '♔' : '♚'} {opponent.charAt(0).toUpperCase() + opponent.slice(1)} wins by checkmate!
+          </span>
+        ) : status === 'stalemate' ? (
+          <span style={{ color: '#aaa' }}>Stalemate — Draw</span>
+        ) : (
+          <>
+            <div className={`dot ${turn}-dot`} />
+            <span>{turn.charAt(0).toUpperCase() + turn.slice(1)}'s turn</span>
+            {status === 'check' && <span className="check-badge">CHECK</span>}
+          </>
+        )}
+      </div>
+
+      {/* Board */}
+      <div className="board-row">
+        <div className="rank-labels">
+          {[8,7,6,5,4,3,2,1].map(n => <span key={n}>{n}</span>)}
+        </div>
+        <div>
+          <div className="board">
+            {board.flatMap((row, r) =>
+              row.map((piece, c) => {
+                const isLight   = (r + c) % 2 === 0;
+                const isSel     = sel && sel[0] === r && sel[1] === c;
+                const isHint    = hintSet.has(`${r},${c}`);
+                const isCap     = captureSet.has(`${r},${c}`);
+                const isCheck   = checkSq && checkSq[0] === r && checkSq[1] === c;
+
+                let cls = `sq ${isLight ? 'light' : 'dark'}`;
+                if (isSel)         cls += ' selected';
+                else if (isCheck)  cls += ' in-check';
+                if (isHint && !isCap)  cls += ' hint-move';
+                if (isCap)             cls += ' hint-capture';
+
+                return (
+                  <div key={`${r}-${c}`} className={cls} onClick={() => clickSquare(r, c)}>
+                    {piece && (
+                      <span className={`piece ${piece.color}`}>
+                        {SYM[piece.color][piece.type]}
+                      </span>
+                    )}
+                  </div>
+                );
+              })
+            )}
+          </div>
+          <div className="file-labels">
+            {['a','b','c','d','e','f','g','h'].map(l => <span key={l}>{l}</span>)}
+          </div>
+        </div>
+      </div>
+
+      {/* Captured white pieces (taken by black) */}
+      <div className="panel">
+        <h3>Black captured</h3>
+        <div className="captured-row">
+          {capW.map((t, i) => <span key={i}>{SYM.white[t]}</span>)}
+        </div>
+      </div>
+
+      <div className="btn-row">
+        <button className="btn" onClick={newGame}>New Game</button>
+      </div>
+
+      {/* Promotion dialog */}
+      {promo && (
+        <div className="overlay">
+          <div className="promo-box">
+            <h2>Promote Pawn</h2>
+            <div className="promo-pieces">
+              {['Q','R','B','N'].map(type => (
+                <div key={type} className="promo-piece" onClick={() => choosePromo(type)}>
+                  <span className={`piece ${promo.color}`}>{SYM[promo.color][type]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

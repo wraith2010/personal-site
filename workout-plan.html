@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strength &amp; Shape Plan — 1031F</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Scope workout page styles to the content wrapper */
+    .workout-content {
+      font-family: Georgia, serif;
+      color: #F0EDE8;
+      padding-bottom: 60px;
+    }
+
+    .workout-page-header {
+      background: linear-gradient(135deg, #111116 0%, #1a1a22 100%);
+      border-bottom: 1px solid #222;
+      padding: 32px 24px 24px;
+      text-align: center;
+    }
+    .header-sub {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #666;
+      margin-bottom: 8px;
+      font-family: monospace;
+    }
+    .workout-page-header h1 {
+      font-size: clamp(26px, 5vw, 38px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+    .workout-page-header p {
+      color: #888;
+      margin-top: 10px;
+      font-size: 14px;
+      font-family: monospace;
+    }
+
+    .day-selector {
+      display: flex;
+      overflow-x: auto;
+      padding: 20px 16px;
+      gap: 8px;
+      scrollbar-width: none;
+    }
+    .day-selector::-webkit-scrollbar { display: none; }
+    .day-btn {
+      flex: 0 0 auto;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px solid #222;
+      background: #111;
+      color: #555;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .workout-main { padding: 0 16px; }
+
+    .off-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .off-card .emoji { font-size: 48px; margin-bottom: 16px; }
+    .off-card h2 { font-size: 22px; font-weight: 400; margin-bottom: 12px; }
+    .off-card p { color: #666; font-size: 14px; max-width: 300px; margin: 0 auto; line-height: 1.7; }
+    .tip-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .tip-pill {
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #555;
+      font-family: monospace;
+    }
+
+    .workout-header {
+      background: #111;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .workout-tag { font-size: 10px; letter-spacing: 3px; font-family: monospace; margin-bottom: 6px; }
+    .workout-title { font-size: 18px; font-weight: 400; }
+    .workout-meta { color: #555; font-size: 12px; font-family: monospace; margin-top: 4px; }
+    .workout-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+
+    .exercise-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .exercise-header {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .exercise-left { display: flex; align-items: center; gap: 14px; }
+    .exercise-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: monospace; font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .exercise-name { font-size: 15px; font-weight: 400; }
+    .exercise-meta { color: #555; font-size: 12px; font-family: monospace; margin-top: 2px; }
+    .exercise-arrow { color: #444; font-size: 18px; transition: transform 0.2s, color 0.2s; display: inline-block; }
+    .exercise-body { padding: 0 16px 16px; display: none; }
+    .exercise-body.open { display: block; }
+    .form-tip-box { background: #0C0C0F; border-radius: 10px; padding: 14px; margin-top: 12px; }
+    .form-tip-label { font-size: 11px; letter-spacing: 2px; font-family: monospace; margin-bottom: 8px; }
+    .form-tip-text { margin: 0; font-size: 14px; color: #bbb; line-height: 1.7; }
+    .muscles-label { margin-top: 10px; font-size: 12px; color: #555; font-family: monospace; }
+
+    .timing-note {
+      margin-top: 16px; padding: 14px 16px;
+      background: #0e0e12; border: 1px solid #1a1a1a;
+      border-radius: 12px; font-size: 13px; color: #555; line-height: 1.7; font-family: monospace;
+    }
+
+    .weekly-section { padding: 24px 16px 0; }
+    .section-label { font-size: 11px; letter-spacing: 3px; color: #444; font-family: monospace; margin-bottom: 14px; }
+    .weekly-table { background: #111; border: 1px solid #1e1e1e; border-radius: 14px; overflow: hidden; }
+    .weekly-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; border-bottom: 1px solid #161616;
+    }
+    .weekly-row:last-child { border-bottom: none; }
+    .weekly-row.active-row { background: #161616; }
+    .weekly-left { display: flex; align-items: center; gap: 12px; }
+    .weekly-day { font-family: monospace; font-size: 12px; color: #444; width: 28px; }
+    .weekly-label { font-size: 13px; }
+    .weekly-right { display: flex; gap: 6px; align-items: center; }
+    .today-badge { font-size: 9px; letter-spacing: 1.5px; color: #888; font-family: monospace; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    .goal-section { padding: 20px 16px 0; }
+    .goal-card { background: #0D1117; border: 1px solid #1e2a1e; border-radius: 14px; padding: 18px; }
+    .goal-label { font-size: 11px; letter-spacing: 3px; color: #4ade80; font-family: monospace; margin-bottom: 10px; }
+    .goal-text { font-size: 14px; color: #888; line-height: 1.8; }
+    .goal-text strong { color: #ccc; font-weight: 400; }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== SITE HEADER ==================== -->
+  <header class="site-header">
+    <div class="brand">
+      <img src="img/icons/1x/ben-icon-color.png" alt="Ben Mitchell" class="avatar">
+      <div class="brand-text">
+        <span class="site-title"><a href="index.html">1031F</a></span>
+        <span class="site-name">Ben Mitchell</span>
+      </div>
+    </div>
+    <nav class="header-social" aria-label="Social links">
+      <a href="https://github.com/wraith2010" aria-label="GitHub">
+        <img src="img/icons/github.png" alt="GitHub">
+      </a>
+      <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+        <img src="img/icons/youtube_484x484.png" alt="YouTube">
+      </a>
+      <a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+        <img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+      </a>
+      <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+        <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+      </a>
+      <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+        <img src="img/icons/chess-icon.png" alt="Chess.com">
+      </a>
+      <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+        <img src="img/icons/icon-website.png" alt="Double Watt Games">
+      </a>
+      <a href="https://www.thecroningroup.tech/" aria-label="The Cronin Group">
+        <img src="img/icons/icon-website.png" alt="The Cronin Group">
+      </a>
+      <a href="https://www.linkedin.com/in/benjamin-mitchell-540705334/" aria-label="LinkedIn">
+        <img src="img/icons/icon-linkedin.png" alt="LinkedIn">
+      </a>
+    </nav>
+  </header>
+
+  <main class="workout-content">
+
+    <div class="workout-page-header">
+      <div class="header-sub">DAILY TONING PROTOCOL</div>
+      <h1>Strength &amp; Shape Plan</h1>
+      <p>15–20 min &middot; Arms &middot; Chest &middot; Core &middot; Home Lifting</p>
+    </div>
+
+    <div class="day-selector" id="day-selector"></div>
+    <div class="workout-main" id="main-content"></div>
+
+    <div class="weekly-section">
+      <div class="section-label">WEEKLY OVERVIEW</div>
+      <div class="weekly-table" id="weekly-table"></div>
+    </div>
+
+    <div class="goal-section">
+      <div class="goal-card">
+        <div class="goal-label">YOUR GOAL</div>
+        <p class="goal-text">
+          Building muscle under loose skin requires progressive overload — gradually increase weight or reps each week.
+          Aim to add <strong>1–2 reps or slightly heavier weight</strong> every 1–2 weeks.
+          Consistency over intensity wins this battle.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== SITE FOOTER ==================== -->
+  <footer class="site-footer">
+    <nav class="social-links" aria-label="Social links">
+      <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+        <img src="img/icons/youtube_484x484.png" alt="YouTube">
+      </a>
+      <a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+        <img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+      </a>
+      <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+        <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+      </a>
+      <a href="https://github.com/wraith2010" aria-label="GitHub">
+        <img src="img/icons/github.png" alt="GitHub">
+      </a>
+      <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+        <img src="img/icons/chess-icon.png" alt="Chess.com">
+      </a>
+      <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+        <img src="img/icons/icon-website.png" alt="Double Watt Games">
+      </a>
+    </nav>
+    <p class="footer-copy">© 2026 Ben Mitchell</p>
+    <p class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    const workouts = {
+      A: {
+        label: "Chest & Triceps + Core",
+        tag: "PUSH DAY",
+        color: "#F97316",
+        icon: "💪",
+        exercises: [
+          { name: "Push-Ups", sets: 3, reps: "10–15", equipment: "Bodyweight", tip: "Keep core tight and elbows at 45°. Elevate hands on a bench for an easier variation.", muscles: "Chest, triceps, front delts" },
+          { name: "Dumbbell Chest Press", sets: 3, reps: "10–12", equipment: "Dumbbells", tip: "Lie on the floor if no bench. Press up and in, squeezing chest at the top.", muscles: "Chest, triceps, front delts" },
+          { name: "Tricep Overhead Extension", sets: 3, reps: "12", equipment: "Dumbbell or Kettlebell", tip: "Hold one weight with both hands overhead. Lower behind your head slowly, keep elbows close.", muscles: "Triceps (long head)" },
+          { name: "Plank Hold", sets: 3, reps: "30–45 sec", equipment: "Bodyweight", tip: "Brace abs like you're about to be punched. Don't let hips sag or rise.", muscles: "Deep core, transverse abdominis" },
+          { name: "Dead Bug", sets: 3, reps: "8 each side", equipment: "Bodyweight", tip: "Press your lower back into the floor throughout. Move opposite arm and leg slowly.", muscles: "Core stability, anti-rotation" },
+        ]
+      },
+      B: {
+        label: "Biceps & Shoulders + Core",
+        tag: "PULL DAY",
+        color: "#06B6D4",
+        icon: "🎯",
+        exercises: [
+          { name: "Dumbbell Bicep Curl", sets: 3, reps: "12", equipment: "Dumbbells", tip: "Fully extend at the bottom and squeeze hard at the top. Don't swing — slow and controlled.", muscles: "Biceps, brachialis" },
+          { name: "Hammer Curl", sets: 3, reps: "12", equipment: "Dumbbells", tip: "Neutral grip (thumbs up). Targets the outer bicep and forearms for defined arms.", muscles: "Biceps, brachioradialis" },
+          { name: "KB / DB Overhead Press", sets: 3, reps: "10", equipment: "Kettlebell or Dumbbell", tip: "Stand or sit. Press straight up, locking out at the top. Keep ribs down — don't arch.", muscles: "Shoulders, triceps, upper chest" },
+          { name: "Russian Twist", sets: 3, reps: "20 total", equipment: "Bodyweight or light weight", tip: "Lean back 45° and rotate side to side. Hold a dumbbell to increase difficulty.", muscles: "Obliques, rotational core" },
+          { name: "Leg Raises", sets: 3, reps: "12", equipment: "Bodyweight", tip: "Lie flat, hands under hips. Raise legs to 90° slowly. Lower without touching the floor.", muscles: "Lower abs, hip flexors" },
+        ]
+      }
+    };
+
+    // Mon–Sun mapped to index 0–6
+    const schedule = [
+      { day: "Mon", workout: "A",      label: "Chest & Triceps + Core" },
+      { day: "Tue", workout: "CARDIO", label: "Cardio — Gym Day" },
+      { day: "Wed", workout: "B",      label: "Biceps & Shoulders + Core" },
+      { day: "Thu", workout: "A",      label: "Chest & Triceps + Core" },
+      { day: "Fri", workout: "CARDIO", label: "Cardio — Gym Day" },
+      { day: "Sat", workout: "B",      label: "Biceps & Shoulders + Core" },
+      { day: "Sun", workout: "REST",   label: "Rest & Recovery" },
+    ];
+
+    const colorMap = { A: '#F97316', B: '#06B6D4', CARDIO: '#a855f7', REST: '#444' };
+
+    const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // JS getDay(): Sun=0, so Mon=1...
+    const todayIndex = new Date().getDay();
+    const todayScheduleIndex = dayOrder.indexOf(todayIndex);
+
+    let activeDay = todayScheduleIndex >= 0 ? todayScheduleIndex : 0;
+    let expandedExercise = null;
+
+    function hex(color, opacity) {
+      return color + Math.round(opacity * 255).toString(16).padStart(2, '0');
+    }
+
+    function renderDaySelector() {
+      const container = document.getElementById('day-selector');
+      container.innerHTML = '';
+      schedule.forEach((s, i) => {
+        const isActive = i === activeDay;
+        const color = colorMap[s.workout];
+        const btn = document.createElement('button');
+        btn.className = 'day-btn';
+        btn.textContent = s.day;
+        btn.style.border = isActive ? `2px solid ${color}` : '2px solid #222';
+        btn.style.background = isActive ? hex(color, 0.094) : '#111';
+        btn.style.color = isActive ? color : '#555';
+        btn.addEventListener('click', () => { activeDay = i; expandedExercise = null; render(); });
+        container.appendChild(btn);
+      });
+    }
+
+    function renderMain() {
+      const container = document.getElementById('main-content');
+      const current = schedule[activeDay];
+
+      if (current.workout === 'REST') {
+        container.innerHTML = `
+          <div class="off-card">
+            <div class="emoji">🌿</div>
+            <h2>Rest &amp; Recovery</h2>
+            <p>Muscle is built during recovery, not during training. Light walking, stretching, or yoga are perfect today.</p>
+          </div>`;
+        return;
+      }
+
+      if (current.workout === 'CARDIO') {
+        container.innerHTML = `
+          <div class="off-card" style="border-color:#2a1f3d">
+            <div class="emoji">🏃</div>
+            <h2 style="color:#c084fc">Cardio Day</h2>
+            <p>Gym day — focus on your cardio session. No home lifting today; let your muscles recover and grow.</p>
+            <div class="tip-row">
+              <span class="tip-pill" style="border-color:#3b1f5e;color:#a855f7">Treadmill</span>
+              <span class="tip-pill" style="border-color:#3b1f5e;color:#a855f7">Elliptical</span>
+              <span class="tip-pill" style="border-color:#3b1f5e;color:#a855f7">Rowing</span>
+              <span class="tip-pill" style="border-color:#3b1f5e;color:#a855f7">Cycling</span>
+            </div>
+          </div>`;
+        return;
+      }
+
+      const w = workouts[current.workout];
+      let html = `
+        <div class="workout-header" style="border:1px solid ${hex(w.color, 0.2)}">
+          <div>
+            <div class="workout-tag" style="color:${w.color}">${w.tag}</div>
+            <div class="workout-title">${w.label}</div>
+            <div class="workout-meta">${w.exercises.length} exercises &middot; 3 sets each</div>
+          </div>
+          <div class="workout-icon" style="background:${hex(w.color, 0.133)};border:2px solid ${hex(w.color, 0.267)}">${w.icon}</div>
+        </div>`;
+
+      w.exercises.forEach((ex, i) => {
+        const isOpen = expandedExercise === i;
+        html += `
+          <div class="exercise-card" style="border-color:${isOpen ? hex(w.color, 0.333) : '#1e1e1e'}" onclick="toggleExercise(${i})">
+            <div class="exercise-header">
+              <div class="exercise-left">
+                <div class="exercise-num" style="background:${hex(w.color, 0.133)};color:${w.color}">${String(i+1).padStart(2,'0')}</div>
+                <div>
+                  <div class="exercise-name">${ex.name}</div>
+                  <div class="exercise-meta">${ex.sets} &times; ${ex.reps} &middot; ${ex.equipment}</div>
+                </div>
+              </div>
+              <span class="exercise-arrow" style="color:${isOpen ? w.color : '#444'};transform:rotate(${isOpen?180:0}deg)">↓</span>
+            </div>
+            <div class="exercise-body ${isOpen?'open':''}" style="border-top:1px solid ${hex(w.color,0.133)}">
+              <div class="form-tip-box">
+                <div class="form-tip-label" style="color:${w.color}">FORM TIP</div>
+                <p class="form-tip-text">${ex.tip}</p>
+              </div>
+              <div class="muscles-label">🎯 ${ex.muscles}</div>
+            </div>
+          </div>`;
+      });
+
+      html += `<div class="timing-note">⏱ Rest 45–60 sec between sets. Complete all 3 sets of each exercise before moving on. Total time: ~15–18 minutes.</div>`;
+      container.innerHTML = html;
+    }
+
+    function renderWeekly() {
+      const table = document.getElementById('weekly-table');
+      let html = '';
+      schedule.forEach((s, i) => {
+        const color = colorMap[s.workout];
+        const isToday = i === todayScheduleIndex;
+        const isActive = i === activeDay;
+        html += `
+          <div class="weekly-row ${isActive ? 'active-row' : ''}">
+            <div class="weekly-left">
+              <span class="weekly-day">${s.day}</span>
+              <span class="weekly-label" style="color:${s.workout === 'REST' ? '#444' : '#aaa'}">${s.label}</span>
+            </div>
+            <div class="weekly-right">
+              ${isToday ? '<span class="today-badge">TODAY</span>' : ''}
+              <div class="dot" style="background:${color}"></div>
+            </div>
+          </div>`;
+      });
+      table.innerHTML = html;
+    }
+
+    function toggleExercise(i) {
+      expandedExercise = expandedExercise === i ? null : i;
+      renderMain();
+    }
+
+    function render() {
+      renderDaySelector();
+      renderMain();
+      renderWeekly();
+    }
+
+    render();
+  </script>
+</body>
+</html>

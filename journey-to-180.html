@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Journey to 180 — 1031F</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  /* Scope all journey design tokens to the content container */
+  .journey-container {
+    --bg: #0E1217;
+    --surface: #161C24;
+    --surface-2: #1D242D;
+    --border: #2A323D;
+    --border-strong: #3A4452;
+    --text: #F0EBE0;
+    --text-muted: #8B9099;
+    --text-dim: #5C6269;
+    --accent: #E08544;
+    --accent-soft: rgba(224,133,68,0.12);
+    --good: #6FA690;
+    --warn: #C7945A;
+    --bad: #C66B5E;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at top, rgba(224,133,68,0.06), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(111,166,144,0.04), transparent 50%);
+  }
+
+  /* Journey page header (not the site nav header) */
+  .journey-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .title-block h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+  }
+
+  .title-block h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .title-block .subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-top: 0.75rem;
+  }
+
+  .meta-line {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* Hero stats */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: 1.75rem 1.5rem;
+    position: relative;
+  }
+
+  .stat.primary {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+  }
+
+  .stat .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.85rem;
+  }
+
+  .stat .value {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.25rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+
+  .stat .unit {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-left: 0.3rem;
+    font-weight: 400;
+  }
+
+  .stat .meta {
+    margin-top: 0.85rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .stat.primary .value {
+    color: var(--accent);
+  }
+
+  /* Section heads */
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.1rem;
+    gap: 1rem;
+  }
+
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.5rem;
+    letter-spacing: -0.015em;
+  }
+
+  .section-head .marker {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  /* Progress bar */
+  .progress-section {
+    margin-bottom: 3rem;
+  }
+
+  .progress-bar-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .progress-bar {
+    position: relative;
+    height: 8px;
+    background: var(--bg);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  .progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, var(--accent-dim, #8a5430), var(--accent));
+    transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .progress-current {
+    position: absolute;
+    top: -6px;
+    width: 3px;
+    height: 20px;
+    background: var(--text);
+    transform: translateX(-50%);
+    transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .progress-labels .center {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Charts */
+  .panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+
+  .panel h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.15rem;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .panel .panel-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+  }
+
+  /* Milestones */
+  .milestones {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .milestone {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.1rem 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .milestone.achieved {
+    border-color: var(--good);
+    background: linear-gradient(135deg, var(--surface) 0%, rgba(111,166,144,0.06) 100%);
+  }
+
+  .milestone .ms-check {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.85rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .milestone.achieved .ms-check {
+    background: var(--good);
+    color: var(--bg);
+    border-color: var(--good);
+  }
+
+  .milestone .ms-stage {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.6rem;
+  }
+
+  .milestone .ms-weight {
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .milestone .ms-weight .ms-unit {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: 0.2rem;
+  }
+
+  .milestone .ms-detail {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+  }
+
+  /* Update form */
+  .update-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) auto;
+    gap: 1rem;
+    align-items: end;
+  }
+
+  .form-field label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.55rem;
+  }
+
+  .form-field input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.65rem 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .form-field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--surface-2);
+  }
+
+  button.cta {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 42px;
+  }
+
+  button.cta:hover {
+    background: var(--text);
+  }
+
+  button.cta:active {
+    transform: scale(0.98);
+  }
+
+  /* Content footer (math/methodology notes) */
+  .journey-container footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .journey-container footer p { margin-bottom: 0.85rem; }
+
+  .journey-container footer strong {
+    color: var(--text);
+    font-weight: 500;
+    font-family: var(--font-display);
+    font-style: italic;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--surface-2);
+    border: 1px solid var(--good);
+    color: var(--good);
+    padding: 0.8rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile */
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr 1fr; }
+    .panel-grid { grid-template-columns: 1fr; }
+    .milestones { grid-template-columns: 1fr 1fr; }
+    .form-grid { grid-template-columns: 1fr 1fr; }
+    .form-grid button.cta { grid-column: 1 / -1; }
+    .meta-line { text-align: left; }
+  }
+
+  @media (max-width: 480px) {
+    .journey-container { padding: 1.5rem 1rem 3rem; }
+    .hero { grid-template-columns: 1fr; }
+    .milestones { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ==================== SITE HEADER ==================== -->
+  <header class="site-header">
+    <div class="brand">
+      <img src="img/icons/1x/ben-icon-color.png" alt="Ben Mitchell" class="avatar">
+      <div class="brand-text">
+        <span class="site-title"><a href="index.html">1031F</a></span>
+        <span class="site-name">Ben Mitchell</span>
+      </div>
+    </div>
+    <nav class="header-social" aria-label="Social links">
+      <a href="https://github.com/wraith2010" aria-label="GitHub">
+        <img src="img/icons/github.png" alt="GitHub">
+      </a>
+      <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+        <img src="img/icons/youtube_484x484.png" alt="YouTube">
+      </a>
+      <a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+        <img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+      </a>
+      <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+        <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+      </a>
+      <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+        <img src="img/icons/chess-icon.png" alt="Chess.com">
+      </a>
+      <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+        <img src="img/icons/icon-website.png" alt="Double Watt Games">
+      </a>
+      <a href="https://www.thecroningroup.tech/" aria-label="The Cronin Group">
+        <img src="img/icons/icon-website.png" alt="The Cronin Group">
+      </a>
+      <a href="https://www.linkedin.com/in/benjamin-mitchell-540705334/" aria-label="LinkedIn">
+        <img src="img/icons/icon-linkedin.png" alt="LinkedIn">
+      </a>
+    </nav>
+  </header>
+
+<div class="journey-container">
+
+  <div class="journey-header">
+    <div class="title-block">
+      <h1>The journey<br/>to <em>one-eighty</em>.</h1>
+      <div class="subtitle">Personal weight &amp; body composition dashboard</div>
+    </div>
+    <div class="meta-line">
+      Height · 6'0" (72 in)<br/>
+      Started · 400 lb<br/>
+      Generated · <span id="genDate">—</span>
+    </div>
+  </div>
+
+  <!-- Hero stats -->
+  <div class="hero">
+    <div class="stat primary">
+      <div class="label">Current weight</div>
+      <div class="value"><span id="hero-weight">313</span><span class="unit">lb</span></div>
+      <div class="meta">−<span id="hero-lost">87</span> lb since start</div>
+    </div>
+    <div class="stat">
+      <div class="label">BMI</div>
+      <div class="value" id="hero-bmi">42.4</div>
+      <div class="meta" id="hero-bmi-cat">Class III obesity</div>
+    </div>
+    <div class="stat">
+      <div class="label">Body fat</div>
+      <div class="value"><span id="hero-bf">39.7</span><span class="unit">%</span></div>
+      <div class="meta">U.S. Navy method</div>
+    </div>
+    <div class="stat">
+      <div class="label">Progress</div>
+      <div class="value"><span id="hero-pct">40</span><span class="unit">%</span></div>
+      <div class="meta">to <span id="hero-target">180</span> lb target</div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-section">
+    <div class="section-head">
+      <h2>Overall progress</h2>
+      <span class="marker"><span id="prog-start">400</span> → <span id="prog-target">180</span> LB</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-labels">
+        <span>Start</span>
+        <span class="center">Today · <span id="prog-current">313</span> lb</span>
+        <span>Goal</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 39.5%"></div>
+        <div class="progress-current" id="progressMarker" style="left: 39.5%"></div>
+      </div>
+      <div class="progress-labels">
+        <span><span id="prog-start-2">400</span> lb</span>
+        <span style="color:var(--accent)"><span id="prog-pct">39.5</span>% complete</span>
+        <span><span id="prog-target-2">180</span> lb</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="panel-grid">
+    <div class="panel">
+      <h3>Body composition by weight</h3>
+      <p class="panel-desc">BMI and projected body fat % across the full journey from 400 to goal.</p>
+      <div class="chart-container">
+        <canvas id="journeyChart" role="img" aria-label="BMI and body fat percentage versus weight from start to goal"></canvas>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Timeline projection</h3>
+      <p class="panel-desc">Weeks and months from today at sustainable loss rates of 1.5 and 2 lb per week.</p>
+      <div class="chart-container">
+        <canvas id="timelineChart" role="img" aria-label="Weight loss timeline projection by month"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Milestones -->
+  <div class="section-head">
+    <h2>Milestones</h2>
+    <span class="marker">BMI THRESHOLDS · 6'0"</span>
+  </div>
+  <div class="milestones" id="milestones"></div>
+
+  <!-- Update form -->
+  <div class="section-head">
+    <h2>Update measurements</h2>
+    <span class="marker">RECALCULATES EVERYTHING</span>
+  </div>
+  <div class="update-form">
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="in-weight">Weight (lb)</label>
+        <input type="number" id="in-weight" value="313" step="0.1" min="100" max="500">
+      </div>
+      <div class="form-field">
+        <label for="in-waist">Waist (in)</label>
+        <input type="number" id="in-waist" value="53.75" step="0.25" min="20" max="80">
+      </div>
+      <div class="form-field">
+        <label for="in-neck">Neck (in)</label>
+        <input type="number" id="in-neck" value="18.5" step="0.25" min="10" max="30">
+      </div>
+      <div class="form-field">
+        <label for="in-target">Target (lb)</label>
+        <input type="number" id="in-target" value="180" step="1" min="100" max="300">
+      </div>
+      <button class="cta" onclick="applyUpdate()">Update</button>
+    </div>
+  </div>
+
+  <footer>
+    <p><strong>On the math.</strong> BMI is exact: (weight × 703) ÷ height². Body fat % uses the U.S. Navy formula: 86.010 × log₁₀(waist − neck) − 70.041 × log₁₀(height) + 36.76. Body fat values for weights other than the one you measure assume waist and neck shrink proportionally to weight lost (about 1 inch off the waist per 10 lb, 0.2 inch off the neck) — a useful approximation, but the real curve depends on the fat-to-muscle ratio of weight you lose.</p>
+    <p><strong>On the timeline.</strong> Projections assume steady loss at 1.5 or 2 lb per week. Reality is rarely linear — expect a faster first month (water weight), slower middle phases, occasional plateaus, and diminishing returns near goal as your maintenance calories drop. Resistance training plus 0.7–1 g of protein per pound of body weight protects lean mass through the deficit. This page persists your last entered values locally; nothing leaves your device.</p>
+  </footer>
+
+  <div class="toast" id="toast">Updated</div>
+
+</div>
+
+<!-- ==================== SITE FOOTER ==================== -->
+<footer class="site-footer">
+  <nav class="social-links" aria-label="Social links">
+    <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
+      <img src="img/icons/youtube_484x484.png" alt="YouTube">
+    </a>
+    <a href="https://boardgamegeek.com/user/bugsy2010" aria-label="Board Game Geek">
+      <img src="img/icons/icon-board-game-geek.png" alt="Board Game Geek">
+    </a>
+    <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
+      <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
+    </a>
+    <a href="https://github.com/wraith2010" aria-label="GitHub">
+      <img src="img/icons/github.png" alt="GitHub">
+    </a>
+    <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
+      <img src="img/icons/chess-icon.png" alt="Chess.com">
+    </a>
+    <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
+      <img src="img/icons/icon-website.png" alt="Double Watt Games">
+    </a>
+  </nav>
+  <p class="footer-copy">© 2026 Ben Mitchell</p>
+  <p class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a></p>
+</footer>
+
+<script>
+  const HEIGHT_IN = 72;
+  const START_WEIGHT = 400;
+  const STORAGE_KEY = 'journey-to-180-state';
+
+  // Initial state — falls back to defaults if no saved data
+  let state = {
+    weight: 313,
+    waist: 53.75,
+    neck: 18.5,
+    target: 180
+  };
+
+  // Try to load persisted state
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+  } catch (e) { /* ignore */ }
+
+  let journeyChart = null;
+  let timelineChart = null;
+
+  // ---------- Calculations ----------
+  const calcBMI = (w) => (w * 703) / (HEIGHT_IN * HEIGHT_IN);
+
+  const calcBF = (waist, neck) =>
+    86.010 * Math.log10(waist - neck) - 70.041 * Math.log10(HEIGHT_IN) + 36.76;
+
+  function bmiCategory(bmi) {
+    if (bmi < 18.5) return 'Underweight';
+    if (bmi < 25)   return 'Healthy range';
+    if (bmi < 30)   return 'Overweight';
+    if (bmi < 35)   return 'Class I obesity';
+    if (bmi < 40)   return 'Class II obesity';
+    return 'Class III obesity';
+  }
+
+  // Project waist/neck for any weight, anchored to current measurements
+  function projectMeasurements(targetWeight) {
+    const delta = state.weight - targetWeight;
+    return {
+      waist: Math.max(28, state.waist - (delta / 10) * 1.0),
+      neck:  Math.max(13, state.neck  - (delta / 10) * 0.2)
+    };
+  }
+
+  const projectBF = (w) => {
+    const m = projectMeasurements(w);
+    return calcBF(m.waist, m.neck);
+  };
+
+  // ---------- Hero & progress ----------
+  function updateHero() {
+    const bmi = calcBMI(state.weight);
+    const bf = calcBF(state.waist, state.neck);
+    const lost = START_WEIGHT - state.weight;
+    const totalToLose = START_WEIGHT - state.target;
+    const pct = Math.min(100, Math.max(0, (lost / totalToLose) * 100));
+
+    document.getElementById('hero-weight').textContent = fmt(state.weight);
+    document.getElementById('hero-lost').textContent   = fmt(lost);
+    document.getElementById('hero-bmi').textContent    = bmi.toFixed(1);
+    document.getElementById('hero-bmi-cat').textContent = bmiCategory(bmi);
+    document.getElementById('hero-bf').textContent     = bf.toFixed(1);
+    document.getElementById('hero-pct').textContent    = pct.toFixed(0);
+    document.getElementById('hero-target').textContent = fmt(state.target);
+
+    document.getElementById('prog-start').textContent    = fmt(START_WEIGHT);
+    document.getElementById('prog-start-2').textContent  = fmt(START_WEIGHT);
+    document.getElementById('prog-target').textContent   = fmt(state.target);
+    document.getElementById('prog-target-2').textContent = fmt(state.target);
+    document.getElementById('prog-current').textContent  = fmt(state.weight);
+    document.getElementById('prog-pct').textContent      = pct.toFixed(1);
+
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressMarker').style.left = pct + '%';
+  }
+
+  function fmt(n) {
+    return Number.isInteger(n) ? n.toString() : n.toFixed(1).replace(/\.0$/, '');
+  }
+
+  // ---------- Milestones ----------
+  function renderMilestones() {
+    const stages = [
+      { stage: 'Exit Obese III', weight: 295, detail: 'BMI < 40' },
+      { stage: 'Exit Obese II',  weight: 258, detail: 'BMI < 35' },
+      { stage: 'Exit Obese I',   weight: 221, detail: 'BMI < 30' },
+      { stage: 'Exit Overweight',weight: 184, detail: 'BMI < 25' },
+      { stage: 'At target',      weight: state.target, detail: 'Goal weight' }
+    ];
+
+    const container = document.getElementById('milestones');
+    container.innerHTML = stages.map(s => {
+      const achieved = state.weight <= s.weight;
+      return `
+        <div class="milestone ${achieved ? 'achieved' : ''}">
+          <span class="ms-check">${achieved ? '✓' : ''}</span>
+          <div class="ms-stage">${s.stage}</div>
+          <div class="ms-weight">${s.weight}<span class="ms-unit">lb</span></div>
+          <div class="ms-detail">${s.detail}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ---------- Charts ----------
+  function buildJourneyData() {
+    // Sample weights across the journey
+    const points = [];
+    const startW = Math.max(state.weight, START_WEIGHT);
+    const step = (startW - state.target) / 8;
+    for (let i = 0; i <= 8; i++) {
+      const w = startW - step * i;
+      points.push({
+        weight: w,
+        bmi: calcBMI(w),
+        bf: projectBF(w)
+      });
+    }
+    return points;
+  }
+
+  function findCurrentIndex(points) {
+    let minDiff = Infinity, idx = 0;
+    points.forEach((p, i) => {
+      const d = Math.abs(p.weight - state.weight);
+      if (d < minDiff) { minDiff = d; idx = i; }
+    });
+    return idx;
+  }
+
+  function renderJourneyChart() {
+    const ctx = document.getElementById('journeyChart');
+    const data = buildJourneyData();
+    const currentIdx = findCurrentIndex(data);
+
+    const config = {
+      type: 'line',
+      data: {
+        labels: data.map(d => Math.round(d.weight) + ' lb'),
+        datasets: [
+          {
+            label: 'BMI',
+            data: data.map(d => Number(d.bmi.toFixed(1))),
+            borderColor: '#E08544',
+            backgroundColor: 'transparent',
+            pointBackgroundColor: data.map((_, i) => i === currentIdx ? '#F0EBE0' : '#E08544'),
+            pointBorderColor: data.map((_, i) => i === currentIdx ? '#F0EBE0' : '#E08544'),
+            pointRadius: data.map((_, i) => i === currentIdx ? 7 : 3),
+            pointHoverRadius: data.map((_, i) => i === currentIdx ? 9 : 5),
+            borderWidth: 2,
+            tension: 0.25,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Body fat %',
+            data: data.map(d => Number(d.bf.toFixed(1))),
+            borderColor: '#6FA690',
+            backgroundColor: 'transparent',
+            pointBackgroundColor: data.map((_, i) => i === currentIdx ? '#F0EBE0' : '#6FA690'),
+            pointBorderColor: data.map((_, i) => i === currentIdx ? '#F0EBE0' : '#6FA690'),
+            pointRadius: data.map((_, i) => i === currentIdx ? 7 : 3),
+            pointHoverRadius: data.map((_, i) => i === currentIdx ? 9 : 5),
+            borderWidth: 2,
+            borderDash: [6, 4],
+            tension: 0.25,
+            yAxisID: 'y1'
+          }
+        ]
+      },
+      options: chartOptions({
+        leftTitle: 'BMI', leftColor: '#E08544',
+        rightTitle: 'Body fat %', rightColor: '#6FA690',
+        xTitle: 'Weight'
+      })
+    };
+
+    if (journeyChart) {
+      journeyChart.data = config.data;
+      journeyChart.update('none');
+    } else {
+      journeyChart = new Chart(ctx, config);
+    }
+  }
+
+  function renderTimelineChart() {
+    const ctx = document.getElementById('timelineChart');
+    const remaining = state.weight - state.target;
+    if (remaining <= 0) {
+      // Goal already reached
+      if (timelineChart) { timelineChart.destroy(); timelineChart = null; }
+      ctx.getContext('2d').clearRect(0, 0, ctx.width, ctx.height);
+      const parent = ctx.parentElement;
+      parent.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--good);font-family:var(--font-display);font-size:1.4rem;font-style:italic;">Goal reached.</div>`;
+      return;
+    }
+
+    const monthsToGoal2 = Math.ceil(remaining / 2 / 4.33);
+    const monthsToGoal15 = Math.ceil(remaining / 1.5 / 4.33);
+    const maxMonths = Math.max(monthsToGoal2, monthsToGoal15, 6);
+    const points = [];
+    for (let m = 0; m <= maxMonths; m += Math.max(1, Math.round(maxMonths / 8))) {
+      points.push(m);
+    }
+    if (points[points.length - 1] !== maxMonths) points.push(maxMonths);
+
+    const fast = points.map(m => Math.max(state.target, state.weight - (m * 4.33 * 2)));
+    const steady = points.map(m => Math.max(state.target, state.weight - (m * 4.33 * 1.5)));
+
+    const config = {
+      type: 'line',
+      data: {
+        labels: points.map(m => m + ' mo'),
+        datasets: [
+          {
+            label: '2 lb/wk',
+            data: fast,
+            borderColor: '#E08544',
+            backgroundColor: 'transparent',
+            pointBackgroundColor: points.map((_, i) => i === 0 ? '#F0EBE0' : '#E08544'),
+            pointBorderColor: points.map((_, i) => i === 0 ? '#F0EBE0' : '#E08544'),
+            pointRadius: points.map((_, i) => i === 0 ? 7 : 3),
+            pointHoverRadius: 5,
+            borderWidth: 2,
+            tension: 0.2
+          },
+          {
+            label: '1.5 lb/wk',
+            data: steady,
+            borderColor: '#6FA690',
+            backgroundColor: 'transparent',
+            pointBackgroundColor: points.map((_, i) => i === 0 ? '#F0EBE0' : '#6FA690'),
+            pointBorderColor: points.map((_, i) => i === 0 ? '#F0EBE0' : '#6FA690'),
+            pointRadius: points.map((_, i) => i === 0 ? 7 : 3),
+            pointHoverRadius: 5,
+            borderWidth: 2,
+            borderDash: [6, 4],
+            tension: 0.2
+          }
+        ]
+      },
+      options: chartOptions({
+        leftTitle: 'Weight (lb)', leftColor: '#8B9099',
+        rightTitle: null,
+        xTitle: 'Months from today',
+        yMin: state.target - 10,
+        yMax: state.weight + 5
+      })
+    };
+
+    if (timelineChart) {
+      timelineChart.data = config.data;
+      timelineChart.options = config.options;
+      timelineChart.update('none');
+    } else {
+      timelineChart = new Chart(ctx, config);
+    }
+  }
+
+  function chartOptions({ leftTitle, leftColor, rightTitle, rightColor, xTitle, yMin, yMax }) {
+    const tickColor = '#5C6269';
+    const gridColor = 'rgba(60, 70, 82, 0.4)';
+    const labelColor = '#8B9099';
+
+    const scales = {
+      x: {
+        title: { display: true, text: xTitle, color: labelColor, font: { size: 11, family: 'JetBrains Mono' } },
+        grid: { display: false },
+        ticks: { color: tickColor, font: { size: 10, family: 'JetBrains Mono' } },
+        border: { color: '#2A323D' }
+      },
+      y: {
+        type: 'linear',
+        position: 'left',
+        title: { display: true, text: leftTitle, color: leftColor, font: { size: 11, family: 'JetBrains Mono' } },
+        ticks: { color: tickColor, font: { size: 10, family: 'JetBrains Mono' } },
+        grid: { color: gridColor },
+        border: { display: false }
+      }
+    };
+    if (yMin !== undefined) scales.y.min = yMin;
+    if (yMax !== undefined) scales.y.max = yMax;
+    if (rightTitle) {
+      scales.y1 = {
+        type: 'linear',
+        position: 'right',
+        title: { display: true, text: rightTitle, color: rightColor, font: { size: 11, family: 'JetBrains Mono' } },
+        ticks: { color: tickColor, font: { size: 10, family: 'JetBrains Mono' } },
+        grid: { drawOnChartArea: false },
+        border: { display: false }
+      };
+    }
+
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: {
+            color: '#8B9099',
+            font: { size: 11, family: 'Manrope' },
+            usePointStyle: true,
+            pointStyle: 'rectRounded',
+            boxWidth: 12,
+            padding: 16
+          }
+        },
+        tooltip: {
+          backgroundColor: '#1D242D',
+          borderColor: '#3A4452',
+          borderWidth: 1,
+          titleFont: { family: 'JetBrains Mono', size: 11 },
+          bodyFont: { family: 'Manrope', size: 12 },
+          titleColor: '#F0EBE0',
+          bodyColor: '#F0EBE0',
+          padding: 10
+        }
+      },
+      scales
+    };
+  }
+
+  // ---------- Update flow ----------
+  function applyUpdate() {
+    const w = parseFloat(document.getElementById('in-weight').value);
+    const wa = parseFloat(document.getElementById('in-waist').value);
+    const n = parseFloat(document.getElementById('in-neck').value);
+    const t = parseFloat(document.getElementById('in-target').value);
+
+    if (!isFinite(w) || !isFinite(wa) || !isFinite(n) || !isFinite(t)) return;
+    if (wa <= n) {
+      showToast('Waist must exceed neck', true);
+      return;
+    }
+
+    state = { weight: w, waist: wa, neck: n, target: t };
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+
+    updateHero();
+    renderMilestones();
+
+    // Re-render charts (destroy first since timeline can change config shape)
+    if (timelineChart) { timelineChart.destroy(); timelineChart = null; }
+    if (journeyChart) { journeyChart.destroy(); journeyChart = null; }
+    // Need to ensure canvas element exists (might have been replaced by "Goal reached")
+    ensureCanvases();
+    renderJourneyChart();
+    renderTimelineChart();
+
+    showToast('Updated');
+  }
+
+  function ensureCanvases() {
+    const panels = document.querySelectorAll('.panel-grid .panel');
+    [['journeyChart', 'BMI and body fat percentage versus weight from start to goal'],
+     ['timelineChart', 'Weight loss timeline projection by month']].forEach(([id, label], idx) => {
+      let el = document.getElementById(id);
+      if (!el) {
+        const wrap = panels[idx].querySelector('.chart-container');
+        wrap.innerHTML = `<canvas id="${id}" role="img" aria-label="${label}"></canvas>`;
+      }
+    });
+  }
+
+  function showToast(msg, isError) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.borderColor = isError ? 'var(--bad)' : 'var(--good)';
+    t.style.color = isError ? 'var(--bad)' : 'var(--good)';
+    t.classList.add('show');
+    clearTimeout(showToast._tid);
+    showToast._tid = setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  // ---------- Init ----------
+  function init() {
+    // Populate form with state
+    document.getElementById('in-weight').value = state.weight;
+    document.getElementById('in-waist').value = state.waist;
+    document.getElementById('in-neck').value = state.neck;
+    document.getElementById('in-target').value = state.target;
+
+    // Date stamp
+    const today = new Date();
+    document.getElementById('genDate').textContent = today.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+
+    updateHero();
+    renderMilestones();
+    renderJourneyChart();
+    renderTimelineChart();
+
+    // Enter-key submission
+    document.querySelectorAll('.form-field input').forEach(input => {
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') applyUpdate();
+      });
+    });
+  }
+
+  // Chart.js may load after DOMContentLoaded fires
+  if (typeof Chart === 'undefined') {
+    window.addEventListener('load', init);
+  } else if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>
+</body>
+</html>
