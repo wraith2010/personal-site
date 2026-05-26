@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="img/journey-to-180/photos-data.js"></script>
 <style>
   /* Scope all journey design tokens to the content container */
   .journey-container {
@@ -330,6 +331,13 @@
     font-family: var(--font-mono);
   }
 
+  .milestone .ms-togo {
+    font-size: 0.68rem;
+    color: var(--warn);
+    margin-top: 0.45rem;
+    font-family: var(--font-mono);
+  }
+
   /* Update form */
   .update-form {
     background: var(--surface);
@@ -411,6 +419,192 @@
     font-weight: 500;
     font-family: var(--font-display);
     font-style: italic;
+  }
+
+  /* Photo timeline */
+  .photo-timeline-section {
+    margin-top: 3rem;
+  }
+
+  .photo-timeline-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .photo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .photo-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  .photo-card-meta {
+    padding: 0.75rem 0.85rem 0.85rem;
+  }
+
+  .photo-card-date {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.3rem;
+  }
+
+  .photo-card-weight {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .photo-card-weight .photo-unit {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: 0.2rem;
+  }
+
+  .photo-card-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    line-height: 1.5;
+  }
+
+  /* Photo modal */
+  .photo-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .photo-modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .photo-modal {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    max-width: 820px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.96);
+    transition: transform 0.2s;
+  }
+
+  .photo-modal-overlay.open .photo-modal {
+    transform: scale(1);
+  }
+
+  .photo-modal img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background: var(--bg);
+  }
+
+  .photo-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+    gap: 1rem;
+  }
+
+  .photo-modal-info .modal-date {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.25rem;
+  }
+
+  .photo-modal-info .modal-weight {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .photo-modal-info .modal-weight span {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-left: 0.2rem;
+  }
+
+  .photo-modal-info .modal-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  .photo-modal-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .photo-modal-close:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  .photo-card { cursor: pointer; }
+
+  .photo-empty {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: var(--text-dim);
+  }
+
+  .photo-empty .empty-path {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.6rem;
   }
 
   /* Toast */
@@ -505,6 +699,7 @@
     <div class="meta-line">
       Height · 6'0" (72 in)<br/>
       Started · 400 lb<br/>
+      Since · Mar 20, 2023<br/>
       Generated · <span id="genDate">—</span>
     </div>
   </div>
@@ -609,6 +804,15 @@
     </div>
   </div>
 
+  <!-- Photo timeline -->
+  <div class="photo-timeline-section">
+    <div class="section-head">
+      <h2>Progress photos</h2>
+      <span class="marker">VISUAL RECORD</span>
+    </div>
+    <div id="photo-timeline"></div>
+  </div>
+
   <footer>
     <p><strong>On the math.</strong> BMI is exact: (weight × 703) ÷ height². Body fat % uses the U.S. Navy formula: 86.010 × log₁₀(waist − neck) − 70.041 × log₁₀(height) + 36.76. Body fat values for weights other than the one you measure assume waist and neck shrink proportionally to weight lost (about 1 inch off the waist per 10 lb, 0.2 inch off the neck) — a useful approximation, but the real curve depends on the fat-to-muscle ratio of weight you lose.</p>
     <p><strong>On the timeline.</strong> Projections assume steady loss at 1.5 or 2 lb per week. Reality is rarely linear — expect a faster first month (water weight), slower middle phases, occasional plateaus, and diminishing returns near goal as your maintenance calories drop. Resistance training plus 0.7–1 g of protein per pound of body weight protects lean mass through the deficit. This page persists your last entered values locally; nothing leaves your device.</p>
@@ -616,6 +820,21 @@
 
   <div class="toast" id="toast">Updated</div>
 
+</div>
+
+<!-- Photo modal -->
+<div class="photo-modal-overlay" id="photo-modal-overlay">
+  <div class="photo-modal" id="photo-modal">
+    <img id="modal-img" src="" alt="">
+    <div class="photo-modal-footer">
+      <div class="photo-modal-info">
+        <div class="modal-date" id="modal-date"></div>
+        <div class="modal-weight" id="modal-weight"></div>
+        <div class="modal-note" id="modal-note"></div>
+      </div>
+      <button class="photo-modal-close" id="modal-close">Close</button>
+    </div>
+  </div>
 </div>
 
 <!-- ==================== SITE FOOTER ==================== -->
@@ -739,12 +958,14 @@
     const container = document.getElementById('milestones');
     container.innerHTML = stages.map(s => {
       const achieved = state.weight <= s.weight;
+      const toGo = Math.max(0, state.weight - s.weight);
       return `
         <div class="milestone ${achieved ? 'achieved' : ''}">
           <span class="ms-check">${achieved ? '✓' : ''}</span>
           <div class="ms-stage">${s.stage}</div>
           <div class="ms-weight">${s.weight}<span class="ms-unit">lb</span></div>
           <div class="ms-detail">${s.detail}</div>
+          ${!achieved ? `<div class="ms-togo">−${fmt(toGo)} lb to go</div>` : ''}
         </div>
       `;
     }).join('');
@@ -857,7 +1078,12 @@
     const config = {
       type: 'line',
       data: {
-        labels: points.map(m => m + ' mo'),
+        labels: points.map(m => {
+          if (m === 0) return 'Today';
+          const d = new Date();
+          d.setMonth(d.getMonth() + m);
+          return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        }),
         datasets: [
           {
             label: '2 lb/wk',
@@ -1040,14 +1266,76 @@
     renderMilestones();
     renderJourneyChart();
     renderTimelineChart();
+    renderPhotoTimeline();
 
     // Enter-key submission
     document.querySelectorAll('.form-field input').forEach(input => {
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') applyUpdate();
       });
+      input.addEventListener('change', () => applyUpdate());
     });
   }
+
+  // ---------- Photo timeline ----------
+  // To add a photo: drop the image into img/journey-to-180/ and add one entry
+  // to img/journey-to-180/photos.json — no need to edit this file.
+  const PHOTO_DIR = 'img/journey-to-180/';
+
+  function buildPhotoTimeline(entries) {
+    const container = document.getElementById('photo-timeline');
+    if (!entries.length) {
+      container.innerHTML = `
+        <div class="photo-empty">
+          <div>No photos yet — drop images into the folder and add entries to photos.json.</div>
+          <div class="empty-path">${PHOTO_DIR}photos.json</div>
+        </div>`;
+      return;
+    }
+    container.innerHTML = `<div class="photo-timeline-track">` +
+      entries.map((p, i) => `
+        <div class="photo-card" data-idx="${i}">
+          <img src="${PHOTO_DIR}${p.file}" alt="Progress photo ${p.date}" loading="lazy">
+          <div class="photo-card-meta">
+            <div class="photo-card-date">${p.date}</div>
+            <div class="photo-card-weight">${p.weight}<span class="photo-unit">lb</span></div>
+            ${p.note ? `<div class="photo-card-note">${p.note}</div>` : ''}
+          </div>
+        </div>`).join('') +
+      `</div>`;
+
+    container.querySelector('.photo-timeline-track').addEventListener('click', e => {
+      const card = e.target.closest('.photo-card');
+      if (card) openModal(entries[+card.dataset.idx]);
+    });
+  }
+
+  function renderPhotoTimeline() {
+    buildPhotoTimeline(window.JOURNEY_PHOTOS || []);
+  }
+
+  // ---------- Photo modal ----------
+  const overlay = document.getElementById('photo-modal-overlay');
+  const modal   = document.getElementById('photo-modal');
+
+  function openModal(p) {
+    document.getElementById('modal-img').src    = PHOTO_DIR + p.file;
+    document.getElementById('modal-img').alt    = 'Progress photo ' + p.date;
+    document.getElementById('modal-date').textContent   = p.date;
+    document.getElementById('modal-weight').innerHTML   = p.weight ? `${p.weight}<span>lb</span>` : '';
+    document.getElementById('modal-note').textContent   = p.note || '';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
   // Chart.js may load after DOMContentLoaded fires
   if (typeof Chart === 'undefined') {
