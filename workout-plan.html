@@ -145,6 +145,16 @@
     .form-tip-text { margin: 0; font-size: 14px; color: #bbb; line-height: 1.7; }
     .muscles-label { margin-top: 10px; font-size: 12px; color: #555; font-family: monospace; }
 
+    .exercise-anim {
+      display: flex;
+      justify-content: center;
+      padding: 14px 0 6px;
+    }
+    .exercise-anim svg {
+      width: 88px;
+      height: 88px;
+    }
+
     .timing-note {
       margin-top: 16px; padding: 14px 16px;
       background: #0e0e12; border: 1px solid #1a1a1a;
@@ -276,11 +286,11 @@
         color: "#F97316",
         icon: "💪",
         exercises: [
-          { name: "Push-Ups", sets: 3, reps: "10–15", equipment: "Bodyweight", tip: "Keep core tight and elbows at 45°. Elevate hands on a bench for an easier variation.", muscles: "Chest, triceps, front delts" },
-          { name: "Dumbbell Chest Press", sets: 3, reps: "10–12", equipment: "Dumbbells", tip: "Lie on the floor if no bench. Press up and in, squeezing chest at the top.", muscles: "Chest, triceps, front delts" },
-          { name: "Tricep Overhead Extension", sets: 3, reps: "12", equipment: "Dumbbell or Kettlebell", tip: "Hold one weight with both hands overhead. Lower behind your head slowly, keep elbows close.", muscles: "Triceps (long head)" },
-          { name: "Plank Hold", sets: 3, reps: "30–45 sec", equipment: "Bodyweight", tip: "Brace abs like you're about to be punched. Don't let hips sag or rise.", muscles: "Deep core, transverse abdominis" },
-          { name: "Dead Bug", sets: 3, reps: "8 each side", equipment: "Bodyweight", tip: "Press your lower back into the floor throughout. Move opposite arm and leg slowly.", muscles: "Core stability, anti-rotation" },
+          { name: "Push-Ups", sets: 3, reps: "10–15", equipment: "Bodyweight", tip: "Keep core tight and elbows at 45°. Elevate hands on a bench for an easier variation.", muscles: "Chest, triceps, front delts", animType: "pushup" },
+          { name: "Dumbbell Chest Press", sets: 3, reps: "10–12", equipment: "Dumbbells", tip: "Lie on the floor if no bench. Press up and in, squeezing chest at the top.", muscles: "Chest, triceps, front delts", animType: "chestpress" },
+          { name: "Tricep Overhead Extension", sets: 3, reps: "12", equipment: "Dumbbell or Kettlebell", tip: "Hold one weight with both hands overhead. Lower behind your head slowly, keep elbows close.", muscles: "Triceps (long head)", animType: "tricepext" },
+          { name: "Plank Hold", sets: 3, reps: "30–45 sec", equipment: "Bodyweight", tip: "Brace abs like you're about to be punched. Don't let hips sag or rise.", muscles: "Deep core, transverse abdominis", animType: "plank" },
+          { name: "Dead Bug", sets: 3, reps: "8 each side", equipment: "Bodyweight", tip: "Press your lower back into the floor throughout. Move opposite arm and leg slowly.", muscles: "Core stability, anti-rotation", animType: "deadbug" },
         ]
       },
       B: {
@@ -289,11 +299,11 @@
         color: "#06B6D4",
         icon: "🎯",
         exercises: [
-          { name: "Dumbbell Bicep Curl", sets: 3, reps: "12", equipment: "Dumbbells", tip: "Fully extend at the bottom and squeeze hard at the top. Don't swing — slow and controlled.", muscles: "Biceps, brachialis" },
-          { name: "Hammer Curl", sets: 3, reps: "12", equipment: "Dumbbells", tip: "Neutral grip (thumbs up). Targets the outer bicep and forearms for defined arms.", muscles: "Biceps, brachioradialis" },
-          { name: "KB / DB Overhead Press", sets: 3, reps: "10", equipment: "Kettlebell or Dumbbell", tip: "Stand or sit. Press straight up, locking out at the top. Keep ribs down — don't arch.", muscles: "Shoulders, triceps, upper chest" },
-          { name: "Russian Twist", sets: 3, reps: "20 total", equipment: "Bodyweight or light weight", tip: "Lean back 45° and rotate side to side. Hold a dumbbell to increase difficulty.", muscles: "Obliques, rotational core" },
-          { name: "Leg Raises", sets: 3, reps: "12", equipment: "Bodyweight", tip: "Lie flat, hands under hips. Raise legs to 90° slowly. Lower without touching the floor.", muscles: "Lower abs, hip flexors" },
+          { name: "Dumbbell Bicep Curl", sets: 3, reps: "12", equipment: "Dumbbells", tip: "Fully extend at the bottom and squeeze hard at the top. Don't swing — slow and controlled.", muscles: "Biceps, brachialis", animType: "curl" },
+          { name: "Hammer Curl", sets: 3, reps: "12", equipment: "Dumbbells", tip: "Neutral grip (thumbs up). Targets the outer bicep and forearms for defined arms.", muscles: "Biceps, brachioradialis", animType: "curl" },
+          { name: "KB / DB Overhead Press", sets: 3, reps: "10", equipment: "Kettlebell or Dumbbell", tip: "Stand or sit. Press straight up, locking out at the top. Keep ribs down — don't arch.", muscles: "Shoulders, triceps, upper chest", animType: "overheadpress" },
+          { name: "Russian Twist", sets: 3, reps: "20 total", equipment: "Bodyweight or light weight", tip: "Lean back 45° and rotate side to side. Hold a dumbbell to increase difficulty.", muscles: "Obliques, rotational core", animType: "russiantwist" },
+          { name: "Leg Raises", sets: 3, reps: "12", equipment: "Bodyweight", tip: "Lie flat, hands under hips. Raise legs to 90° slowly. Lower without touching the floor.", muscles: "Lower abs, hip flexors", animType: "legraise" },
         ]
       }
     };
@@ -395,6 +405,7 @@
               <span class="exercise-arrow" style="color:${isOpen ? w.color : '#444'};transform:rotate(${isOpen?180:0}deg)">↓</span>
             </div>
             <div class="exercise-body ${isOpen?'open':''}" style="border-top:1px solid ${hex(w.color,0.133)}">
+              ${ex.animType ? `<div class="exercise-anim">${buildAnimSVG(ex.animType, w.color)}</div>` : ''}
               <div class="form-tip-box">
                 <div class="form-tip-label" style="color:${w.color}">FORM TIP</div>
                 <p class="form-tip-text">${ex.tip}</p>
@@ -433,6 +444,114 @@
     function toggleExercise(i) {
       expandedExercise = expandedExercise === i ? null : i;
       renderMain();
+    }
+
+    function buildAnimSVG(type, color) {
+      const s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="${color}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">`;
+      const e = '</svg>';
+      const h = (cx, cy, r = 8) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" stroke="none"/>`;
+      const ah = (cx, cy, vals, dur, r = 8) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" stroke="none"><animate attributeName="cy" values="${vals}" dur="${dur}s" repeatCount="indefinite"/></circle>`;
+
+      const map = {
+        pushup: `${s}
+          ${ah(10, 45, '45;56;45', 1.5)}
+          <line x1="17" y1="51" x2="88" y2="51"><animate attributeName="y1" values="51;62;51" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y2" values="51;57;51" dur="1.5s" repeatCount="indefinite"/></line>
+          <line x1="30" y1="51" x2="30" y2="72"><animate attributeName="y1" values="51;62;51" dur="1.5s" repeatCount="indefinite"/></line>
+          <line x1="46" y1="51" x2="46" y2="72"><animate attributeName="y1" values="51;62;51" dur="1.5s" repeatCount="indefinite"/></line>
+          <line x1="83" y1="51" x2="83" y2="72"><animate attributeName="y1" values="51;57;51" dur="1.5s" repeatCount="indefinite"/></line>
+        ${e}`,
+
+        chestpress: `${s}
+          ${h(10, 52)}
+          <line x1="17" y1="58" x2="84" y2="58"/>
+          <line x1="72" y1="58" x2="60" y2="78"/>
+          <line x1="80" y1="58" x2="86" y2="78"/>
+          <line x1="38" y1="58" x2="38" y2="46"><animate attributeName="y2" values="46;26;46" dur="2s" repeatCount="indefinite"/></line>
+          <line x1="52" y1="58" x2="52" y2="46"><animate attributeName="y2" values="46;26;46" dur="2s" repeatCount="indefinite"/></line>
+        ${e}`,
+
+        tricepext: `${s}
+          ${h(50, 10)}
+          <line x1="50" y1="18" x2="50" y2="62"/>
+          <line x1="50" y1="62" x2="38" y2="88"/>
+          <line x1="50" y1="62" x2="62" y2="88"/>
+          <line x1="50" y1="28" x2="35" y2="14"/>
+          <line x1="50" y1="28" x2="65" y2="14"/>
+          <line x1="35" y1="14" x2="40" y2="30"><animate attributeName="x2" values="40;33;40" dur="2s" repeatCount="indefinite"/><animate attributeName="y2" values="30;2;30" dur="2s" repeatCount="indefinite"/></line>
+          <line x1="65" y1="14" x2="60" y2="30"><animate attributeName="x2" values="60;67;60" dur="2s" repeatCount="indefinite"/><animate attributeName="y2" values="30;2;30" dur="2s" repeatCount="indefinite"/></line>
+        ${e}`,
+
+        plank: `${s}
+          ${ah(10, 45, '45;43;45', 3)}
+          <line x1="17" y1="51" x2="88" y2="51"><animate attributeName="y1" values="51;49;51" dur="3s" repeatCount="indefinite"/><animate attributeName="y2" values="51;49;51" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="30" y1="51" x2="30" y2="72"><animate attributeName="y1" values="51;49;51" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="46" y1="51" x2="46" y2="72"><animate attributeName="y1" values="51;49;51" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="83" y1="51" x2="83" y2="72"><animate attributeName="y1" values="51;49;51" dur="3s" repeatCount="indefinite"/></line>
+        ${e}`,
+
+        deadbug: `${s}
+          ${h(50, 12)}
+          <line x1="50" y1="20" x2="50" y2="75"/>
+          <line x1="50" y1="36" x2="24" y2="20"><animate attributeName="y2" values="20;52;20" dur="2s" repeatCount="indefinite"/></line>
+          <line x1="50" y1="36" x2="76" y2="52"><animate attributeName="y2" values="52;20;52" dur="2s" repeatCount="indefinite"/></line>
+          <line x1="50" y1="65" x2="28" y2="86"><animate attributeName="y2" values="86;50;86" dur="2s" repeatCount="indefinite"/></line>
+          <line x1="50" y1="65" x2="72" y2="50"><animate attributeName="y2" values="50;86;50" dur="2s" repeatCount="indefinite"/></line>
+        ${e}`,
+
+        curl: `${s}
+          ${h(50, 10)}
+          <line x1="50" y1="18" x2="50" y2="58"/>
+          <line x1="50" y1="28" x2="32" y2="48"/>
+          <line x1="50" y1="28" x2="68" y2="48"/>
+          <line x1="32" y1="48" x2="24" y2="68"><animate attributeName="x2" values="24;30;24" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y2" values="68;30;68" dur="1.5s" repeatCount="indefinite"/></line>
+          <line x1="68" y1="48" x2="76" y2="68"><animate attributeName="x2" values="76;70;76" dur="1.5s" repeatCount="indefinite"/><animate attributeName="y2" values="68;30;68" dur="1.5s" repeatCount="indefinite"/></line>
+          <line x1="50" y1="58" x2="40" y2="88"/>
+          <line x1="50" y1="58" x2="60" y2="88"/>
+        ${e}`,
+
+        overheadpress: `${s}
+          ${h(50, 10)}
+          <line x1="50" y1="18" x2="50" y2="60"/>
+          <line x1="50" y1="60" x2="38" y2="88"/>
+          <line x1="50" y1="60" x2="62" y2="88"/>
+          <line x1="50" y1="28" x2="24" y2="40"><animate attributeName="x2" values="24;36;24" dur="2s" repeatCount="indefinite"/><animate attributeName="y2" values="40;14;40" dur="2s" repeatCount="indefinite"/></line>
+          <line x1="24" y1="40" x2="18" y2="20">
+            <animate attributeName="x1" values="24;36;24" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="y1" values="40;14;40" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="18;32;18" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="y2" values="20;2;20" dur="2s" repeatCount="indefinite"/>
+          </line>
+          <line x1="50" y1="28" x2="76" y2="40"><animate attributeName="x2" values="76;64;76" dur="2s" repeatCount="indefinite"/><animate attributeName="y2" values="40;14;40" dur="2s" repeatCount="indefinite"/></line>
+          <line x1="76" y1="40" x2="82" y2="20">
+            <animate attributeName="x1" values="76;64;76" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="y1" values="40;14;40" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="82;68;82" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="y2" values="20;2;20" dur="2s" repeatCount="indefinite"/>
+          </line>
+        ${e}`,
+
+        russiantwist: `${s}
+          ${h(50, 18)}
+          <line x1="50" y1="26" x2="50" y2="68"/>
+          <line x1="50" y1="68" x2="36" y2="90"/>
+          <line x1="50" y1="68" x2="64" y2="90"/>
+          <line x1="20" y1="52" x2="54" y2="56">
+            <animate attributeName="x1" values="20;34;66;34;20" keyTimes="0;0.25;0.5;0.75;1" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="y1" values="52;48;52;56;52" keyTimes="0;0.25;0.5;0.75;1" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="54;80;66;34;54" keyTimes="0;0.25;0.5;0.75;1" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="y2" values="56;48;52;56;56" keyTimes="0;0.25;0.5;0.75;1" dur="2s" repeatCount="indefinite"/>
+          </line>
+        ${e}`,
+
+        legraise: `${s}
+          ${h(10, 50)}
+          <line x1="17" y1="56" x2="80" y2="56"/>
+          <line x1="24" y1="60" x2="72" y2="60"/>
+          <line x1="78" y1="56" x2="96" y2="58"><animate attributeName="x2" values="96;88;96" dur="2s" repeatCount="indefinite"/><animate attributeName="y2" values="58;28;58" dur="2s" repeatCount="indefinite"/></line>
+          <line x1="83" y1="56" x2="99" y2="58"><animate attributeName="x2" values="99;91;99" dur="2s" repeatCount="indefinite" begin="0.12s"/><animate attributeName="y2" values="58;30;58" dur="2s" repeatCount="indefinite" begin="0.12s"/></line>
+        ${e}`,
+      };
+      return map[type] || '';
     }
 
     function render() {
