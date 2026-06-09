@@ -5,5 +5,6 @@ var JOURNEY_PHOTOS = [
   { "date": "Feb 6, 2026",  "weight": 328, "note": "Starting to see it in the mirror. Down 72 lb.", "file": "PXL_20260206_205841147.jpg" },
   { "date": "Apr 7, 2026",  "weight": 324, "note": "Feeling trim at 324. Chasing Bandit in a Dog Park.", "file": "PXL_20260407_192639694.jpg" },
   { "date": "May 2, 2026",  "weight": 319, "note": "Ran my first 5K in years.", "file": "PXL_20260502_143847156.TS-000.jpg" },
-  { "date": "May 8, 2026",  "weight": 315, "note": "The face doesn't lie. Down 85 lb.", "file": "PXL_20260508_182128536.jpg" }
+  { "date": "May 8, 2026",  "weight": 315, "note": "The face doesn't lie. Down 85 lb.", "file": "PXL_20260508_182128536.jpg" },
+  { "date": "Jun 9, 2026",  "weight": 307, "note": "93 down. The body is catching up to the decision.", "file": "PXL_20260609_180633463.PORTRAIT.jpg" }
 ];

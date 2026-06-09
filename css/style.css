@@ -1230,6 +1230,57 @@ main {
 
 
 /* ====================================
+   GOALS SUB-NAV
+   ==================================== */
+
+.goals-nav {
+  border-bottom: 1px solid var(--border);
+  background: rgba(12, 12, 12, 0.6);
+  padding: 0 24px;
+}
+
+.goals-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 1120px;
+  margin: 0 auto;
+  height: 42px;
+}
+
+.goals-nav-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.goals-nav-link {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.goals-nav-link:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.goals-nav-link.active {
+  color: var(--amber);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+
+/* ====================================
    RESUME PAGE
    ==================================== */
 
