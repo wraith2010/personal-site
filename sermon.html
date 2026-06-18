@@ -732,9 +732,9 @@ function downloadPDF() {
   // Total cell
   const tx = MAR + groups.length*colW;
   rr(tx, y, colW, sh, 4, INK, INK);
-  doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor('rgba(255,255,255,0.5)');
+  doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(180, 180, 180);
   doc.text('TOTAL / 35', tx+colW/2, y+12, {align:'center'});
-  doc.setFontSize(22); doc.setTextColor('#ffffff');
+  doc.setFontSize(22); doc.setTextColor(255, 255, 255);
   doc.text(String(total), tx+colW/2, y+32, {align:'center'});
 
   y += sh + 10;
