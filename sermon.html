@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sermon Candidate Evaluation · Marple Presbyterian Church</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:       #1C1917;
+    --ink-mid:   #57534E;
+    --ink-light: #A8A29E;
+    --rule:      #E7E5E4;
+    --page:      #FAFAF9;
+    --cream:     #F5F3EF;
+    --accent:    #5B4A3A;
+    --accent-lt: #EDE8E3;
+    --green-bg:  #EAF3DE; --green-bd: #639922; --green-tx: #3B6D11;
+    --red-bg:    #FCEBEB; --red-bd:   #A32D2D; --red-tx:   #791F1F;
+    --pur-bg:    #EEEDFE; --pur-bd:   #534AB7; --pur-tx:   #3C3489;
+    --radius:    6px;
+  }
+
+  html { background: var(--cream); font-family: 'Inter', sans-serif; color: var(--ink); }
+
+  /* ── Page shell ── */
+  .shell {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  /* ── Masthead ── */
+  .masthead {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 1rem;
+    margin-bottom: 1.75rem;
+  }
+  .masthead-left { flex: 1; }
+  .church-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    margin-bottom: 4px;
+  }
+  .form-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .score-badge {
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 0.5rem 0.9rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .score-badge-num {
+    font-family: 'EB Garamond', serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1;
+    display: block;
+  }
+  .score-badge-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ── Candidate row ── */
+  .candidate-row {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 12px;
+    margin-bottom: 1.75rem;
+  }
+  .field-group label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 5px;
+  }
+  .field-group input[type="text"] {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .field-group input[type="text"]:focus { border-color: var(--accent); }
+
+  /* ── Section ── */
+  .section {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .section-header {
+    background: var(--cream);
+    border-bottom: 1px solid var(--rule);
+    padding: 8px 16px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  /* ── Criterion row ── */
+  .criterion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--rule);
+    gap: 16px;
+  }
+  .criterion:last-child { border-bottom: none; }
+  .crit-text { flex: 1; }
+  .crit-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .crit-note {
+    font-size: 11.5px;
+    color: var(--ink-mid);
+    line-height: 1.4;
+  }
+
+  /* ── Yes/No buttons ── */
+  .yn-group { display: flex; gap: 6px; flex-shrink: 0; }
+  .yn-btn {
+    padding: 7px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--rule);
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    cursor: pointer;
+    transition: all 0.12s;
+    user-select: none;
+  }
+  .yn-btn:hover { border-color: var(--ink-light); }
+  .yn-btn.yes.active { background: var(--green-bg); border-color: var(--green-bd); color: var(--green-tx); }
+  .yn-btn.no.active  { background: var(--red-bg);   border-color: var(--red-bd);   color: var(--red-tx);   }
+
+  /* ── Scale buttons ── */
+  .scale-group { display: flex; gap: 5px; flex-shrink: 0; }
+  .scale-btn {
+    width: 34px; height: 34px;
+    border-radius: var(--radius);
+    border: 1px solid var(--rule);
+    background: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.12s;
+    user-select: none;
+  }
+  .scale-btn:hover { border-color: var(--ink-light); }
+  .scale-btn.active { background: var(--pur-bg); border-color: var(--pur-bd); color: var(--pur-tx); }
+
+  /* ── Notes ── */
+  .notes-wrap { padding: 12px 16px; }
+  textarea {
+    width: 100%;
+    min-height: 90px;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s;
+    background: var(--cream);
+  }
+  textarea:focus { border-color: var(--accent); background: #fff; }
+
+  /* ── Score row ── */
+  .score-row {
+    display: flex;
+    align-items: stretch;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .score-items {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+  .score-item {
+    flex: 1;
+    min-width: 70px;
+    padding: 10px 8px;
+    text-align: center;
+    border-right: 1px solid var(--rule);
+  }
+  .score-item-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 3px;
+  }
+  .score-item-val {
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .score-total-cell {
+    padding: 10px 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--ink);
+    color: #fff;
+    min-width: 100px;
+  }
+  .score-total-label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 2px;
+  }
+  .score-total-val {
+    font-family: 'EB Garamond', serif;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .score-total-pct {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+  }
+
+  /* ── Actions ── */
+  .actions { display: flex; gap: 10px; justify-content: flex-end; }
+  .btn-reset {
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--rule);
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-mid);
+    cursor: pointer;
+    transition: all 0.12s;
+  }
+  .btn-reset:hover { border-color: var(--ink-light); color: var(--ink); }
+  .btn-download {
+    padding: 10px 24px;
+    border-radius: var(--radius);
+    border: none;
+    background: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.12s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-download:hover { opacity: 0.85; }
+  .btn-download svg { width: 15px; height: 15px; }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 11px;
+    color: var(--ink-light);
+    text-align: center;
+  }
+
+  @media (max-width: 560px) {
+    .candidate-row { grid-template-columns: 1fr; }
+    .masthead { flex-direction: column; }
+    .score-badge { align-self: flex-start; }
+    .criterion { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .score-items { flex-wrap: wrap; }
+    .score-item { min-width: 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Masthead -->
+  <div class="masthead">
+    <div class="masthead-left">
+      <p class="church-name">Marple Presbyterian Church</p>
+      <h1 class="form-title">Sermon Candidate<br>Evaluation</h1>
+    </div>
+    <div class="score-badge">
+      <span class="score-badge-num" id="badge-total">0</span>
+      <span class="score-badge-label">of 35 pts</span>
+    </div>
+  </div>
+
+  <!-- Candidate -->
+  <div class="candidate-row">
+    <div class="field-group">
+      <label for="candidate-name">Candidate Name</label>
+      <input type="text" id="candidate-name" placeholder="Full name">
+    </div>
+    <div class="field-group">
+      <label for="sermon-date">Date</label>
+      <input type="text" id="sermon-date" placeholder="MM / DD / YYYY">
+    </div>
+  </div>
+
+  <!-- Yes / No -->
+  <div class="section">
+    <div class="section-header">Yes / No &nbsp;· &nbsp;5 pts (Yes) &nbsp;/ &nbsp;0 pts (No)</div>
+
+    <div class="criterion">
+      <div class="crit-text">
+        <p class="crit-name">Landing the plane</p>
+        <p class="crit-note">Arrived at a clear, satisfying conclusion — and stayed there. Did not veer into a second, unrelated sermon.</p>
+      </div>
+      <div class="yn-group">
+        <button class="yn-btn yes" data-group="Landing" data-val="5" onclick="pick(this)">Yes</button>
+        <button class="yn-btn no"  data-group="Landing" data-val="0" onclick="pick(this)">No</button>
+      </div>
+    </div>
+
+    <div class="criterion">
+      <div class="crit-text">
+        <p class="crit-name">Summarizable message</p>
+        <p class="crit-note">Could you retell the core message to someone else?</p>
+      </div>
+      <div class="yn-group">
+        <button class="yn-btn yes" data-group="Summarize" data-val="5" onclick="pick(this)">Yes</button>
+        <button class="yn-btn no"  data-group="Summarize" data-val="0" onclick="pick(this)">No</button>
+      </div>
+    </div>
+
+    <div class="criterion">
+      <div class="crit-text">
+        <p class="crit-name">History serves the lesson</p>
+        <p class="crit-note">Historical content used only as far as it advances the message — not as an end in itself.</p>
+      </div>
+      <div class="yn-group">
+        <button class="yn-btn yes" data-group="History" data-val="5" onclick="pick(this)">Yes</button>
+        <button class="yn-btn no"  data-group="History" data-val="0" onclick="pick(this)">No</button>
+      </div>
+    </div>
+
+    <div class="criterion">
+      <div class="crit-text">
+        <p class="crit-name">Theologically sound</p>
+        <p class="crit-note">Doctrinally faithful to scripture and tradition.</p>
+      </div>
+      <div class="yn-group">
+        <button class="yn-btn yes" data-group="Theology" data-val="5" onclick="pick(this)">Yes</button>
+        <button class="yn-btn no"  data-group="Theology" data-val="0" onclick="pick(this)">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scaled -->
+  <div class="section">
+    <div class="section-header">Scaled &nbsp;· &nbsp;1–5 pts each</div>
+
+    <div class="criterion">
+      <div class="crit-text">
+        <p class="crit-name">Moved the spirit</p>
+        <p class="crit-note">Did the message stir something spiritually in the congregation?</p>
+      </div>
+      <div class="scale-group" id="scale-Spirit"></div>
+    </div>
+
+    <div class="criterion">
+      <div class="crit-text">
+        <p class="crit-name">Oration</p>
+        <p class="crit-note">Delivery, clarity, pacing, and vocal presence.</p>
+      </div>
+      <div class="scale-group" id="scale-Oration"></div>
+    </div>
+
+    <div class="criterion">
+      <div class="crit-text">
+        <p class="crit-name">Authenticity</p>
+        <p class="crit-note">Did the preacher come across as genuine and personally invested?</p>
+      </div>
+      <div class="scale-group" id="scale-Authenticity"></div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="section">
+    <div class="section-header">Notes</div>
+    <div class="notes-wrap">
+      <textarea id="notes" placeholder="Additional observations about the candidate's sermon…"></textarea>
+    </div>
+  </div>
+
+  <!-- Score row -->
+  <div class="score-row">
+    <div class="score-items" id="score-items">
+      <div class="score-item"><div class="score-item-label">Landing</div><div class="score-item-val" id="sc-Landing">—</div></div>
+      <div class="score-item"><div class="score-item-label">Summary</div><div class="score-item-val" id="sc-Summarize">—</div></div>
+      <div class="score-item"><div class="score-item-label">History</div><div class="score-item-val" id="sc-History">—</div></div>
+      <div class="score-item"><div class="score-item-label">Theology</div><div class="score-item-val" id="sc-Theology">—</div></div>
+      <div class="score-item"><div class="score-item-label">Spirit</div><div class="score-item-val" id="sc-Spirit">—</div></div>
+      <div class="score-item"><div class="score-item-label">Oration</div><div class="score-item-val" id="sc-Oration">—</div></div>
+      <div class="score-item" style="border-right:none"><div class="score-item-label">Authentic</div><div class="score-item-val" id="sc-Authenticity">—</div></div>
+    </div>
+    <div class="score-total-cell">
+      <div class="score-total-label">Total</div>
+      <div class="score-total-val" id="total-val">0</div>
+      <div class="score-total-pct" id="total-pct">0%</div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button class="btn-reset" onclick="resetForm()">Clear form</button>
+    <button class="btn-download" onclick="downloadPDF()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download PDF
+    </button>
+  </div>
+
+  <div class="footer">Marple Presbyterian Church &nbsp;·&nbsp; Sermon Candidate Evaluation</div>
+</div>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────────────
+const scores = {
+  Landing: null, Summarize: null, History: null, Theology: null,
+  Spirit: null, Oration: null, Authenticity: null
+};
+
+// ── Build scale buttons ────────────────────────────────────────────────────────
+['Spirit','Oration','Authenticity'].forEach(group => {
+  const el = document.getElementById('scale-' + group);
+  for (let i = 1; i <= 5; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'scale-btn';
+    btn.textContent = i;
+    btn.dataset.group = group;
+    btn.dataset.val = i;
+    btn.onclick = () => pick(btn);
+    el.appendChild(btn);
+  }
+});
+
+// ── Pick handler ──────────────────────────────────────────────────────────────
+function pick(btn) {
+  const group = btn.dataset.group;
+  const val   = parseInt(btn.dataset.val);
+  scores[group] = val;
+
+  // deactivate siblings
+  const parent = btn.closest('.yn-group, .scale-group');
+  parent.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  updateScores();
+}
+
+// ── Update display ────────────────────────────────────────────────────────────
+function updateScores() {
+  let total = 0;
+  let filled = 0;
+  Object.entries(scores).forEach(([key, val]) => {
+    const el = document.getElementById('sc-' + key);
+    if (val !== null) {
+      el.textContent = val;
+      total += val;
+      filled++;
+    } else {
+      el.textContent = '—';
+    }
+  });
+  document.getElementById('total-val').textContent = total;
+  document.getElementById('badge-total').textContent = total;
+  const pct = Math.round((total / 35) * 100);
+  document.getElementById('total-pct').textContent = filled > 0 ? pct + '%' : '0%';
+}
+
+// ── Reset ─────────────────────────────────────────────────────────────────────
+function resetForm() {
+  Object.keys(scores).forEach(k => scores[k] = null);
+  document.querySelectorAll('.yn-btn, .scale-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('candidate-name').value = '';
+  document.getElementById('sermon-date').value = '';
+  document.getElementById('notes').value = '';
+  updateScores();
+}
+
+// ── PDF generation ────────────────────────────────────────────────────────────
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+
+  const PW = 612, PH = 792;
+  const MAR = 43, INNER = PW - 2*MAR;
+
+  const INK     = '#1C1917';
+  const INK_MID = '#57534E';
+  const INK_LT  = '#A8A29E';
+  const CREAM   = '#F5F3EF';
+  const RULE    = '#E7E5E4';
+  const GBG='#EAF3DE', GBD='#639922', GTX='#3B6D11';
+  const RBG='#FCEBEB', RBD='#A32D2D', RTX='#791F1F';
+  const PBG='#EEEDFE', PBD='#534AB7', PTX='#3C3489';
+
+  function rr(x, y, w, h, r, fill, stroke) {
+    doc.setFillColor(fill || 'transparent');
+    doc.setDrawColor(stroke || 'transparent');
+    doc.setLineWidth(0.5);
+    if (fill && stroke) doc.roundedRect(x, y, w, h, r, r, 'FD');
+    else if (fill)      doc.roundedRect(x, y, w, h, r, r, 'F');
+    else if (stroke)    doc.roundedRect(x, y, w, h, r, r, 'D');
+  }
+
+  let y = 42;
+
+  // Church name
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(8); doc.setTextColor(INK_LT);
+  doc.text('MARPLE PRESBYTERIAN CHURCH', MAR, y);
+  y += 14;
+
+  // Title
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(20); doc.setTextColor(INK);
+  doc.text('Sermon Candidate Evaluation', MAR, y);
+  y += 4;
+
+  // Rule
+  doc.setDrawColor(INK); doc.setLineWidth(1.2);
+  doc.line(MAR, y, MAR+INNER, y);
+  y += 12;
+
+  // Subtitle
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(8); doc.setTextColor(INK_LT);
+  doc.text('Yes/No: 5 pts each   ·   Scaled: 1–5 pts each   ·   Maximum: 35 pts', MAR, y);
+  y += 16;
+
+  // Candidate row
+  const name = document.getElementById('candidate-name').value || '—';
+  const date = document.getElementById('sermon-date').value   || '—';
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(INK_LT);
+  doc.text('CANDIDATE NAME', MAR, y);
+  doc.text('DATE', MAR + INNER*0.68 + 8, y);
+  y += 4;
+
+  rr(MAR, y, INNER*0.64, 18, 2, '#fff', RULE);
+  rr(MAR+INNER*0.68+8, y, INNER*0.32-8, 18, 2, '#fff', RULE);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(INK);
+  doc.text(name, MAR+4, y+12);
+  doc.text(date, MAR+INNER*0.68+12, y+12);
+  y += 26;
+
+  // ── Section renderer ──────────────────────────────────────────────────────
+  function section(label, rows) {
+    // header
+    rr(MAR, y, INNER, 17, 3, CREAM, RULE);
+    doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(INK_LT);
+    doc.text(label.toUpperCase(), MAR+8, y+11);
+    y += 22;
+
+    rows.forEach((row, idx) => {
+      const isLast = idx === rows.length-1;
+      const rh = row.note.length > 80 ? 50 : 42;
+
+      // title
+      doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(INK);
+      doc.text(row.title, MAR+4, y+13);
+
+      // note (wrap)
+      doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(INK_MID);
+      const noteLines = doc.splitTextToSize(row.note, INNER - 130);
+      doc.text(noteLines, MAR+4, y+24);
+
+      // buttons
+      if (row.type === 'yn') {
+        const val = scores[row.group];
+        const bw=38, bh=16, by_=y+rh-28;
+        const yx = MAR+INNER-4-bw*2-6;
+        const nx = MAR+INNER-4-bw;
+        // Yes
+        const yFill  = val===5 ? GBG : CREAM;
+        const yBord  = val===5 ? GBD : RULE;
+        const yTx    = val===5 ? GTX : INK_MID;
+        rr(yx, by_, bw, bh, 2, yFill, yBord);
+        doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(yTx);
+        doc.text('Yes', yx+bw/2, by_+10.5, {align:'center'});
+        // No
+        const nFill  = val===0 ? RBG : CREAM;
+        const nBord  = val===0 ? RBD : RULE;
+        const nTx    = val===0 ? RTX : INK_MID;
+        rr(nx, by_, bw, bh, 2, nFill, nBord);
+        doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(nTx);
+        doc.text('No', nx+bw/2, by_+10.5, {align:'center'});
+      } else {
+        const val = scores[row.group];
+        const bw=26, bh=18, gap=4;
+        const tw = 5*(bw+gap)-gap;
+        const sx = MAR+INNER-4-tw;
+        const by_ = y+rh-30;
+        for (let i=1;i<=5;i++){
+          const bx=sx+(i-1)*(bw+gap);
+          const active = val===i;
+          rr(bx,by_,bw,bh,2, active?PBG:CREAM, active?PBD:RULE);
+          doc.setFont('helvetica','bold'); doc.setFontSize(9);
+          doc.setTextColor(active?PTX:INK_MID);
+          doc.text(String(i), bx+bw/2, by_+12, {align:'center'});
+        }
+      }
+
+      if (!isLast) {
+        doc.setDrawColor(RULE); doc.setLineWidth(0.5);
+        doc.line(MAR, y+rh, MAR+INNER, y+rh);
+      }
+      y += rh;
+    });
+    y += 8;
+  }
+
+  section('Yes / No  (5 pts each)', [
+    { group:'Landing',   type:'yn',    title:'Landing the plane',
+      note:'Arrived at a clear, satisfying conclusion — and stayed there. Did not veer into a second, unrelated sermon.' },
+    { group:'Summarize', type:'yn',    title:'Summarizable message',
+      note:'Could you retell the core message to someone else?' },
+    { group:'History',   type:'yn',    title:'History serves the lesson',
+      note:'Historical content used only as far as it advances the message — not as an end in itself.' },
+    { group:'Theology',  type:'yn',    title:'Theologically sound',
+      note:'Doctrinally faithful to scripture and tradition.' },
+  ]);
+
+  section('Scaled  (1–5 pts each)', [
+    { group:'Spirit',       type:'scale', title:'Moved the spirit',
+      note:'Did the message stir something spiritually in the congregation?' },
+    { group:'Oration',      type:'scale', title:'Oration',
+      note:'Delivery, clarity, pacing, and vocal presence.' },
+    { group:'Authenticity', type:'scale', title:'Authenticity',
+      note:'Did the preacher come across as genuine and personally invested?' },
+  ]);
+
+  // Notes
+  rr(MAR, y, INNER, 17, 3, CREAM, RULE);
+  doc.setFont('helvetica','bold'); doc.setFontSize(7.5); doc.setTextColor(INK_LT);
+  doc.text('NOTES', MAR+8, y+11);
+  y += 20;
+  const notesText = document.getElementById('notes').value || '';
+  const notesH = 64;
+  rr(MAR, y, INNER, notesH, 3, '#fff', RULE);
+  if (notesText) {
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(INK);
+    const lines = doc.splitTextToSize(notesText, INNER-12);
+    doc.text(lines, MAR+6, y+11);
+  }
+  y += notesH + 12;
+
+  // Score row
+  const groups  = ['Landing','Summarize','History','Theology','Spirit','Oration','Authenticity'];
+  const lbls    = ['Landing','Summary',  'History','Theology','Spirit','Oration','Authentic'];
+  const total   = Object.values(scores).reduce((a,v)=>a+(v||0),0);
+  const pct     = Math.round((total/35)*100);
+  const sh = 44;
+  const ncols = groups.length+1;
+  const colW = INNER/ncols;
+
+  rr(MAR, y, INNER, sh, 4, CREAM, RULE);
+
+  groups.forEach((g,i) => {
+    const cx = MAR + i*colW + colW/2;
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(INK_LT);
+    doc.text(lbls[i].toUpperCase(), cx, y+12, {align:'center'});
+    const v = scores[g];
+    doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.setTextColor(INK);
+    doc.text(v!==null ? String(v) : '—', cx, y+32, {align:'center'});
+  });
+
+  // Total cell
+  const tx = MAR + groups.length*colW;
+  rr(tx, y, colW, sh, 4, INK, INK);
+  doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor('rgba(255,255,255,0.5)');
+  doc.text('TOTAL / 35', tx+colW/2, y+12, {align:'center'});
+  doc.setFontSize(22); doc.setTextColor('#ffffff');
+  doc.text(String(total), tx+colW/2, y+32, {align:'center'});
+
+  y += sh + 10;
+
+  // Footer
+  doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(INK_LT);
+  doc.text('Marple Presbyterian Church  ·  Sermon Candidate Evaluation', PW/2, PH-24, {align:'center'});
+
+  // Filename
+  const safeName = name.replace(/[^a-z0-9]/gi,'_').replace(/_+/g,'_');
+  doc.save(`sermon_eval_${safeName || 'candidate'}.pdf`);
+}
+</script>
+</body>
+</html>
