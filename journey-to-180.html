@@ -338,70 +338,6 @@
     font-family: var(--font-mono);
   }
 
-  /* Update form */
-  .update-form {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 1.5rem;
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr) auto;
-    gap: 1rem;
-    align-items: end;
-  }
-
-  .form-field label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.55rem;
-  }
-
-  .form-field input {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.65rem 0.8rem;
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
-  .form-field input:focus {
-    outline: none;
-    border-color: var(--accent);
-    background: var(--surface-2);
-  }
-
-  button.cta {
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    cursor: pointer;
-    transition: all 0.2s;
-    height: 42px;
-  }
-
-  button.cta:hover {
-    background: var(--text);
-  }
-
-  button.cta:active {
-    transform: scale(0.98);
-  }
-
   /* Content footer (math/methodology notes) */
   .journey-container footer {
     margin-top: 3rem;
@@ -599,6 +535,17 @@
 
   .photo-card { cursor: pointer; }
 
+  .photo-card.no-photo {
+    cursor: default;
+    border-style: dashed;
+  }
+
+  .photo-card.no-photo:hover {
+    border-color: var(--border);
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  }
+
   .photo-empty {
     background: var(--surface);
     border: 1px dashed var(--border);
@@ -614,38 +561,11 @@
     margin-top: 0.6rem;
   }
 
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: var(--surface-2);
-    border: 1px solid var(--good);
-    color: var(--good);
-    padding: 0.8rem 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s, transform 0.3s;
-    pointer-events: none;
-    z-index: 100;
-  }
-
-  .toast.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   /* Mobile */
   @media (max-width: 880px) {
     .hero { grid-template-columns: 1fr 1fr; }
     .panel-grid { grid-template-columns: 1fr; }
     .milestones { grid-template-columns: 1fr 1fr; }
-    .form-grid { grid-template-columns: 1fr 1fr; }
-    .form-grid button.cta { grid-column: 1 / -1; }
     .meta-line { text-align: left; }
   }
 
@@ -653,7 +573,6 @@
     .journey-container { padding: 1.5rem 1rem 3rem; }
     .hero { grid-template-columns: 1fr; }
     .milestones { grid-template-columns: 1fr; }
-    .form-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -723,22 +642,22 @@
   <div class="hero">
     <div class="stat primary">
       <div class="label">Current weight</div>
-      <div class="value"><span id="hero-weight">313</span><span class="unit">lb</span></div>
-      <div class="meta">−<span id="hero-lost">87</span> lb since start</div>
+      <div class="value"><span id="hero-weight">298</span><span class="unit">lb</span></div>
+      <div class="meta">−<span id="hero-lost">102</span> lb since start</div>
     </div>
     <div class="stat">
       <div class="label">BMI</div>
-      <div class="value" id="hero-bmi">42.4</div>
+      <div class="value" id="hero-bmi">40.4</div>
       <div class="meta" id="hero-bmi-cat">Class III obesity</div>
     </div>
     <div class="stat">
       <div class="label">Body fat</div>
-      <div class="value"><span id="hero-bf">39.7</span><span class="unit">%</span></div>
+      <div class="value"><span id="hero-bf">39.0</span><span class="unit">%</span></div>
       <div class="meta">U.S. Navy method</div>
     </div>
     <div class="stat">
       <div class="label">Progress</div>
-      <div class="value"><span id="hero-pct">40</span><span class="unit">%</span></div>
+      <div class="value"><span id="hero-pct">46</span><span class="unit">%</span></div>
       <div class="meta">to <span id="hero-target">180</span> lb target</div>
     </div>
   </div>
@@ -752,16 +671,16 @@
     <div class="progress-bar-wrap">
       <div class="progress-labels">
         <span>Start</span>
-        <span class="center">Today · <span id="prog-current">313</span> lb</span>
+        <span class="center">Today · <span id="prog-current">298</span> lb</span>
         <span>Goal</span>
       </div>
       <div class="progress-bar">
-        <div class="progress-fill" id="progressFill" style="width: 39.5%"></div>
-        <div class="progress-current" id="progressMarker" style="left: 39.5%"></div>
+        <div class="progress-fill" id="progressFill" style="width: 46.4%"></div>
+        <div class="progress-current" id="progressMarker" style="left: 46.4%"></div>
       </div>
       <div class="progress-labels">
         <span><span id="prog-start-2">400</span> lb</span>
-        <span style="color:var(--accent)"><span id="prog-pct">39.5</span>% complete</span>
+        <span style="color:var(--accent)"><span id="prog-pct">46.4</span>% complete</span>
         <span><span id="prog-target-2">180</span> lb</span>
       </div>
     </div>
@@ -792,33 +711,6 @@
   </div>
   <div class="milestones" id="milestones"></div>
 
-  <!-- Update form -->
-  <div class="section-head">
-    <h2>Update measurements</h2>
-    <span class="marker">RECALCULATES EVERYTHING</span>
-  </div>
-  <div class="update-form">
-    <div class="form-grid">
-      <div class="form-field">
-        <label for="in-weight">Weight (lb)</label>
-        <input type="number" id="in-weight" value="313" step="0.1" min="100" max="500">
-      </div>
-      <div class="form-field">
-        <label for="in-waist">Waist (in)</label>
-        <input type="number" id="in-waist" value="53.75" step="0.25" min="20" max="80">
-      </div>
-      <div class="form-field">
-        <label for="in-neck">Neck (in)</label>
-        <input type="number" id="in-neck" value="18.5" step="0.25" min="10" max="30">
-      </div>
-      <div class="form-field">
-        <label for="in-target">Target (lb)</label>
-        <input type="number" id="in-target" value="180" step="1" min="100" max="300">
-      </div>
-      <button class="cta" onclick="applyUpdate()">Update</button>
-    </div>
-  </div>
-
   <!-- Photo timeline -->
   <div class="photo-timeline-section">
     <div class="section-head">
@@ -830,10 +722,8 @@
 
   <footer>
     <p><strong>On the math.</strong> BMI is exact: (weight × 703) ÷ height². Body fat % uses the U.S. Navy formula: 86.010 × log₁₀(waist − neck) − 70.041 × log₁₀(height) + 36.76. Body fat values for weights other than the one you measure assume waist and neck shrink proportionally to weight lost (about 1 inch off the waist per 10 lb, 0.2 inch off the neck) — a useful approximation, but the real curve depends on the fat-to-muscle ratio of weight you lose.</p>
-    <p><strong>On the timeline.</strong> Projections assume steady loss at 1.5 or 2 lb per week. Reality is rarely linear — expect a faster first month (water weight), slower middle phases, occasional plateaus, and diminishing returns near goal as your maintenance calories drop. Resistance training plus 0.7–1 g of protein per pound of body weight protects lean mass through the deficit. This page persists your last entered values locally; nothing leaves your device.</p>
+    <p><strong>On the timeline.</strong> Projections assume steady loss at 1.5 or 2 lb per week. Reality is rarely linear — expect a faster first month (water weight), slower middle phases, occasional plateaus, and diminishing returns near goal as your maintenance calories drop. Resistance training plus 0.7–1 g of protein per pound of body weight protects lean mass through the deficit.</p>
   </footer>
-
-  <div class="toast" id="toast">Updated</div>
 
 </div>
 
@@ -881,21 +771,26 @@
 <script>
   const HEIGHT_IN = 72;
   const START_WEIGHT = 400;
-  const STORAGE_KEY = 'journey-to-180-state';
+  const TARGET_WEIGHT = 180;
 
-  // Initial state — falls back to defaults if no saved data
-  let state = {
-    weight: 307,
-    waist: 53.75,
-    neck: 18.5,
-    target: 180
+  // Waist/neck are anchored to a known reference measurement, then projected
+  // to the current weight so body-fat % stays coherent as new journal entries land.
+  const REFERENCE_WEIGHT = 307;
+  const REFERENCE_WAIST = 53.75;
+  const REFERENCE_NECK = 18.5;
+
+  const latestEntry = (window.JOURNEY_PHOTOS && window.JOURNEY_PHOTOS.length)
+    ? window.JOURNEY_PHOTOS[window.JOURNEY_PHOTOS.length - 1]
+    : { weight: REFERENCE_WEIGHT };
+  const currentWeight = latestEntry.weight;
+  const refDelta = REFERENCE_WEIGHT - currentWeight;
+
+  const state = {
+    weight: currentWeight,
+    waist: Math.max(28, REFERENCE_WAIST - (refDelta / 10) * 1.0),
+    neck: Math.max(13, REFERENCE_NECK - (refDelta / 10) * 0.2),
+    target: TARGET_WEIGHT
   };
-
-  // Try to load persisted state
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) state = { ...state, ...JSON.parse(saved) };
-  } catch (e) { /* ignore */ }
 
   let journeyChart = null;
   let timelineChart = null;
@@ -1211,67 +1106,8 @@
     };
   }
 
-  // ---------- Update flow ----------
-  function applyUpdate() {
-    const w = parseFloat(document.getElementById('in-weight').value);
-    const wa = parseFloat(document.getElementById('in-waist').value);
-    const n = parseFloat(document.getElementById('in-neck').value);
-    const t = parseFloat(document.getElementById('in-target').value);
-
-    if (!isFinite(w) || !isFinite(wa) || !isFinite(n) || !isFinite(t)) return;
-    if (wa <= n) {
-      showToast('Waist must exceed neck', true);
-      return;
-    }
-
-    state = { weight: w, waist: wa, neck: n, target: t };
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
-
-    updateHero();
-    renderMilestones();
-
-    // Re-render charts (destroy first since timeline can change config shape)
-    if (timelineChart) { timelineChart.destroy(); timelineChart = null; }
-    if (journeyChart) { journeyChart.destroy(); journeyChart = null; }
-    // Need to ensure canvas element exists (might have been replaced by "Goal reached")
-    ensureCanvases();
-    renderJourneyChart();
-    renderTimelineChart();
-
-    showToast('Updated');
-  }
-
-  function ensureCanvases() {
-    const panels = document.querySelectorAll('.panel-grid .panel');
-    [['journeyChart', 'BMI and body fat percentage versus weight from start to goal'],
-     ['timelineChart', 'Weight loss timeline projection by month']].forEach(([id, label], idx) => {
-      let el = document.getElementById(id);
-      if (!el) {
-        const wrap = panels[idx].querySelector('.chart-container');
-        wrap.innerHTML = `<canvas id="${id}" role="img" aria-label="${label}"></canvas>`;
-      }
-    });
-  }
-
-  function showToast(msg, isError) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.style.borderColor = isError ? 'var(--bad)' : 'var(--good)';
-    t.style.color = isError ? 'var(--bad)' : 'var(--good)';
-    t.classList.add('show');
-    clearTimeout(showToast._tid);
-    showToast._tid = setTimeout(() => t.classList.remove('show'), 1800);
-  }
-
   // ---------- Init ----------
   function init() {
-    // Populate form with state
-    document.getElementById('in-weight').value = state.weight;
-    document.getElementById('in-waist').value = state.waist;
-    document.getElementById('in-neck').value = state.neck;
-    document.getElementById('in-target').value = state.target;
-
-    // Date stamp
     const today = new Date();
     document.getElementById('genDate').textContent = today.toLocaleDateString('en-US', {
       year: 'numeric', month: 'short', day: 'numeric'
@@ -1282,14 +1118,6 @@
     renderJourneyChart();
     renderTimelineChart();
     renderPhotoTimeline();
-
-    // Enter-key submission
-    document.querySelectorAll('.form-field input').forEach(input => {
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') applyUpdate();
-      });
-      input.addEventListener('change', () => applyUpdate());
-    });
   }
 
   // ---------- Photo timeline ----------
@@ -1309,8 +1137,8 @@
     }
     container.innerHTML = `<div class="photo-timeline-track">` +
       entries.map((p, i) => `
-        <div class="photo-card" data-idx="${i}">
-          <img src="${PHOTO_DIR}${p.file}" alt="Progress photo ${p.date}" loading="lazy">
+        <div class="photo-card ${p.file ? '' : 'no-photo'}" data-idx="${i}">
+          ${p.file ? `<img src="${PHOTO_DIR}${p.file}" alt="Progress photo ${p.date}" loading="lazy">` : ''}
           <div class="photo-card-meta">
             <div class="photo-card-date">${p.date}</div>
             <div class="photo-card-weight">${p.weight}<span class="photo-unit">lb</span></div>
@@ -1321,7 +1149,9 @@
 
     container.querySelector('.photo-timeline-track').addEventListener('click', e => {
       const card = e.target.closest('.photo-card');
-      if (card) openModal(entries[+card.dataset.idx]);
+      if (!card) return;
+      const entry = entries[+card.dataset.idx];
+      if (entry.file) openModal(entry);
     });
   }
 
