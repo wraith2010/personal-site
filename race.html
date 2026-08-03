@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NIGHT CIRCUIT — multiplayer race</title>
+<meta name="description" content="Eight cars, three laps, one room code. Everyone races from their own screen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   THEME TOKENS — swap these for 1031f.com's values and everything follows.
+   Nothing below this block hard-codes a colour or a font family.
+   ========================================================================== */
+:root{
+  /* surfaces */
+  --bg:        #06080E;
+  --surface:   #0D121C;
+  --surface-2: #141B29;
+  --plate:     #0A0F18;   /* track plate */
+
+  /* ink */
+  --txt:       #DCE6F2;
+  --dim:       #66768C;
+  --line:      rgba(34,230,224,.15);
+
+  /* accents — primary drives links/values, secondary drives alerts/GO */
+  --acc:       #22E6E0;
+  --acc-2:     #FF3D81;
+  --acc-soft:  rgba(34,230,224,.10);
+
+  /* type */
+  --display: "Chakra Petch", "Segoe UI", sans-serif;
+  --body:    "Inter", system-ui, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  /* geometry */
+  --notch: 14px;          /* clipped-corner size */
+  --radius: 0px;
+}
+
+/* clipped corner used on every panel and button */
+.clip{ clip-path:polygon(0 0, calc(100% - var(--notch)) 0, 100% var(--notch), 100% 100%, var(--notch) 100%, 0 calc(100% - var(--notch))); }
+
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--body);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+/* ambient grid — static, cheap, sits under everything */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(var(--acc-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--acc-soft) 1px, transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(115% 85% at 50% 0%, #000 20%, transparent 78%);
+  opacity:.5;
+}
+#app{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:20px 20px 44px;
+  display:flex;flex-direction:column;min-height:100vh}
+
+/* ---------------- masthead ---------------- */
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:30px;flex-wrap:wrap}
+.marque{font-family:var(--display);font-weight:700;font-size:clamp(24px,4.6vw,36px);
+  letter-spacing:.16em;text-transform:uppercase;line-height:1}
+.marque em{font-style:normal;color:var(--acc)}
+.status{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);border:1px solid var(--line);padding:6px 10px;white-space:nowrap}
+.pill b{color:var(--acc);font-weight:500}
+.pill.warn b{color:var(--acc-2)}
+
+main{flex:1}
+
+/* ---------------- primitives ---------------- */
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+.eyebrow::before{content:"> ";color:var(--dim)}
+h2.head{font-family:var(--display);font-weight:700;text-transform:uppercase;
+  font-size:clamp(26px,4.4vw,40px);letter-spacing:.05em;margin:8px 0 12px;line-height:1.02}
+.hint{color:var(--dim);font-size:14px;line-height:1.6}
+
+.panel{background:var(--surface);border:1px solid var(--line);padding:24px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+
+.btn{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+  font-size:16px;padding:14px 26px;border:1px solid var(--acc);background:transparent;
+  color:var(--acc);cursor:pointer;transition:background .15s,color .15s,box-shadow .15s;
+  clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))}
+.btn:hover{background:var(--acc);color:var(--bg);box-shadow:0 0 22px rgba(34,230,224,.32)}
+.btn.ghost{border-color:var(--line);color:var(--dim)}
+.btn.ghost:hover{background:transparent;color:var(--txt);border-color:var(--txt);box-shadow:none}
+.btn.go{border-color:var(--acc-2);color:var(--acc-2);font-size:19px;padding:16px 36px}
+.btn.go:hover{background:var(--acc-2);color:var(--bg);box-shadow:0 0 26px rgba(255,61,129,.4)}
+.btn:disabled{opacity:.3;cursor:not-allowed;background:transparent;color:var(--dim);
+  border-color:var(--line);box-shadow:none}
+.btn:focus-visible,input:focus-visible,.livery:focus-visible{outline:2px solid var(--acc-2);outline-offset:3px}
+
+input[type=text]{font-family:var(--mono);font-size:16px;padding:13px 14px;width:100%;
+  background:var(--bg);border:1px solid var(--line);color:var(--txt);letter-spacing:.08em}
+input::placeholder{color:#3B4757}
+label.field{display:block;margin-bottom:18px}
+label.field .lbl,.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--dim);display:block;margin-bottom:8px}
+.err{color:var(--acc-2);font-family:var(--mono);font-size:12px;margin-top:12px;min-height:16px}
+.rowbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+
+/* ---------------- home ---------------- */
+.home{display:grid;grid-template-columns:1.02fr .98fr;gap:38px;align-items:center}
+.readout{background:var(--surface);border:1px solid var(--line);padding:22px;
+  box-shadow:0 0 0 1px rgba(34,230,224,.05), 0 30px 70px rgba(0,0,0,.6)}
+.readout .bar{height:2px;background:linear-gradient(90deg,var(--acc),var(--acc-2));margin-bottom:20px}
+.readout .code{font-family:var(--mono);font-weight:700;font-size:clamp(56px,14vw,104px);
+  line-height:.95;letter-spacing:.14em;text-align:center;color:var(--acc);
+  text-shadow:0 0 26px rgba(34,230,224,.4)}
+.readout .code-lbl{text-align:center;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.28em;color:var(--dim);text-transform:uppercase;margin-top:10px}
+.home-copy p{font-size:16.5px;line-height:1.65;color:#A9B7C9;max-width:46ch}
+.choices{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.spec{margin-top:28px;border-top:1px solid var(--line);padding-top:16px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.spec div{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dim);line-height:1.7}
+.spec b{display:block;font-family:var(--display);font-size:26px;letter-spacing:.06em;color:var(--txt)}
+
+/* ---------------- livery picker ---------------- */
+.liveries{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.livery{border:1px solid var(--line);background:var(--bg);padding:9px 5px;cursor:pointer;
+  text-align:center;transition:border-color .15s,background .15s}
+.livery .chip{height:22px;margin-bottom:8px}
+.livery .nm{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+.livery[aria-pressed=true]{border-color:var(--acc);background:var(--surface-2)}
+.livery[aria-pressed=true] .nm{color:var(--txt)}
+.livery[disabled]{opacity:.22;cursor:not-allowed}
+
+/* ---------------- roster ---------------- */
+.roster{list-style:none;margin:0;padding:0}
+.roster li{display:flex;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line)}
+.roster li:last-child{border-bottom:0}
+.roster .pos{font-family:var(--mono);font-size:11px;color:var(--dim);width:28px}
+.roster .swatch{width:20px;height:10px;flex:none}
+.roster .nm{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:.07em;text-transform:uppercase}
+.roster .nm.you{color:var(--acc)}
+.roster .tag{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--dim)}
+.empty{color:var(--dim);font-size:14px;padding:20px 0;line-height:1.6;font-family:var(--mono)}
+
+/* ---------------- race ---------------- */
+.race-wrap{display:grid;grid-template-columns:1fr 292px;gap:20px;align-items:start}
+.track-box{position:relative;background:var(--plate);border:1px solid var(--line);overflow:hidden}
+svg#track{display:block;width:100%;height:auto}
+.car-tag{font-family:var(--mono);font-size:10.5px;fill:var(--txt);paint-order:stroke;
+  stroke:rgba(6,8,14,.9);stroke-width:3px;letter-spacing:.1em}
+
+.gantry{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:18px;background:rgba(6,8,14,.82)}
+.lights{display:flex;gap:10px}
+.lights i{width:clamp(24px,4.6vw,40px);height:clamp(24px,4.6vw,40px);display:block;
+  background:var(--surface-2);border:1px solid var(--line);transition:background .1s,box-shadow .1s}
+.lights i.on{background:var(--acc-2);border-color:var(--acc-2);box-shadow:0 0 24px rgba(255,61,129,.8)}
+.gantry .cue{font-family:var(--mono);font-size:clamp(11px,1.8vw,13px);letter-spacing:.34em;
+  text-transform:uppercase;color:var(--dim)}
+.gantry.go{background:transparent;pointer-events:none}
+.gantry.go .lights{opacity:0;transition:opacity .25s}
+.gantry.go .cue{font-family:var(--display);font-weight:700;color:var(--acc);
+  font-size:clamp(46px,11vw,96px);letter-spacing:.2em;animation:burst .55s ease-out forwards}
+@keyframes burst{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.6);opacity:0}}
+
+.tower{background:var(--surface);border:1px solid var(--line);padding:16px}
+.tower h3{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--dim);margin:0 0 14px;display:flex;justify-content:space-between}
+.tower h3 span{color:var(--acc)}
+.tt{position:relative}
+.tt-row{position:absolute;left:0;right:0;height:38px;display:flex;align-items:center;gap:9px;
+  border-bottom:1px solid var(--line);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.tt-row .p{font-family:var(--mono);font-size:13px;width:24px;color:var(--dim)}
+.tt-row .sw{width:4px;height:20px;flex:none}
+.tt-row .n{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:.06em;
+  text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.tt-row .g{font-family:var(--mono);font-size:11px;color:var(--dim);white-space:nowrap}
+.tt-row.me .n{color:var(--acc)}
+.tt-row.done .g{color:var(--acc-2)}
+
+/* ---------------- result ---------------- */
+.result{text-align:center;position:relative;z-index:2}
+.verdict{font-family:var(--display);font-weight:700;text-transform:uppercase;line-height:1;
+  font-size:clamp(48px,12vw,128px);letter-spacing:.06em;margin:10px 0 8px}
+.verdict.win{color:var(--acc);animation:glitch .34s steps(2,end) 3}
+@keyframes glitch{
+  0%{text-shadow:0 0 0 transparent;transform:translateX(0)}
+  33%{text-shadow:-4px 0 var(--acc-2), 4px 0 var(--acc);transform:translateX(2px)}
+  66%{text-shadow:4px 0 var(--acc-2), -4px 0 var(--acc);transform:translateX(-2px)}
+  100%{text-shadow:0 0 30px rgba(34,230,224,.5);transform:translateX(0)}
+}
+.sub{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--dim);text-transform:uppercase}
+.classification{max-width:520px;margin:36px auto 0;text-align:left}
+.classification .tag{color:var(--txt)}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.confetti i{position:absolute;top:-24px;display:block;animation:fall linear forwards}
+@keyframes fall{
+  0%{transform:translateY(-12vh) rotate(0);opacity:1}
+  100%{transform:translateY(114vh) rotate(680deg);opacity:.85}
+}
+
+footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:#3F4C5D;line-height:1.8}
+
+@media (max-width:900px){
+  .home{grid-template-columns:1fr;gap:28px}
+  .two{grid-template-columns:1fr;gap:20px}
+  .race-wrap{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001s !important;transition-duration:.001s !important}
+  .confetti{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <header class="masthead">
+    <div class="marque">NIGHT<em>//</em>CIRCUIT</div>
+    <div class="status">
+      <span class="pill" id="linkPill">LINK <b id="linkMode">…</b></span>
+      <span class="pill" id="roomChip" hidden>ROOM <b id="roomChipCode"></b></span>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- HOME -->
+  <section id="s-home" class="screen">
+    <div class="home">
+      <div class="readout clip">
+        <div class="bar"></div>
+        <div class="code" id="demoCode">····</div>
+        <div class="code-lbl">Awaiting room</div>
+      </div>
+      <div class="home-copy">
+        <div class="eyebrow">Eight cars · three laps · one code</div>
+        <h2 class="head">Everyone races from their own screen</h2>
+        <p>One person opens the race on the big display and reads out a four-letter code. Everyone else joins, takes a livery, and waits on the grid. When the lights drop, the cars run. The result is pure chance — the winner gets the screen to themselves.</p>
+        <div class="choices">
+          <button class="btn go" id="btnHost">Open a race</button>
+          <button class="btn ghost" id="btnJoin">Join a race</button>
+        </div>
+        <div class="spec">
+          <div><b>2–8</b>cars per grid</div>
+          <div><b>3</b>laps to the flag</div>
+          <div><b>~12s</b>lights to finish</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section id="s-join" class="screen" hidden>
+    <div class="eyebrow">Sign on</div>
+    <h2 class="head">Take a car</h2>
+    <div class="two">
+      <div class="panel clip">
+        <label class="field">
+          <span class="lbl">Room code</span>
+          <input type="text" id="inCode" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCD">
+        </label>
+        <label class="field">
+          <span class="lbl">Your name</span>
+          <input type="text" id="inName" maxlength="14" autocomplete="off" placeholder="SAM">
+        </label>
+        <div class="rowbtns" style="margin-top:0">
+          <button class="btn" id="btnJoinGo">Join the grid</button>
+          <button class="btn ghost" id="btnJoinBack">Back</button>
+        </div>
+        <div class="err" id="joinErr"></div>
+      </div>
+      <div class="panel clip">
+        <span class="lbl">Livery</span>
+        <div class="liveries" id="liveries"></div>
+        <p class="hint" style="margin-bottom:0">Dimmed colours are already taken. Enter the room code first to see what's left.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOBBY -->
+  <section id="s-lobby" class="screen" hidden>
+    <div class="two">
+      <div class="readout clip">
+        <div class="bar"></div>
+        <div class="code" id="lobbyCode">----</div>
+        <div class="code-lbl" id="lobbyCodeLbl">Room code · read it out</div>
+        <div class="rowbtns" id="hostControls" hidden>
+          <button class="btn go" id="btnStart" disabled>Lights out</button>
+          <button class="btn ghost" id="btnAddHouse">Add house car</button>
+          <button class="btn ghost" id="btnClear">Clear grid</button>
+        </div>
+        <div class="rowbtns" id="playerControls" hidden>
+          <span class="hint">You're on the grid. This screen switches itself when the race starts.</span>
+        </div>
+      </div>
+      <div class="panel clip">
+        <div class="eyebrow">On the grid <span id="gridCount" style="color:var(--dim)"></span></div>
+        <ul class="roster" id="roster" style="margin-top:14px"></ul>
+        <div class="empty" id="rosterEmpty">No signatures yet. Share the code.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RACE -->
+  <section id="s-race" class="screen" hidden>
+    <div class="race-wrap">
+      <div class="track-box">
+        <svg id="track" viewBox="0 0 1000 600" role="img" aria-label="Overhead view of the circuit"></svg>
+        <div class="gantry" id="gantry" hidden>
+          <div class="lights" id="lights"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="cue" id="cue">Grid forming</div>
+        </div>
+      </div>
+      <div class="tower">
+        <h3>Timing <span id="lapCount">Lap 1 / 3</span></h3>
+        <div class="tt" id="tt"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="s-result" class="screen" hidden>
+    <div class="result">
+      <div class="sub" id="resSub">Flag</div>
+      <div class="verdict" id="resVerdict">—</div>
+      <div class="sub" id="resLine"></div>
+      <ul class="roster classification" id="classification"></ul>
+      <div class="rowbtns" style="justify-content:center" id="resControls"></div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer id="footNote"></footer>
+</div>
+
+<script>
+/* ==========================================================================
+   NIGHT CIRCUIT
+   --------------------------------------------------------------------------
+   CONFIG.apiBase — leave empty and the page syncs through localStorage,
+   which means same-browser only (fine for one screen + a demo). Point it at
+   your own endpoint and it goes properly cross-device. See the companion
+   RaceRoomController.java for a drop-in Spring Boot implementation.
+   ========================================================================== */
+const CONFIG = {
+  apiBase: '',        // e.g. 'https://1031f.com/api/race'
+  laps: 3,
+  maxCars: 8,
+  pollMs: 1800
+};
+
+const LIVERIES = [
+  {id:'neon',    name:'Neon',    hex:'#22E6E0'},
+  {id:'hotwire', name:'Hotwire', hex:'#FF3D81'},
+  {id:'violet',  name:'Violet',  hex:'#8B5CFF'},
+  {id:'sodium',  name:'Sodium',  hex:'#FFB020'},
+  {id:'azure',   name:'Azure',   hex:'#4DA3FF'},
+  {id:'acid',    name:'Acid',    hex:'#9EF01A'},
+  {id:'ghost',   name:'Ghost',   hex:'#E6F0FF'},
+  {id:'ember',   name:'Ember',   hex:'#FF5F3D'}
+];
+const HOUSE_NAMES = ['Ripper','Daemon','Proxy','Vagrant','Shrike','Null','Cipher','Mongrel'];
+
+const $ = id => document.getElementById(id);
+const rid = () => Math.random().toString(36).slice(2,10);
+const liveryHex = id => (LIVERIES.find(l=>l.id===id) || LIVERIES[0]).hex;
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function makeCode(){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ'; let s=''; for(let i=0;i<4;i++) s+=A[Math.floor(Math.random()*A.length)]; return s; }
+
+/* ==========================================================================
+   SYNC LAYER — three drivers, one interface:
+     createRoom(code) · getRoom(code) -> {meta,cars[],state} | null
+     putCar(code,car) · clearCars(code) · putState(code,state)
+   ========================================================================== */
+
+/* -- A. localStorage + BroadcastChannel: same browser, no backend --------- */
+const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('night-circuit') : null;
+const LocalNet = {
+  label:'LOCAL',
+  note:'This build syncs through your browser only — other devices need an API endpoint. See CONFIG.apiBase.',
+  k: c => 'nightcircuit:room:'+c,
+  _read(c){ try{ return JSON.parse(localStorage.getItem(this.k(c))); }catch(e){ return null; } },
+  _write(c,r){ localStorage.setItem(this.k(c), JSON.stringify(r)); if(bc) bc.postMessage({code:c}); },
+  async createRoom(c){ this._write(c,{meta:{code:c,created:Date.now()},cars:{},state:{phase:'lobby'}}); },
+  async getRoom(c){ const r=this._read(c); return r ? {meta:r.meta, cars:Object.values(r.cars||{}), state:r.state||{phase:'lobby'}} : null; },
+  async putCar(c,car){ const r=this._read(c); if(!r) return; (r.cars=r.cars||{})[car.id]=car; this._write(c,r); },
+  async clearCars(c){ const r=this._read(c); if(!r) return; r.cars={}; this._write(c,r); },
+  async putState(c,st){ const r=this._read(c); if(!r) return; r.state=st; this._write(c,r); }
+};
+
+/* -- B. REST: real cross-device, needs CONFIG.apiBase --------------------- */
+const RestNet = {
+  label:'LIVE',
+  note:'Rooms are stored on your server. Names and liveries are visible to everyone in the room.',
+  async _j(url, opts){ const r = await fetch(url, opts); if(!r.ok) return null; const t = await r.text(); return t ? JSON.parse(t) : null; },
+  async createRoom(c){ return this._j(`${CONFIG.apiBase}/rooms/${c}`, {method:'PUT'}); },
+  async getRoom(c){ return this._j(`${CONFIG.apiBase}/rooms/${c}`); },
+  async putCar(c,car){ return this._j(`${CONFIG.apiBase}/rooms/${c}/cars/${car.id}`,
+    {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(car)}); },
+  async clearCars(c){ return this._j(`${CONFIG.apiBase}/rooms/${c}/cars`, {method:'DELETE'}); },
+  async putState(c,st){ return this._j(`${CONFIG.apiBase}/rooms/${c}/state`,
+    {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(st)}); }
+};
+
+/* -- C. Claude artifact shared storage (only exists inside claude.ai) ----- */
+const ArtifactNet = {
+  label:'SHARED',
+  note:'Running on artifact storage — rooms are visible to anyone else with this artifact open.',
+  meta: c=>`nc:${c}:meta`, state: c=>`nc:${c}:state`, car:(c,i)=>`nc:${c}:car:${i}`, pre: c=>`nc:${c}:car:`,
+  async _g(k){ try{ const r = await window.storage.get(k,true); return r?JSON.parse(r.value):null; }catch(e){ return null; } },
+  async _s(k,v){ try{ return await window.storage.set(k,JSON.stringify(v),true); }catch(e){ return null; } },
+  async createRoom(c){ await this._s(this.meta(c),{code:c,created:Date.now()}); await this._s(this.state(c),{phase:'lobby'}); },
+  async getRoom(c){
+    const meta = await this._g(this.meta(c)); if(!meta) return null;
+    let keys=[]; try{ const r=await window.storage.list(this.pre(c),true);
+      keys=(r&&r.keys||[]).map(k=>typeof k==='string'?k:(k.key||k.name)).filter(Boolean); }catch(e){}
+    const cars=[]; for(const k of keys){ const v=await this._g(k); if(v) cars.push(v); }
+    return {meta, cars, state: await this._g(this.state(c)) || {phase:'lobby'}};
+  },
+  async putCar(c,car){ await this._s(this.car(c,car.id), car); },
+  async clearCars(c){ try{ const r=await window.storage.list(this.pre(c),true);
+    for(const k of (r&&r.keys||[])){ const key=typeof k==='string'?k:(k.key||k.name); await window.storage.delete(key,true); } }catch(e){} },
+  async putState(c,st){ await this._s(this.state(c), st); }
+};
+
+const NET = CONFIG.apiBase ? RestNet
+          : (typeof window.storage !== 'undefined' && window.storage) ? ArtifactNet
+          : LocalNet;
+$('linkMode').textContent = NET.label;
+if(NET === LocalNet) $('linkPill').classList.add('warn');
+$('footNote').textContent = NET.note;
+
+if(bc) bc.onmessage = e => { if(S.code && e.data && e.data.code === S.code) tick(); };
+
+/* ==========================================================================
+   STATE
+   ========================================================================== */
+const S = { role:null, code:null, me:null, racers:[], state:null, poll:null, raf:null, raceId:null };
+
+function show(name){
+  ['home','join','lobby','race','result'].forEach(n => $('s-'+n).hidden = (n !== name));
+  window.scrollTo({top:0});
+}
+function setChip(){ $('roomChip').hidden = !S.code; $('roomChipCode').textContent = S.code || ''; }
+
+/* ==========================================================================
+   HOME
+   ========================================================================== */
+(function idle(){
+  const c = $('demoCode'); let on = false;
+  setInterval(()=>{ if(!$('s-home').hidden){ on=!on; c.textContent = on ? makeCode() : '····'; } }, 2400);
+})();
+
+$('btnHost').onclick = hostRoom;
+$('btnJoin').onclick = () => { buildLiveries(); show('join'); $('inCode').focus(); };
+$('btnJoinBack').onclick = () => { stopPoll(); show('home'); };
+
+async function hostRoom(){
+  S.role='host'; S.code=makeCode(); S.me=null; S.racers=[]; S.raceId=null;
+  setChip();
+  await NET.createRoom(S.code);
+  $('lobbyCode').textContent = S.code;
+  $('lobbyCodeLbl').textContent = 'Room code · read it out';
+  $('hostControls').hidden=false; $('playerControls').hidden=true;
+  show('lobby'); startPoll();
+}
+
+$('btnAddHouse').onclick = async () => {
+  if(S.racers.length >= CONFIG.maxCars) return;
+  const tl = new Set(S.racers.map(r=>r.livery)), tn = new Set(S.racers.map(r=>r.name.toUpperCase()));
+  const liv = LIVERIES.find(l=>!tl.has(l.id));
+  const nm  = HOUSE_NAMES.find(n=>!tn.has(n.toUpperCase())) || 'House';
+  if(!liv) return;
+  await NET.putCar(S.code, {id:rid(), name:nm, livery:liv.id, house:true});
+  await refresh();
+};
+$('btnClear').onclick = async () => { await NET.clearCars(S.code); S.racers=[]; renderRoster(); };
+$('btnStart').onclick = startRace;
+
+/* ==========================================================================
+   JOIN
+   ========================================================================== */
+let pickedLivery = null;
+
+function buildLiveries(taken){
+  const box = $('liveries'); box.innerHTML='';
+  const t = new Set(taken || []);
+  LIVERIES.forEach(l => {
+    const b = document.createElement('button');
+    b.className='livery'; b.type='button';
+    b.setAttribute('aria-pressed', String(pickedLivery === l.id));
+    if(t.has(l.id)){ b.disabled=true; if(pickedLivery===l.id) pickedLivery=null; }
+    b.innerHTML = `<div class="chip" style="background:${l.hex};box-shadow:0 0 14px ${l.hex}55"></div><div class="nm">${l.name}</div>`;
+    b.onclick = () => { pickedLivery = l.id; buildLiveries([...t]); };
+    box.appendChild(b);
+  });
+}
+
+$('inCode').addEventListener('input', async e => {
+  e.target.value = e.target.value.toUpperCase().replace(/[^A-Z]/g,'');
+  if(e.target.value.length !== 4){ return; }
+  const room = await NET.getRoom(e.target.value);
+  if(!room){ $('joinErr').textContent='No room with that code.'; buildLiveries(); return; }
+  $('joinErr').textContent='';
+  buildLiveries(room.cars.map(c=>c.livery));
+});
+
+$('btnJoinGo').onclick = async () => {
+  const code = $('inCode').value.trim().toUpperCase();
+  const name = $('inName').value.trim();
+  const err = $('joinErr');
+  if(code.length !== 4){ err.textContent='The room code is four letters.'; return; }
+  if(!name){ err.textContent='Add a name so the board can call you.'; return; }
+  if(!pickedLivery){ err.textContent='Pick a livery.'; return; }
+  const room = await NET.getRoom(code);
+  if(!room){ err.textContent='No room with that code.'; return; }
+  if(room.cars.length >= CONFIG.maxCars){ err.textContent='That grid is full.'; return; }
+
+  S.role='player'; S.code=code; S.racers=[]; S.raceId=null;
+  S.me = {id:rid(), name, livery:pickedLivery};
+  setChip();
+  await NET.putCar(code, S.me);
+  $('lobbyCode').textContent = code;
+  $('lobbyCodeLbl').textContent = `Signed on as ${name.toUpperCase()}`;
+  $('hostControls').hidden=true; $('playerControls').hidden=false;
+  show('lobby'); startPoll();
+};
+
+/* ==========================================================================
+   POLLING
+   ========================================================================== */
+function startPoll(){ stopPoll(); tick(); S.poll = setInterval(tick, CONFIG.pollMs); }
+function stopPoll(){ if(S.poll){ clearInterval(S.poll); S.poll=null; } }
+
+async function tick(){
+  if(!S.code) return;
+  const room = await NET.getRoom(S.code);
+  if(!room) return;
+  const changed = room.cars.length !== S.racers.length ||
+                  room.cars.some((c,i)=> !S.racers[i] || S.racers[i].id !== c.id);
+  S.racers = room.cars;
+  if(changed) renderRoster();
+
+  const st = room.state || {};
+  if(st.phase === 'racing' && st.raceId !== S.raceId && Date.now() < st.startAt + 30000){
+    enterRace(st);
+  } else if(st.phase === 'lobby' && S.raceId){
+    S.raceId = null; show('lobby');
+  }
+}
+
+async function refresh(){ await tick(); }
+
+function renderRoster(){
+  const ul = $('roster'); ul.innerHTML='';
+  S.racers.slice(0, CONFIG.maxCars).forEach((r,i) => {
+    const mine = S.me && r.id === S.me.id;
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="pos">${String(i+1).padStart(2,'0')}</span>
+      <span class="swatch" style="background:${liveryHex(r.livery)};box-shadow:0 0 10px ${liveryHex(r.livery)}66"></span>
+      <span class="nm ${mine?'you':''}">${esc(r.name)}</span>
+      <span class="tag">${r.house ? 'HOUSE' : (mine ? 'YOU' : 'READY')}</span>`;
+    ul.appendChild(li);
+  });
+  $('rosterEmpty').hidden = S.racers.length > 0;
+  $('gridCount').textContent = S.racers.length ? ` · ${S.racers.length}/${CONFIG.maxCars}` : '';
+  const b = $('btnStart');
+  if(b){ b.disabled = S.racers.length < 2; b.textContent = S.racers.length < 2 ? 'Need two cars' : 'Lights out'; }
+}
+
+/* ==========================================================================
+   RACE SETUP
+   ========================================================================== */
+async function startRace(){
+  if(S.racers.length < 2) return;
+  const racers = S.racers.slice(0, CONFIG.maxCars).map((r,i) => ({
+    id:r.id, name:r.name, livery:r.livery, house:!!r.house, lane:i,
+    finishTime: 10.5 + Math.random()*3.6,
+    amp: 0.22 + Math.random()*0.42,
+    waves: 2 + Math.floor(Math.random()*3),
+    phase: Math.random()*Math.PI*2
+  }));
+  racers.sort((a,b)=>a.finishTime-b.finishTime);
+  const st = {phase:'racing', raceId:rid(), startAt:Date.now()+6000, laps:CONFIG.laps, racers, winnerId:racers[0].id};
+  await NET.putState(S.code, st);
+  enterRace(st);
+}
+
+const W=1000, H=600, BASE=58, LANE_W=19;
+const laneInset = i => BASE + LANE_W/2 + i*LANE_W;
+function stadium(inset){
+  const x=inset, y=inset, w=W-2*inset, h=H-2*inset, r=h/2;
+  return `M ${x+r} ${y} H ${x+w-r} A ${r} ${r} 0 0 1 ${x+w-r} ${y+h} H ${x+r} A ${r} ${r} 0 0 1 ${x+r} ${y} Z`;
+}
+let CARS = [];
+
+function buildTrack(racers){
+  const svg = $('track'); svg.innerHTML='';
+  const NS='http://www.w3.org/2000/svg';
+  const mk=(t,a)=>{const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e;};
+  const n = racers.length;
+
+  svg.appendChild(mk('path',{d:stadium(BASE+n*LANE_W+2), fill:'var(--plate)'}));
+  svg.appendChild(mk('path',{d:stadium(BASE+n*LANE_W+2), fill:'none',
+    stroke:'var(--acc-2)','stroke-width':1,opacity:.45}));
+  svg.appendChild(mk('path',{d:stadium(BASE+(n*LANE_W)/2), fill:'none',
+    stroke:'var(--surface-2)','stroke-width':n*LANE_W+10}));
+  svg.appendChild(mk('path',{d:stadium(BASE-5), fill:'none',
+    stroke:'var(--acc)','stroke-width':1.5,opacity:.55}));
+
+  CARS = [];
+  racers.forEach((r,i)=>{
+    const p = mk('path',{d:stadium(laneInset(i)), fill:'none',
+      stroke:'var(--acc)','stroke-width':1,opacity:.10,'stroke-dasharray':'3 7'});
+    svg.appendChild(p);
+    CARS.push({r, path:p, len:p.getTotalLength()});
+  });
+
+  const top=BASE, bot=BASE+n*LANE_W;
+  for(let y=top,k=0; y<bot; y+=9,k++){
+    svg.appendChild(mk('rect',{x:k%2?300:294, y, width:6, height:Math.min(9,bot-y),
+      fill: k%2 ? 'var(--acc)' : 'var(--txt)', opacity:.85}));
+  }
+
+  CARS.forEach(c=>{
+    const hex = liveryHex(c.r.livery);
+    const g = mk('g',{});
+    g.style.filter = `drop-shadow(0 0 5px ${hex})`;
+    g.append(
+      mk('rect',{x:-15,y:-6,width:30,height:12,rx:2, fill:hex}),
+      mk('rect',{x:10,y:-6,width:5,height:12,rx:1, fill:'rgba(6,8,14,.45)'}),
+      mk('rect',{x:-4,y:-3.5,width:9,height:7,rx:1, fill:'rgba(6,8,14,.6)'})
+    );
+    const tg = mk('g',{});
+    const tx = mk('text',{x:0,y:-14,'text-anchor':'middle','class':'car-tag'});
+    tx.textContent = c.r.name.toUpperCase().slice(0,10);
+    tg.appendChild(tx); g.appendChild(tg);
+    svg.appendChild(g);
+    c.g=g; c.tag=tg;
+  });
+}
+
+function buildCurve(r){
+  const N=240, cum=[0];
+  for(let i=0;i<N;i++){
+    const x=i/N, s=1 + r.amp*Math.sin(2*Math.PI*r.waves*x + r.phase);
+    cum.push(cum[i] + Math.max(0.08, s));
+  }
+  const total = cum[N];
+  return cum.map(v=>v/total);
+}
+function progressAt(c,t){
+  const u = Math.max(0, Math.min(1, t / c.r.finishTime));
+  const f = u*(c.curve.length-1), i = Math.floor(f), fr = f-i;
+  const a = c.curve[i], b = c.curve[Math.min(i+1, c.curve.length-1)];
+  return a + (b-a)*fr;
+}
+
+function enterRace(st){
+  stopPoll();
+  S.state = st; S.raceId = st.raceId;
+  buildTrack(st.racers);
+  CARS.forEach(c => c.curve = buildCurve(c.r));
+  buildTower(st.racers);
+  const g = $('gantry'); g.hidden=false; g.classList.remove('go');
+  show('race');
+  cancelAnimationFrame(S.raf);
+  S.raf = requestAnimationFrame(frame);
+}
+
+function buildTower(racers){
+  const tt = $('tt'); tt.innerHTML='';
+  tt.style.height = (racers.length*38)+'px';
+  racers.forEach(r=>{
+    const row = document.createElement('div');
+    row.className = 'tt-row' + (S.me && r.id===S.me.id ? ' me':'');
+    row.dataset.id = r.id;
+    row.innerHTML = `<span class="p">–</span>
+      <span class="sw" style="background:${liveryHex(r.livery)};box-shadow:0 0 8px ${liveryHex(r.livery)}"></span>
+      <span class="n">${esc(r.name)}</span><span class="g">—</span>`;
+    tt.appendChild(row);
+  });
+}
+
+function frame(){
+  const st = S.state, t = (Date.now()-st.startAt)/1000, g = $('gantry');
+  if(t < 0){
+    const on = Math.max(0, Math.min(5, Math.floor(t+6)));
+    [...$('lights').children].forEach((L,i)=>L.classList.toggle('on', i<on));
+    $('cue').textContent = on===0 ? 'Grid forming' : 'Lights on';
+    placeAll(0);
+    S.raf = requestAnimationFrame(frame); return;
+  }
+  if(!g.classList.contains('go')){
+    g.classList.add('go'); $('cue').textContent='GO';
+    setTimeout(()=>{ g.hidden = true; }, 850);
+  }
+  placeAll(t); updateTower();
+  const last = Math.max(...st.racers.map(r=>r.finishTime));
+  if(t > last + 1.4){ finishRace(); return; }
+  S.raf = requestAnimationFrame(frame);
+}
+
+function placeAll(t){
+  CARS.forEach(c=>{
+    const prog = progressAt(c,t);
+    const d = (prog * S.state.laps * c.len) % c.len;
+    const p1 = c.path.getPointAtLength(d);
+    const p2 = c.path.getPointAtLength((d+3) % c.len);
+    const ang = Math.atan2(p2.y-p1.y, p2.x-p1.x)*180/Math.PI;
+    c.g.setAttribute('transform', `translate(${p1.x.toFixed(2)},${p1.y.toFixed(2)}) rotate(${ang.toFixed(1)})`);
+    c.tag.setAttribute('transform', `rotate(${(-ang).toFixed(1)})`);
+    c.prog = prog;
+  });
+}
+
+function updateTower(){
+  const order = CARS.slice().sort((a,b)=>(b.prog-a.prog)||(a.r.finishTime-b.r.finishTime));
+  const lead = order[0].prog;
+  $('lapCount').textContent = `Lap ${Math.min(S.state.laps, Math.floor(lead*S.state.laps)+1)} / ${S.state.laps}`;
+  order.forEach((c,i)=>{
+    const row = $('tt').querySelector(`[data-id="${c.r.id}"]`);
+    row.style.transform = `translateY(${i*38}px)`;
+    row.querySelector('.p').textContent = i+1;
+    const done = c.prog >= 1;
+    row.classList.toggle('done', done);
+    row.querySelector('.g').textContent = done ? `FIN ${c.r.finishTime.toFixed(2)}`
+      : i===0 ? 'LEADER' : '+' + ((lead-c.prog)*c.r.finishTime).toFixed(2);
+  });
+}
+
+/* ==========================================================================
+   RESULT
+   ========================================================================== */
+async function finishRace(){
+  cancelAnimationFrame(S.raf);
+  const st = S.state;
+  const order = st.racers.slice().sort((a,b)=>a.finishTime-b.finishTime);
+  const win = order[0];
+  const iWon = S.me && win.id === S.me.id;
+
+  $('resSub').textContent = 'Flag';
+  $('resVerdict').textContent = iWon ? 'You win' : win.name;
+  $('resVerdict').classList.toggle('win', !!iWon);
+
+  if(iWon) $('resLine').textContent = `${win.finishTime.toFixed(2)}s · lights to flag`;
+  else if(S.me){
+    const p = order.findIndex(r=>r.id===S.me.id);
+    $('resLine').textContent = `takes it · you finished P${p+1}, +${(order[p].finishTime-win.finishTime).toFixed(2)}s`;
+  } else $('resLine').textContent = `takes it in ${win.finishTime.toFixed(2)}s`;
+
+  const ul = $('classification'); ul.innerHTML='';
+  order.forEach((r,i)=>{
+    const mine = S.me && r.id===S.me.id;
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="pos">P${i+1}</span>
+      <span class="swatch" style="background:${liveryHex(r.livery)};box-shadow:0 0 10px ${liveryHex(r.livery)}66"></span>
+      <span class="nm ${mine?'you':''}">${esc(r.name)}</span>
+      <span class="tag">${i===0 ? r.finishTime.toFixed(2)+'s' : '+'+(r.finishTime-win.finishTime).toFixed(2)}</span>`;
+    ul.appendChild(li);
+  });
+
+  const rc = $('resControls'); rc.innerHTML='';
+  if(S.role === 'host'){
+    const again = document.createElement('button');
+    again.className='btn go'; again.textContent='Run it again';
+    again.onclick = () => { clearConfetti(); startRace(); };
+    const back = document.createElement('button');
+    back.className='btn ghost'; back.textContent='Back to the grid';
+    back.onclick = async () => { clearConfetti(); await NET.putState(S.code,{phase:'lobby'}); S.raceId=null; show('lobby'); startPoll(); };
+    rc.append(again, back);
+    await NET.putState(S.code, {phase:'finished', raceId:st.raceId, racers:st.racers, winnerId:win.id});
+  } else {
+    const m = document.createElement('span');
+    m.className='hint'; m.textContent='Hold here — the next race starts when the host says so.';
+    rc.appendChild(m);
+    S.raceId = null; startPoll();
+  }
+
+  show('result');
+  if(iWon) confetti();
+}
+
+function confetti(){
+  clearConfetti();
+  const cs = getComputedStyle(document.documentElement);
+  const cols = [cs.getPropertyValue('--acc').trim(), cs.getPropertyValue('--acc-2').trim(), cs.getPropertyValue('--txt').trim()];
+  const wrap = document.createElement('div');
+  wrap.className='confetti'; wrap.id='confettiLayer';
+  for(let i=0;i<110;i++){
+    const p = document.createElement('i');
+    const col = cols[i % cols.length];
+    p.style.left = Math.random()*100+'vw';
+    p.style.background = col;
+    p.style.boxShadow = `0 0 8px ${col}`;
+    p.style.width = (2 + Math.random()*3)+'px';
+    p.style.height = (12 + Math.random()*16)+'px';
+    p.style.animationDuration = (2.6 + Math.random()*2.4)+'s';
+    p.style.animationDelay = (Math.random()*1.1)+'s';
+    wrap.appendChild(p);
+  }
+  document.body.appendChild(wrap);
+  setTimeout(clearConfetti, 7000);
+}
+function clearConfetti(){ const c = $('confettiLayer'); if(c) c.remove(); }
+
+window.addEventListener('beforeunload', stopPoll);
+</script>
+</body>
+</html>
