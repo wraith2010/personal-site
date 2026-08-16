@@ -394,6 +394,36 @@
     display: block;
   }
 
+  /* Entries flagged "fit": "crop" (tall screenshots) are cropped to the same
+     3:4 portrait shape as the phone photos so the collage stays even. The
+     modal still shows the full uncropped image. */
+  .photo-card.fit-crop img {
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    /* Nudged down off the top edge so the phone status bar (clock, battery)
+       falls outside the crop — it's chrome, not content. */
+    object-position: center 17%;
+  }
+
+  .photo-card.fit-crop {
+    position: relative;
+  }
+
+  .photo-card.fit-crop .crop-hint {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(14, 18, 23, 0.78);
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 0.2rem 0.4rem;
+    pointer-events: none;
+  }
+
   .photo-card-meta {
     padding: 0.75rem 0.85rem 0.85rem;
   }
@@ -1137,8 +1167,9 @@
     }
     container.innerHTML = `<div class="photo-timeline-track">` +
       entries.map((p, i) => `
-        <div class="photo-card ${p.file ? '' : 'no-photo'}" data-idx="${i}">
+        <div class="photo-card ${p.file ? '' : 'no-photo'} ${p.fit === 'crop' ? 'fit-crop' : ''}" data-idx="${i}">
           ${p.file ? `<img src="${PHOTO_DIR}${p.file}" alt="Progress photo ${p.date}" loading="lazy">` : ''}
+          ${p.file && p.fit === 'crop' ? `<span class="crop-hint">Expand</span>` : ''}
           <div class="photo-card-meta">
             <div class="photo-card-date">${p.date}</div>
             <div class="photo-card-weight">${p.weight}<span class="photo-unit">lb</span></div>

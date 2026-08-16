@@ -7,5 +7,6 @@ var JOURNEY_PHOTOS = [
   { "date": "May 2, 2026",  "weight": 319, "note": "Ran my first 5K in years.", "file": "PXL_20260502_143847156.TS-000.jpg" },
   { "date": "May 8, 2026",  "weight": 315, "note": "The face doesn't lie. Down 85 lb.", "file": "PXL_20260508_182128536.jpg" },
   { "date": "Jun 9, 2026",  "weight": 307, "note": "93 down. The body is catching up to the decision.", "file": "PXL_20260609_180633463.PORTRAIT.jpg" },
-  { "date": "Jul 11, 2026", "weight": 298, "note": "Finally under 300. So much still to go, but so happy to be here — I didn't think it was possible.", "file": "PXL_20260622_204255451.MP.jpg" }
+  { "date": "Jul 11, 2026", "weight": 298, "note": "Finally under 300. So much still to go, but so happy to be here — I didn't think it was possible.", "file": "PXL_20260622_204255451.MP.jpg" },
+  { "date": "Aug 15, 2026", "weight": 294, "note": "Started CrossFit. Five strength sessions on the board this month — 106 lb down and finally lifting again.", "file": "crossfit-attendance-aug-2026.jpeg", "fit": "crop" }
 ];
