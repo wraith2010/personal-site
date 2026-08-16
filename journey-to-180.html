@@ -6,29 +6,33 @@
 <title>The Journey to 180 — 1031F</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="img/journey-to-180/photos-data.js"></script>
 <style>
-  /* Scope all journey design tokens to the content container */
+  /* Scope all journey design tokens to the content container.
+     Palette is shared with workout-plan.html so the two goals pages read
+     as one set; --accent is amber, --good is lime, --bad is coral. */
   .journey-container {
-    --bg: #0E1217;
-    --surface: #161C24;
-    --surface-2: #1D242D;
-    --border: #2A323D;
-    --border-strong: #3A4452;
-    --text: #F0EBE0;
-    --text-muted: #8B9099;
-    --text-dim: #5C6269;
-    --accent: #E08544;
-    --accent-soft: rgba(224,133,68,0.12);
-    --good: #6FA690;
-    --warn: #C7945A;
-    --bad: #C66B5E;
-    --font-display: 'Fraunces', Georgia, serif;
-    --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --bg: #0c0c0c;
+    --surface: #101010;
+    --surface-2: #161616;
+    --border: #242424;
+    --border-strong: #3a3a3a;
+    --text: #f0eeea;
+    --text-muted: #888880;
+    --text-dim: #444;
+    --accent: #fbbf24;
+    --accent-soft: rgba(251,191,36,0.12);
+    --good: #c9f135;
+    --warn: #fbbf24;
+    --bad: #ff5050;
+    --sky: #40c4ff;
+    --ink: #0a0a0a;            /* text laid on top of an accent block */
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
     max-width: 1120px;
     margin: 0 auto;
@@ -41,133 +45,133 @@
 
   body {
     background-image:
-      radial-gradient(ellipse at top, rgba(224,133,68,0.06), transparent 60%),
-      radial-gradient(ellipse at bottom right, rgba(111,166,144,0.04), transparent 50%);
+      radial-gradient(ellipse at top, rgba(251,191,36,0.05), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(64,196,255,0.04), transparent 50%);
   }
 
-  /* Journey page header (not the site nav header) */
+  /* Shared poster type treatment (mirrors .wp-display on workout-plan.html) */
+  .j-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+  }
+
+  .j-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* Journey page header (not the site nav header) — poster hero */
   .journey-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding-bottom: 1.75rem;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 2.5rem;
+    padding: 1.5rem 0 2.25rem;
+    border-bottom: 3px solid var(--text);
+    margin-bottom: 0;
     gap: 2rem;
     flex-wrap: wrap;
   }
 
   .title-block h1 {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(2rem, 5vw, 3.25rem);
-    letter-spacing: -0.025em;
-    line-height: 1.05;
+    font-size: clamp(2.75rem, 11vw, 6rem);
+    margin: 1rem 0 0;
   }
 
-  .title-block h1 em {
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 400;
-  }
-
-  .title-block .subtitle {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-top: 0.75rem;
-  }
+  .title-block h1 span { display: block; }
+  .title-block h1 .t2 { color: var(--accent); }
 
   .meta-line {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    text-align: right;
-    line-height: 1.8;
-  }
-
-  /* Hero stats */
-  .hero {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    margin-bottom: 2.5rem;
-  }
-
-  .stat {
-    background: var(--surface);
-    padding: 1.75rem 1.5rem;
-    position: relative;
-  }
-
-  .stat.primary {
-    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
-  }
-
-  .stat .label {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.18em;
-    margin-bottom: 0.85rem;
+    letter-spacing: 0.15em;
+    text-align: right;
+    line-height: 1.9;
+  }
+
+  /* Hero stats — big poster numerals on a hairline grid */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    border-bottom: 3px solid var(--text);
+    margin-bottom: 3rem;
+  }
+
+  .stat { padding: 1.75rem 0 1.6rem; }
+  .stat + .stat { border-left: 1px solid var(--border); padding-left: 1.4rem; }
+
+  .stat .label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    margin-bottom: 1rem;
   }
 
   .stat .value {
     font-family: var(--font-display);
-    font-size: clamp(2.2rem, 5vw, 3.25rem);
-    font-weight: 300;
-    line-height: 0.95;
-    letter-spacing: -0.025em;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 9vw, 4.5rem);
+    line-height: 0.82;
+    letter-spacing: -0.04em;
   }
 
   .stat .unit {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     color: var(--text-muted);
-    margin-left: 0.3rem;
+    margin-left: 0.35rem;
     font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .stat .meta {
-    margin-top: 0.85rem;
-    font-size: 0.78rem;
+    margin-top: 1rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  .stat.primary .value {
-    color: var(--accent);
-  }
+  .stat.primary .value { color: var(--accent); }
 
-  /* Section heads */
+  /* Section heads — bold uppercase over a heavy rule */
   .section-head {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 1.1rem;
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 3px solid var(--text);
     gap: 1rem;
   }
 
   .section-head h2 {
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 1.5rem;
-    letter-spacing: -0.015em;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(1.6rem, 6vw, 2.75rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
   }
 
   .section-head .marker {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     color: var(--text-dim);
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
+    flex-shrink: 0;
   }
 
   /* Progress bar */
@@ -177,17 +181,16 @@
 
   .progress-bar-wrap {
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     padding: 1.5rem;
   }
 
   .progress-bar {
     position: relative;
-    height: 8px;
-    background: var(--bg);
-    border-radius: 2px;
+    height: 18px;
+    background: #191919;
     overflow: hidden;
-    margin: 1.5rem 0 0.75rem;
+    margin: 1.5rem 0 0.9rem;
   }
 
   .progress-fill {
@@ -195,15 +198,15 @@
     left: 0;
     top: 0;
     bottom: 0;
-    background: linear-gradient(90deg, var(--accent-dim, #8a5430), var(--accent));
+    background: var(--accent);
     transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .progress-current {
     position: absolute;
-    top: -6px;
-    width: 3px;
-    height: 20px;
+    top: -5px;
+    width: 4px;
+    height: 28px;
     background: var(--text);
     transform: translateX(-50%);
     transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -213,10 +216,10 @@
     display: flex;
     justify-content: space-between;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
   }
 
   .progress-labels .center {
@@ -234,22 +237,24 @@
 
   .panel {
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     padding: 1.75rem 1.5rem 1.5rem;
   }
 
   .panel h3 {
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 1.15rem;
-    margin-bottom: 0.25rem;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
   }
 
   .panel .panel-desc {
     font-size: 0.8rem;
     color: var(--text-muted);
     margin-bottom: 1.25rem;
+    max-width: 52ch;
   }
 
   .chart-container {
@@ -266,77 +271,90 @@
     margin-bottom: 3rem;
   }
 
+  /* Milestone tiles — cleared stages flip to a solid lime block */
   .milestone {
     background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 1.1rem 1rem;
+    border: 2px solid var(--border);
+    padding: 1.15rem 1rem;
     position: relative;
     transition: all 0.3s ease;
   }
 
   .milestone.achieved {
+    background: var(--good);
     border-color: var(--good);
-    background: linear-gradient(135deg, var(--surface) 0%, rgba(111,166,144,0.06) 100%);
+    color: var(--ink);
   }
 
   .milestone .ms-check {
     position: absolute;
-    top: 0.75rem;
-    right: 0.85rem;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 1px solid var(--border-strong);
+    top: 0.9rem;
+    right: 0.9rem;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-strong);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: bold;
   }
 
   .milestone.achieved .ms-check {
-    background: var(--good);
-    color: var(--bg);
-    border-color: var(--good);
+    background: var(--ink);
+    color: var(--good);
+    border-color: var(--ink);
   }
 
   .milestone .ms-stage {
     font-family: var(--font-mono);
-    font-size: 0.62rem;
+    font-size: 0.58rem;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.6rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.75rem;
+    padding-right: 1.6rem;
   }
 
   .milestone .ms-weight {
     font-family: var(--font-display);
-    font-size: 1.65rem;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.9rem, 5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
   }
 
   .milestone .ms-weight .ms-unit {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
     color: var(--text-muted);
-    margin-left: 0.2rem;
+    margin-left: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
   .milestone .ms-detail {
-    font-size: 0.72rem;
+    font-size: 0.66rem;
     color: var(--text-muted);
-    margin-top: 0.5rem;
+    margin-top: 0.7rem;
     font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
   }
 
   .milestone .ms-togo {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     color: var(--warn);
-    margin-top: 0.45rem;
+    margin-top: 0.5rem;
     font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
   }
+
+  /* On a cleared (lime) tile the muted/warn tokens would vanish — pin them to ink */
+  .milestone.achieved .ms-stage,
+  .milestone.achieved .ms-detail,
+  .milestone.achieved .ms-weight .ms-unit { color: var(--ink); opacity: 0.72; }
 
   /* Content footer (math/methodology notes) */
   .journey-container footer {
@@ -352,9 +370,10 @@
 
   .journey-container footer strong {
     color: var(--text);
-    font-weight: 500;
+    font-weight: 700;
     font-family: var(--font-display);
-    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
 
   /* Photo timeline */
@@ -430,26 +449,28 @@
 
   .photo-card-date {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.3rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.4rem;
   }
 
   .photo-card-weight {
     font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
   }
 
   .photo-card-weight .photo-unit {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
     color: var(--text-muted);
-    margin-left: 0.2rem;
+    margin-left: 0.28rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
   .photo-card-note {
@@ -525,17 +546,19 @@
 
   .photo-modal-info .modal-weight {
     font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
   }
 
   .photo-modal-info .modal-weight span {
-    font-family: var(--font-body);
-    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     color: var(--text-muted);
-    margin-left: 0.2rem;
+    margin-left: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
   .photo-modal-info .modal-note {
@@ -594,6 +617,10 @@
   /* Mobile */
   @media (max-width: 880px) {
     .hero { grid-template-columns: 1fr 1fr; }
+    /* Wrapping to 2 columns: only the right-hand cell of each row keeps a
+       left hairline — the third stat starts a new row. */
+    .stat:nth-child(odd) { border-left: none; padding-left: 0; }
+    .stat:nth-child(n+3) { border-top: 1px solid var(--border); }
     .panel-grid { grid-template-columns: 1fr; }
     .milestones { grid-template-columns: 1fr 1fr; }
     .meta-line { text-align: left; }
@@ -602,7 +629,10 @@
   @media (max-width: 480px) {
     .journey-container { padding: 1.5rem 1rem 3rem; }
     .hero { grid-template-columns: 1fr; }
+    .stat + .stat { border-left: none; padding-left: 0; border-top: 1px solid var(--border); }
     .milestones { grid-template-columns: 1fr; }
+    .section-head { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+    .meta-line { text-align: left; }
   }
 </style>
 </head>
@@ -657,8 +687,11 @@
 
   <div class="journey-header">
     <div class="title-block">
-      <h1>The journey<br/>to <em>one-eighty</em>.</h1>
-      <div class="subtitle">Personal weight &amp; body composition dashboard</div>
+      <div class="j-kicker">Weight &amp; body composition</div>
+      <h1 class="j-display">
+        <span class="t1">Four Hundred</span>
+        <span class="t2">To One-Eighty</span>
+      </h1>
     </div>
     <div class="meta-line">
       Height · 6'0" (72 in)<br/>
@@ -950,10 +983,10 @@
           {
             label: 'BMI',
             data: data.map(d => Number(d.bmi.toFixed(1))),
-            borderColor: '#E08544',
+            borderColor: '#fbbf24',
             backgroundColor: 'transparent',
-            pointBackgroundColor: data.map((_, i) => i === currentIdx ? '#F0EBE0' : '#E08544'),
-            pointBorderColor: data.map((_, i) => i === currentIdx ? '#F0EBE0' : '#E08544'),
+            pointBackgroundColor: data.map((_, i) => i === currentIdx ? '#f0eeea' : '#fbbf24'),
+            pointBorderColor: data.map((_, i) => i === currentIdx ? '#f0eeea' : '#fbbf24'),
             pointRadius: data.map((_, i) => i === currentIdx ? 7 : 3),
             pointHoverRadius: data.map((_, i) => i === currentIdx ? 9 : 5),
             borderWidth: 2,
@@ -963,10 +996,10 @@
           {
             label: 'Body fat %',
             data: data.map(d => Number(d.bf.toFixed(1))),
-            borderColor: '#6FA690',
+            borderColor: '#40c4ff',
             backgroundColor: 'transparent',
-            pointBackgroundColor: data.map((_, i) => i === currentIdx ? '#F0EBE0' : '#6FA690'),
-            pointBorderColor: data.map((_, i) => i === currentIdx ? '#F0EBE0' : '#6FA690'),
+            pointBackgroundColor: data.map((_, i) => i === currentIdx ? '#f0eeea' : '#40c4ff'),
+            pointBorderColor: data.map((_, i) => i === currentIdx ? '#f0eeea' : '#40c4ff'),
             pointRadius: data.map((_, i) => i === currentIdx ? 7 : 3),
             pointHoverRadius: data.map((_, i) => i === currentIdx ? 9 : 5),
             borderWidth: 2,
@@ -977,8 +1010,8 @@
         ]
       },
       options: chartOptions({
-        leftTitle: 'BMI', leftColor: '#E08544',
-        rightTitle: 'Body fat %', rightColor: '#6FA690',
+        leftTitle: 'BMI', leftColor: '#fbbf24',
+        rightTitle: 'Body fat %', rightColor: '#40c4ff',
         xTitle: 'Weight'
       })
     };
@@ -999,7 +1032,7 @@
       if (timelineChart) { timelineChart.destroy(); timelineChart = null; }
       ctx.getContext('2d').clearRect(0, 0, ctx.width, ctx.height);
       const parent = ctx.parentElement;
-      parent.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--good);font-family:var(--font-display);font-size:1.4rem;font-style:italic;">Goal reached.</div>`;
+      parent.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--good);font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:-0.03em;font-size:2rem;">Goal reached</div>`;
       return;
     }
 
@@ -1028,10 +1061,10 @@
           {
             label: '2 lb/wk',
             data: fast,
-            borderColor: '#E08544',
+            borderColor: '#fbbf24',
             backgroundColor: 'transparent',
-            pointBackgroundColor: points.map((_, i) => i === 0 ? '#F0EBE0' : '#E08544'),
-            pointBorderColor: points.map((_, i) => i === 0 ? '#F0EBE0' : '#E08544'),
+            pointBackgroundColor: points.map((_, i) => i === 0 ? '#f0eeea' : '#fbbf24'),
+            pointBorderColor: points.map((_, i) => i === 0 ? '#f0eeea' : '#fbbf24'),
             pointRadius: points.map((_, i) => i === 0 ? 7 : 3),
             pointHoverRadius: 5,
             borderWidth: 2,
@@ -1040,10 +1073,10 @@
           {
             label: '1.5 lb/wk',
             data: steady,
-            borderColor: '#6FA690',
+            borderColor: '#40c4ff',
             backgroundColor: 'transparent',
-            pointBackgroundColor: points.map((_, i) => i === 0 ? '#F0EBE0' : '#6FA690'),
-            pointBorderColor: points.map((_, i) => i === 0 ? '#F0EBE0' : '#6FA690'),
+            pointBackgroundColor: points.map((_, i) => i === 0 ? '#f0eeea' : '#40c4ff'),
+            pointBorderColor: points.map((_, i) => i === 0 ? '#f0eeea' : '#40c4ff'),
             pointRadius: points.map((_, i) => i === 0 ? 7 : 3),
             pointHoverRadius: 5,
             borderWidth: 2,
@@ -1053,7 +1086,7 @@
         ]
       },
       options: chartOptions({
-        leftTitle: 'Weight (lb)', leftColor: '#8B9099',
+        leftTitle: 'Weight (lb)', leftColor: '#888880',
         rightTitle: null,
         xTitle: 'Months from today',
         yMin: state.target - 10,
@@ -1071,22 +1104,22 @@
   }
 
   function chartOptions({ leftTitle, leftColor, rightTitle, rightColor, xTitle, yMin, yMax }) {
-    const tickColor = '#5C6269';
-    const gridColor = 'rgba(60, 70, 82, 0.4)';
-    const labelColor = '#8B9099';
+    const tickColor = '#555555';
+    const gridColor = 'rgba(255,255,255,0.07)';
+    const labelColor = '#888880';
 
     const scales = {
       x: {
-        title: { display: true, text: xTitle, color: labelColor, font: { size: 11, family: 'JetBrains Mono' } },
+        title: { display: true, text: xTitle, color: labelColor, font: { size: 11, family: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' } },
         grid: { display: false },
-        ticks: { color: tickColor, font: { size: 10, family: 'JetBrains Mono' } },
-        border: { color: '#2A323D' }
+        ticks: { color: tickColor, font: { size: 10, family: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' } },
+        border: { color: '#242424' }
       },
       y: {
         type: 'linear',
         position: 'left',
-        title: { display: true, text: leftTitle, color: leftColor, font: { size: 11, family: 'JetBrains Mono' } },
-        ticks: { color: tickColor, font: { size: 10, family: 'JetBrains Mono' } },
+        title: { display: true, text: leftTitle, color: leftColor, font: { size: 11, family: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' } },
+        ticks: { color: tickColor, font: { size: 10, family: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' } },
         grid: { color: gridColor },
         border: { display: false }
       }
@@ -1097,8 +1130,8 @@
       scales.y1 = {
         type: 'linear',
         position: 'right',
-        title: { display: true, text: rightTitle, color: rightColor, font: { size: 11, family: 'JetBrains Mono' } },
-        ticks: { color: tickColor, font: { size: 10, family: 'JetBrains Mono' } },
+        title: { display: true, text: rightTitle, color: rightColor, font: { size: 11, family: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' } },
+        ticks: { color: tickColor, font: { size: 10, family: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace' } },
         grid: { drawOnChartArea: false },
         border: { display: false }
       };
@@ -1113,8 +1146,8 @@
           display: true,
           position: 'bottom',
           labels: {
-            color: '#8B9099',
-            font: { size: 11, family: 'Manrope' },
+            color: '#888880',
+            font: { size: 11, family: 'Inter' },
             usePointStyle: true,
             pointStyle: 'rectRounded',
             boxWidth: 12,
@@ -1122,13 +1155,13 @@
           }
         },
         tooltip: {
-          backgroundColor: '#1D242D',
-          borderColor: '#3A4452',
+          backgroundColor: '#161616',
+          borderColor: '#3a3a3a',
           borderWidth: 1,
-          titleFont: { family: 'JetBrains Mono', size: 11 },
-          bodyFont: { family: 'Manrope', size: 12 },
-          titleColor: '#F0EBE0',
-          bodyColor: '#F0EBE0',
+          titleFont: { family: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace', size: 11 },
+          bodyFont: { family: 'Inter', size: 12 },
+          titleColor: '#f0eeea',
+          bodyColor: '#f0eeea',
           padding: 10
         }
       },
