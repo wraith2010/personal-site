@@ -16,6 +16,9 @@
   const modalTitle    = document.getElementById('modal-title');
   const modalSubtitle = document.getElementById('modal-subtitle');
   const modalContent  = document.getElementById('modal-content');
+  const shareBtn      = document.getElementById('share-btn');
+  const shareBtnLabel = document.getElementById('share-btn-label');
+  const shareStatus   = document.getElementById('share-status');
 
   const lightbox      = document.getElementById('lightbox');
   const lightboxClose = document.getElementById('lightbox-close');
@@ -29,12 +32,16 @@
     software: 'tag-software',
     builds:   'tag-builds',
     random:   'tag-random',
+    goals:    'tag-goals',
+    venture:  'tag-venture',
   };
 
   const tagLabels = {
     software: 'Software',
     builds:   'Builds',
     random:   'Random',
+    goals:    'Goals',
+    venture:  'Venture',
   };
 
   function setFilter(filter) {
@@ -77,7 +84,7 @@
 
   // Apply filter from URL on load (e.g. ?filter=software)
   const urlFilter = new URL(window.location).searchParams.get('filter');
-  if (urlFilter && ['software', 'builds', 'random'].includes(urlFilter)) {
+  if (urlFilter && ['all', 'software', 'builds', 'random', 'goals', 'venture'].includes(urlFilter)) {
     setFilter(urlFilter);
   }
 
@@ -86,8 +93,9 @@
   // ====================================
 
   let lastFocusedCard = null;
+  let currentCardId   = null;
 
-  function openModal(card) {
+  function openModal(card, pushUrl = true) {
     const visual   = card.querySelector('.card-visual > img');
     const detail   = card.querySelector('.card-detail');
     const category = card.dataset.category;
@@ -124,12 +132,26 @@
 
     // Remember which card opened the modal (for focus restoration)
     lastFocusedCard = card;
+    currentCardId = card.dataset.id ?? null;
+
+    // Reflect the open card in the URL so it can be linked to directly
+    if (pushUrl && currentCardId) {
+      history.pushState({ card: currentCardId }, '', '#' + currentCardId);
+    }
+    resetShareStatus();
 
     // Move focus into modal
     modalClose.focus();
   }
 
-  function closeModal() {
+  function closeModal(updateUrl = true) {
+    // Drop the deep-link hash so the URL matches what's on screen
+    if (updateUrl && window.location.hash) {
+      history.pushState(null, '', window.location.pathname + window.location.search);
+    }
+    currentCardId = null;
+    resetShareStatus();
+
     // Stop any playing videos by clearing iframes
     modalContent.querySelectorAll('iframe').forEach(iframe => {
       iframe.src = iframe.src;
@@ -144,6 +166,94 @@
       lastFocusedCard = null;
     }
   }
+
+  // ====================================
+  // Deep links  (index.html#card-slug)
+  // ====================================
+
+  // Slug -> card. Built from data-id so no CSS escaping is needed.
+  const cardsById = new Map();
+  projectCards.forEach(card => {
+    if (card.dataset.id) cardsById.set(card.dataset.id, card);
+  });
+
+  function deepLinkFor(id) {
+    return window.location.origin + window.location.pathname + '#' + id;
+  }
+
+  // The URL is the source of truth: point the modal at whatever the hash says.
+  function syncModalToUrl() {
+    const id   = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+    const card = id ? cardsById.get(id) : null;
+
+    if (card) {
+      if (id !== currentCardId) openModal(card, false);
+    } else if (!modalOverlay.hasAttribute('hidden')) {
+      closeModal(false);
+    }
+  }
+
+  window.addEventListener('popstate', syncModalToUrl);
+
+  // ====================================
+  // Share — copy this card's deep link
+  // ====================================
+
+  let shareStatusTimer = null;
+
+  function resetShareStatus() {
+    clearTimeout(shareStatusTimer);
+    shareStatus.textContent = '';
+    shareStatus.classList.remove('is-visible', 'is-error');
+  }
+
+  function showShareStatus(message, isError) {
+    clearTimeout(shareStatusTimer);
+    shareStatus.textContent = message;
+    shareStatus.classList.add('is-visible');
+    shareStatus.classList.toggle('is-error', !!isError);
+    shareStatusTimer = setTimeout(() => {
+      shareStatus.classList.remove('is-visible', 'is-error');
+      shareStatus.textContent = '';
+    }, 2600);
+  }
+
+  // execCommand fallback: navigator.clipboard needs a secure context, so it is
+  // unavailable when the page is opened straight off disk via file://.
+  function legacyCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:-9999px;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  async function copyDeepLink() {
+    if (!currentCardId) return;
+    const url = deepLinkFor(currentCardId);
+
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(url);
+        showShareStatus('Link copied', false);
+        return;
+      } catch (err) { /* fall through to the legacy path */ }
+    }
+
+    const copied = legacyCopy(url);
+    showShareStatus(copied ? 'Link copied' : 'Press Ctrl+C to copy', !copied);
+  }
+
+  shareBtn.addEventListener('click', copyDeepLink);
+
+  // Honour a hash present on first load. Runs here, after the share helpers are
+  // initialised, because openModal() calls resetShareStatus().
+  syncModalToUrl();
 
   // Open modal on card click or keyboard activation
   projectCards.forEach(card => {
