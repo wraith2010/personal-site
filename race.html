@@ -356,7 +356,12 @@ footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;
    RaceRoomController.java for a drop-in Spring Boot implementation.
    ========================================================================== */
 const CONFIG = {
-  apiBase: '',        // e.g. 'https://1031f.com/api/race'
+  // Cross-device play REQUIRES this. Point it at the deployed RaceRoomController
+  // over HTTPS (http:// is blocked as mixed content on the HTTPS site) with no
+  // trailing slash, e.g. 'https://race.1031f.com/api/race'. While this is empty
+  // the page runs LocalNet (same-browser only) and joiners on other devices get
+  // "No room with that code". The header pill shows LOCAL until this is set.
+  apiBase: '',
   laps: 3,
   maxCars: 8,
   pollMs: 1800

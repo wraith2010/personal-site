@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bandit's Bark — A Philadelphia Legal Blog by a Rat Terrier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2744;
+      --brick: #8c3a2b;
+      --amber: #c8914e;
+      --cream: #f7f3ed;
+      --ink: #2b2b2b;
+      --muted: #6b6b6b;
+      --rule: #d4cfc7;
+    }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Masthead ── */
+    .masthead {
+      background: var(--navy);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brick), var(--amber), var(--brick));
+    }
+
+    .masthead-paw {
+      font-size: 2.4rem;
+      margin-bottom: .4rem;
+      display: block;
+    }
+
+    .masthead h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+    }
+
+    .masthead h1 span {
+      color: var(--amber);
+    }
+
+    .masthead-tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,.55);
+      margin-top: .6rem;
+    }
+
+    /* ── Nav bar ── */
+    .topnav {
+      background: #fff;
+      border-bottom: 1px solid var(--rule);
+      font-family: 'Inter', sans-serif;
+      font-size: .78rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: .75rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topnav a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .topnav a:hover, .topnav a.active {
+      color: var(--brick);
+    }
+
+    /* ── Layout ── */
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── Post meta ── */
+    .post-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: .78rem;
+      color: var(--muted);
+      margin-bottom: .35rem;
+    }
+
+    .post-meta .category {
+      color: var(--brick);
+      font-weight: 600;
+    }
+
+    .post-title {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -.015em;
+      margin-bottom: .25rem;
+    }
+
+    .post-subtitle {
+      font-size: 1.15rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Author card ── */
+    .author-card {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      padding: 1rem 1.15rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--rule);
+      margin-bottom: 2.2rem;
+    }
+
+    .author-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 20%;
+    }
+
+    .author-info {
+      font-family: 'Inter', sans-serif;
+      font-size: .82rem;
+      line-height: 1.45;
+    }
+
+    .author-info strong {
+      display: block;
+      font-size: .88rem;
+      color: var(--ink);
+    }
+
+    .author-info span {
+      color: var(--muted);
+    }
+
+    /* ── Editorial figures ── */
+    .post-figure {
+      margin: 0 0 2rem;
+    }
+
+    .post-figure img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid var(--rule);
+    }
+
+    .post-figure figcaption {
+      font-family: 'Inter', sans-serif;
+      font-size: .78rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-top: .55rem;
+      text-align: center;
+    }
+
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem;
+      margin: 1.6rem 0 2rem;
+    }
+
+    .photo-gallery figure {
+      margin: 0;
+    }
+
+    .photo-gallery img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--rule);
+    }
+
+    .photo-gallery figcaption {
+      font-family: 'Inter', sans-serif;
+      font-size: .74rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-top: .5rem;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .photo-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Body prose ── */
+    .post-body h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 2.2rem 0 .6rem;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .post-body h3 {
+      font-size: 1.08rem;
+      font-weight: 600;
+      margin: 1.6rem 0 .4rem;
+      color: var(--brick);
+    }
+
+    .post-body p {
+      margin-bottom: 1.1rem;
+      font-size: 1.02rem;
+    }
+
+    .post-body ol, .post-body ul {
+      margin: .6rem 0 1.1rem 1.4rem;
+      font-size: 1.02rem;
+    }
+
+    .post-body li {
+      margin-bottom: .35rem;
+    }
+
+    .post-body strong {
+      font-weight: 700;
+    }
+
+    /* ── Callout box ── */
+    .callout {
+      border-left: 3px solid var(--amber);
+      background: rgba(200, 145, 78, .08);
+      padding: .9rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.4rem 0;
+      font-size: .95rem;
+    }
+
+    .callout em {
+      font-style: italic;
+    }
+
+    /* ── Statute reference ── */
+    code, .statute {
+      font-family: 'Courier New', monospace;
+      background: rgba(26, 39, 68, .07);
+      padding: .15em .35em;
+      border-radius: 3px;
+      font-size: .9em;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 2rem 0;
+    }
+
+    /* ── Sign-off ── */
+    .sign-off {
+      font-style: italic;
+      margin-top: 1.4rem;
+      color: var(--muted);
+    }
+
+    .sign-off strong {
+      display: block;
+      font-style: normal;
+      font-size: 1.08rem;
+      color: var(--ink);
+    }
+
+    /* ── Disclaimer ── */
+    .disclaimer {
+      margin-top: 2rem;
+      padding: 1rem 1.15rem;
+      background: rgba(26, 39, 68, .04);
+      border: 1px dashed var(--rule);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: .75rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: .75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+      background: #fff;
+    }
+
+    .site-footer a {
+      color: var(--brick);
+      text-decoration: none;
+    }
+
+    .footer-paw {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: .4rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .masthead h1 { font-size: 1.9rem; }
+      .post-title { font-size: 1.55rem; }
+      .topnav { gap: 1.2rem; font-size: .72rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="masthead">
+    <span class="masthead-paw">🐾</span>
+    <h1>Bandit's <span>Bark</span></h1>
+    <p class="masthead-tagline">Philadelphia Legal Commentary &middot; Written by a Rat Terrier</p>
+  </header>
+
+  <nav class="topnav">
+    <a href="#" class="active">Latest Post</a>
+    <a href="#">Dog Law</a>
+    <a href="#">Property</a>
+    <a href="#">City Ordinances</a>
+    <a href="#">About Bandit</a>
+  </nav>
+
+  <main class="wrap">
+
+    <p class="post-meta">
+      <span class="category">Dog Owner Liability</span> &middot; February 5, 2026 &middot; 5 min read
+    </p>
+
+    <h1 class="post-title">Leash Laws vs. Liberty: Understanding Philadelphia's Dog Owner Liability</h1>
+    <p class="post-subtitle">A deep dig into the statutes that govern every walk down Walnut Street</p>
+
+    <div class="author-card">
+      <div class="author-avatar">
+        <img src="img/bandits-bark/9Y9A7812.jpg" alt="Bandit">
+      </div>
+      <div class="author-info">
+        <strong>Bandit, Esq.</strong>
+        <span>Rat Terrier at Law &middot; Sniff-based research specialist &middot; Delaware County, PA</span>
+      </div>
+    </div>
+
+    <figure class="post-figure">
+      <img src="img/bandits-bark/9Y9A7785.jpg" alt="Bandit sitting upright in a wingback armchair" loading="lazy">
+      <figcaption>Bandit hears oral arguments from chambers.</figcaption>
+    </figure>
+
+    <article class="post-body">
+
+      <p>Woof, fellow Philadelphians!</p>
+
+      <p>Bandit here, your friendly neighborhood rat terrier with a nose for legal trouble. Today, I'm digging into a topic that affects every four-legged friend and their human companions in the City of Brotherly Love: dog owner liability and leash laws.</p>
+
+      <h2>The State of the Law (and the State of My Walks)</h2>
+
+      <p>Pennsylvania operates under a "strict liability" statute when it comes to dog bites. What does this mean for your human? Under <code>3 Pa.C.S. § 459-502</code>, if I (hypothetically, of course—I'm a good boy) were to bite someone, my owner would be liable for medical costs regardless of whether they were negligent. That's right—no "one free bite" rule here in the Keystone State.</p>
+
+      <p>But here's where it gets interesting: for damages <em>beyond</em> medical costs—pain and suffering, lost wages, that artisanal small-batch treat collection—the injured party must prove either:</p>
+
+      <ol>
+        <li>Negligence, or</li>
+        <li>That I had "dangerous propensities" my owner knew about</li>
+      </ol>
+
+      <p>As a 12-pound rat terrier, I'd like to think my "dangerous propensities" are limited to aggressively pursuing squeaky toys.</p>
+
+      <h2>Philadelphia's Specific Ordinances</h2>
+
+      <p>The <code>Philadelphia Code § 10-104</code> requires that dogs be under control at all times in public spaces. This means:</p>
+
+      <ul>
+        <li>Leashed (maximum 6 feet in most public areas)</li>
+        <li>Or under "immediate voice control" in designated off-leash areas</li>
+      </ul>
+
+      <div class="callout">
+        <em>Fun fact from the field:</em> Schuylkill River Park has specific off-leash hours (6 AM–9 AM). I've personally investigated these hours extensively. The sniffing is excellent.
+      </div>
+
+      <h2>The ESA Debate: Pets, Housing, and Fair Access</h2>
+
+      <p>I've been following an interesting trend in Philadelphia Housing Court: disputes over "no pets" clauses versus emotional support animals. While I'm too busy chasing rats to need emotional support, the intersection of the Fair Housing Act and local ordinances creates fascinating questions about reasonable accommodations.</p>
+
+      <p>Landlords in Philadelphia cannot blanket-refuse tenants with legitimate ESA documentation, but the burden of proof and documentation requirements continue to shift. Keep your noses—and paperwork—in order.</p>
+
+      <h2>Sidewalk Liability: Who's Responsible When I Trip You?</h2>
+
+      <p>Here's something my human learned the hard way: in Philadelphia, <strong>property owners are responsible</strong> for maintaining sidewalks adjacent to their property (<code>Philadelphia Code § 10-721</code>). If my leash causes someone to trip on a broken sidewalk square, the liability analysis gets complex—was it the leash, the sidewalk, or my irresistible urge to chase that squirrel?</p>
+
+      <p>Philadelphia's notoriously uneven sidewalks—buckled by old tree roots and decades of freeze-thaw cycles—make this an especially active area of personal injury litigation. If you're a property owner, keep those walkways level. If you're a dog, keep your human attentive.</p>
+
+      <div class="photo-gallery">
+        <figure>
+          <img src="img/bandits-bark/9Y9A7826.jpg" alt="Bandit leaping out of a woven picnic basket" loading="lazy">
+          <figcaption>Fleeing the scene after a contested treat ruling.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/bandits-bark/9Y9A7800.jpg" alt="Bandit sitting inside an open vintage suitcase" loading="lazy">
+          <figcaption>On assignment for out-of-county sidewalk litigation.</figcaption>
+        </figure>
+      </div>
+
+      <h2>Tail-End Thoughts</h2>
+
+      <p>The intersection of municipal ordinances, state statutes, and common law liability makes Philadelphia dog ownership a surprisingly complex legal landscape. My advice? Keep current on rabies vaccinations, maintain adequate homeowner's insurance, and for the love of liver treats, <strong>pick up after your dog</strong>. That last one's just good citizenship.</p>
+
+      <hr class="divider">
+
+      <p class="sign-off">
+        Until next time, keep your nose clean and your legal affairs cleaner.<br>
+        Bark regards,
+        <strong>Bandit 🐾</strong>
+      </p>
+
+    </article>
+
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Bandit is a rat terrier, not a licensed attorney in Pennsylvania or any other jurisdiction. This blog is for entertainment purposes only and should not be considered legal advice. For actual legal representation, consult a human lawyer with opposable thumbs capable of filing court documents.<br><br>
+      <strong>Contact:</strong> banditbark@pawtlaw.com &nbsp;|&nbsp; <strong>Office Hours:</strong> Between naps
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-paw">🐾</span>
+    &copy; 2026 Bandit's Bark &middot; Philadelphia, PA<br>
+    <a href="#">Subscribe</a> &middot; <a href="#">RSS</a> &middot; <a href="#">Belly Rub Policy</a>
+  </footer>
+
+</body>
+</html>
