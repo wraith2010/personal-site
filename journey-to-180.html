@@ -381,17 +381,19 @@
     margin-top: 3rem;
   }
 
+  /* Row-major grid, not CSS multi-column. Multi-column fills top-to-bottom
+     down column 1 before starting column 2, which scrambles a chronological
+     sequence when you read across. Grid fills left-to-right, row by row, so
+     the entries cascade down in date order and the newest sits at the bottom.
+     Cards keep their natural heights, so row bottoms are ragged by design. */
   .photo-timeline-track {
-    columns: 3 170px;
-    column-gap: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    align-items: start;
   }
 
   .photo-card {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 0.75rem;
     background: var(--surface);
     border: 1px solid var(--border);
     overflow: hidden;
@@ -623,6 +625,7 @@
     .stat:nth-child(n+3) { border-top: 1px solid var(--border); }
     .panel-grid { grid-template-columns: 1fr; }
     .milestones { grid-template-columns: 1fr 1fr; }
+    .photo-timeline-track { grid-template-columns: repeat(2, 1fr); }
     .meta-line { text-align: left; }
   }
 
@@ -631,6 +634,7 @@
     .hero { grid-template-columns: 1fr; }
     .stat + .stat { border-left: none; padding-left: 0; border-top: 1px solid var(--border); }
     .milestones { grid-template-columns: 1fr; }
+    .photo-timeline-track { grid-template-columns: 1fr; }
     .section-head { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
     .meta-line { text-align: left; }
   }
