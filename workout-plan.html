@@ -66,6 +66,22 @@
       color: var(--text-muted);
     }
 
+    /* Inline link inside poster copy — inherits whatever colour it sits on so
+       it reads on the muted hero text and on the ink-on-accent panel head. */
+    .wp a.wp-link {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+      opacity: 0.85;
+      transition: opacity var(--ease);
+    }
+    .wp a.wp-link:hover { opacity: 1; }
+    .wp a.wp-link:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+    }
+
     /* ---------- BIG NUMBERS ---------- */
     .wp-numbers {
       display: grid;
@@ -345,7 +361,7 @@
           <span class="t3">Miles</span>
         </h1>
         <p class="wp-sub">
-          Bam Bam Body — Newtown Square<br>
+          <a class="wp-link" href="https://bambam-body.com/" target="_blank" rel="noopener">Bam Bam Body</a> — Newtown Square<br>
           Planet Fitness — Broomall<br>
           Two rides, twelve miles up
         </p>
@@ -446,7 +462,7 @@
     const bamBam = {
       day: "Strength CrossFit",
       name: "Bam&nbsp;Bam<br>Body",
-      meta: "Newtown Square &nbsp;/&nbsp; ~60 min &nbsp;/&nbsp; Mon &middot; Wed &middot; Fri",
+      meta: "<a class=\"wp-link\" href=\"https://bambam-body.com/\" target=\"_blank\" rel=\"noopener\">Newtown Square</a> &nbsp;/&nbsp; ~60 min &nbsp;/&nbsp; Mon &middot; Wed &middot; Fri",
       blocks: [
         { label: "The session", html: "Coach-programmed: a <strong>strength piece</strong> — squat, press, deadlift or an olympic variant — followed by a conditioning metcon." },
         { label: "Focus", html: "Chase load on the strength piece. That's the whole reason for picking a strength-biased box; the metcon is the finisher, not the main event. <strong>Scale the metcon</strong> to keep moving without wrecking the next session." },
