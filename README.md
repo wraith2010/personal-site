@@ -1,168 +1,145 @@
-# 1031F - Dark Portfolio Website
+# 1031F — Ben Mitchell
 
-A modern, dark-themed artist portfolio website featuring smooth animations, responsive design, and semantic HTML5 structure.
+The source for [1031f.com](https://1031f.com): a dark-themed personal site and
+project archive. Static HTML, CSS, and vanilla JS. No build step, no bundler,
+no dependencies.
 
-## 🎨 Features
+## Running it
 
-### Design
-- **Dark Theme**: Professional dark color palette optimized for readability
-- **Smooth Animations**: Fade-in effects, hover states, and transitions
-- **Responsive Layout**: Fully responsive from mobile to desktop
-- **Modern Typography**: Clean, readable font hierarchy
-- **Glassmorphism Effects**: Subtle blur and transparency effects
+Open `index.html` in a browser. That's it.
 
-### Interactive Elements
-- **Image Lightbox**: Click gallery images to view in fullscreen with navigation
-- **Smooth Scrolling**: Enhanced scroll behavior throughout
-- **Header Effects**: Dynamic header styling on scroll
-- **Hover States**: Engaging hover effects on all interactive elements
-- **Keyboard Navigation**: Full keyboard support in lightbox (←, →, Esc)
-
-### Technical
-- **Semantic HTML5**: Proper use of semantic tags (header, nav, main, article, section, footer)
-- **CSS Custom Properties**: Easy theme customization via CSS variables
-- **Vanilla JavaScript**: No dependencies, pure JavaScript
-- **Accessibility**: ARIA labels, focus states, and reduced motion support
-- **Performance**: Lazy loading, debounced scroll events
-
-## 📁 File Structure
+The one caveat is the "Copy link" button on project cards: `navigator.clipboard`
+needs a secure context, so over `file://` it falls back to `document.execCommand`.
+If you want the real path, serve the folder:
 
 ```
-your-website/
-├── index.html          # Home page
-├── software.html       # Software projects page
-├── builds.html         # Physical builds page
-├── random.html         # Random projects page
-├── resume.html         # Resume/CV page
-├── css/
-│   └── style.css       # Main stylesheet
-├── js/
-│   └── main.js         # Main JavaScript file
-└── img/                # Your existing images folder
+python -m http.server 8000
 ```
 
-## 🚀 Installation
+## Deploying
 
-1. **Replace your CSS files** with the new `style.css`:
-   - Place `style.css` in your `css/` folder
-   - The new CSS replaces: main.css, header.css, index.css, resume.css, software.css
+`.github/workflows/static.yml` publishes the whole repository to GitHub Pages on
+every push to `master`. There is no build stage — what is in the repo is what is
+served, including `RaceRoomController.java` and `illustrator-files/`.
 
-2. **Add the JavaScript file**:
-   - Create a `js/` folder if it doesn't exist
-   - Place `main.js` in the `js/` folder
+## Layout
 
-3. **Update your HTML files**:
-   - Replace all `.html` files with the new versions
-   - Keep your existing `img/` folder structure intact
-
-## 🎨 Customization
-
-### Colors
-Edit the CSS variables in `style.css` under `:root`:
-
-```css
-:root {
-    --color-bg-primary: #0a0e17;      /* Main background */
-    --color-accent-primary: #01baef;   /* Primary accent (cyan) */
-    --color-accent-secondary: #f04208; /* Secondary accent (orange) */
-    /* ... more variables ... */
-}
+```
+├─ index.html              # the bento grid — most content lives here
+├─ css/style.css           # the only shared stylesheet
+├─ js/main.js              # filter, modal, deep links, lightbox, N-Queens
+├─ img/                    # all media, grouped one folder per project
+└─ .github/workflows/static.yml
 ```
 
-### Typography
-Change fonts by updating:
-```css
---font-primary: -apple-system, BlinkMacSystemFont, ...;
---font-display: 'Georgia', serif;
+### Pages
+
+Sharing `css/style.css`:
+
+| Page | What it is |
+|---|---|
+| `index.html` | Bento grid of every project. The site. |
+| `resume.html` | PDF embed of the resume |
+| `journey-to-180.html` | Weight-loss dashboard; photo data in `img/journey-to-180/photos-data.js` |
+| `workout-plan.html` | Gym training split |
+| `halftone-converter.html` | Halftone Studio — converts an image to an SVG halftone |
+| `chess.html` | Playable chess board (React + Babel, compiled in-browser from CDN) |
+| `privacy-policy.html`, `terms-of-service.html` | Legal |
+
+Self-contained, own `<style>` block, not styled by `css/style.css`:
+
+| Page | What it is |
+|---|---|
+| `bandits-bark.html` | Blog written in the voice of a rat terrier |
+| `race.html` | Night Circuit — multiplayer race game. See `CLAUDE.md`. |
+| `sermon.html` | Sermon candidate evaluation form |
+
+`chess.html`, `race.html`, and `sermon.html` are not linked from anywhere on the
+site — they are live but reachable only by direct URL.
+
+## How index.html works
+
+Everything on the homepage is one pattern, so adding a project means copying an
+`<article>` and changing the contents.
+
+```html
+<article class="bento-card span-1x2" data-category="software" data-id="scribebot"
+         tabindex="0" role="button" aria-label="Open Scribebot project">
+  <div class="card-visual">          <!-- the tile you see in the grid -->
+    <img src="..." loading="lazy">
+    <div class="card-overlay">...</div>
+  </div>
+  <div class="card-detail" hidden>   <!-- cloned into the modal on click -->
+    ...
+  </div>
+</article>
 ```
 
-### Spacing & Layout
-Adjust spacing scale:
-```css
---spacing-xs: 0.5rem;
---spacing-sm: 1rem;
-/* ... etc ... */
-```
+- **`data-category`** drives the filter bar. One of `software`, `builds`,
+  `random`, `goals`, `venture` — these five names are hardcoded in three places:
+  the filter buttons in `index.html`, and `tagClasses` / `tagLabels` in
+  `js/main.js`. Adding a sixth means touching all three.
+- **`data-id`** is the deep-link slug. `index.html#scribebot` opens that card's
+  modal on load, and the modal's "Copy link" button hands out that URL.
+- **`.card-detail`** is `hidden` in the grid and its `innerHTML` is cloned into
+  the modal when the card is opened. It is ordinary markup — galleries
+  (`.detail-gallery`), YouTube embeds (`.detail-video`), link rows
+  (`.detail-links`), lists (`.detail-list`).
+- **`span-2x2` / `span-1x2`** size the tile in the grid. Cards without a span
+  class take one cell.
 
-## 📱 Responsive Breakpoints
+`.detail-gallery img` gets a click handler wired up at modal-open time and
+opens in the lightbox. Escape closes the lightbox first, then the modal.
 
-- **Mobile**: < 768px
-- **Tablet**: 769px - 1024px
-- **Desktop**: > 1024px
+The `goals` and `venture` categories additionally live inside
+`<section class="card-section">` blocks below the grid, which have their own row
+layout and hide themselves when the active filter empties them.
 
-## ✨ Key Features Explained
+## Theming
 
-### Image Lightbox
-- Click any image in a `.gallery` to open lightbox
-- Navigate with arrow buttons or keyboard (← →)
-- Close with X button or Esc key
-- Shows image counter (e.g., "3 / 8")
+Every colour, radius, gap, and font is a custom property in the `:root` block at
+the top of `css/style.css`. Nothing below that block should hardcode a value.
+Retheming the site means editing those tokens.
 
-### Project Cards
-- Hover to see lift effect
-- Images zoom on hover
-- Smooth color transitions
-- Expandable details sections
+The five category accents — `--lime`, `--coral`, `--sky`, `--amber`, `--violet` —
+map to `software`, `builds`, `random`, `goals`, `venture` in that order, and are
+consumed by the `.tag-*` rules.
 
-### Navigation
-- Sticky header with scroll effects
-- Active page highlighting
-- Smooth scroll to anchors
-- Responsive mobile menu layout
+## Accessibility
 
-## 🔧 Browser Support
+Worth preserving:
 
-- Chrome/Edge: ✅ Latest 2 versions
-- Firefox: ✅ Latest 2 versions
-- Safari: ✅ Latest 2 versions
-- Mobile browsers: ✅ iOS Safari, Chrome Mobile
+- Keyboard focus is visible everywhere (`*:focus-visible`).
+- `prefers-reduced-motion` is honoured.
+- The modal traps Tab, restores focus to the card that opened it on close, and
+  is labelled by its title.
+- Every image has real alt text.
 
-## ♿ Accessibility
+## Known open items
 
-- Semantic HTML structure
-- ARIA labels on interactive elements
-- Keyboard navigation support
-- Focus visible indicators
-- Reduced motion media query support
-- Alt text on images
-
-## 📝 Notes
-
-- All your existing images and folder structure remain unchanged
-- The `css/` folder now only needs `style.css`
-- Make sure to create the `js/` folder for `main.js`
-- PDF resume embed works on modern browsers
-
-## 🐛 Troubleshooting
-
-**Images not showing?**
-- Check that image paths in HTML match your folder structure
-- Verify `img/` folder is in the root directory
-
-**JavaScript not working?**
-- Ensure `main.js` is in the `js/` folder
-- Check browser console for errors
-- Verify the script tag in HTML: `<script src="js/main.js"></script>`
-
-**Styling looks wrong?**
-- Clear browser cache
-- Check that `style.css` is in the `css/` folder
-- Verify the link tag: `<link rel="stylesheet" href="css/style.css">`
-
-## 📄 License
-
-This is your personal portfolio website. Feel free to customize as needed!
-
-## 🎯 Future Enhancements
-
-Consider adding:
-- Blog section
-- Contact form
-- Dark/light theme toggle
-- Project filters/search
-- Animation options panel
-- More gallery layouts
-
----
-
-Built with ❤️ using pure HTML5, CSS3, and JavaScript
+- **The homepage downloads roughly 180 MB on load.** The `<img>` tags inside
+  `.card-detail` have no `loading="lazy"`, and browsers fetch images inside a
+  `display:none` subtree anyway. `img/` is over 260 MB of unresized camera
+  originals — several are 5760×3840.
+- About 21 MB across ~20 images in `img/` are referenced by nothing and still get
+  deployed. The workflow uploads `path: '.'`, so unused files ship too.
+- No favicon, `robots.txt`, `sitemap.xml`, or `404.html`.
+- No `CNAME` file in the repo. The workflow uploads `path: '.'`, so if the
+  custom domain is only set in repo settings it can get dropped on deploy.
+  Every `og:image` and `og:url` is an absolute `https://1031f.com/…`, so if the
+  domain ever drops, link previews break with it.
+- `race.html` shares the default portrait card because there is no screenshot of
+  the game. A real one would be better.
+- `sermon.html` has no sharing tags and is not indexed-or-excluded either way.
+- `resume.html` uses a bare `<embed>` for the PDF, which does not render on
+  mobile Safari or Chrome for Android — the page is blank there. The PDF is also
+  still the 2024 version.
+- Closing a project modal pushes a second history entry, so the Back button
+  reopens the card you just closed.
+- The filter bar is marked up as an ARIA `tablist` with no `tabpanel`s. These
+  are toggle buttons; `aria-pressed` would be correct.
+- Card titles are `h3` with no `h2` above them.
+- `chess.html` loads React *development* builds plus Babel standalone from a CDN
+  and compiles JSX on every page view.
+- The header and footer navs are hand-copied into each page. They agree today;
+  nothing enforces that.

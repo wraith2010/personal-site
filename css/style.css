@@ -23,6 +23,7 @@
   --coral:        #ff5050;   /* builds    */
   --sky:          #40c4ff;   /* random    */
   --amber:        #fbbf24;   /* goals     */
+  --violet:       #a78bfa;   /* venture   */
 
   /* Layout */
   --gap:          12px;
@@ -316,7 +317,7 @@ main {
 .tag-builds   { background: var(--coral); color: #fff; }
 .tag-random   { background: var(--sky);   color: #0c0c0c; }
 .tag-goals    { background: var(--amber); color: #0c0c0c; }
-.tag-venture  { background: #a78bfa;      color: #fff; }
+.tag-venture  { background: var(--violet); color: #fff; }
 
 /* Card text */
 .card-titles {

@@ -6,7 +6,6 @@
   // ====================================
 
   const filterBtns    = document.querySelectorAll('.filter-btn');
-  const allCards      = document.querySelectorAll('.bento-card');
   const projectCards  = document.querySelectorAll('.bento-card[data-category]:not(.card-about)');
 
   const modalOverlay  = document.getElementById('modal-overlay');
@@ -17,7 +16,6 @@
   const modalSubtitle = document.getElementById('modal-subtitle');
   const modalContent  = document.getElementById('modal-content');
   const shareBtn      = document.getElementById('share-btn');
-  const shareBtnLabel = document.getElementById('share-btn-label');
   const shareStatus   = document.getElementById('share-status');
 
   const lightbox      = document.getElementById('lightbox');
