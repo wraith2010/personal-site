@@ -483,8 +483,9 @@
   }
 
   /* Body animation — closing section, below the photo timeline.
-     Counts 400 lb down to 180 lb once, then holds on the target figure.
-     No loop: the cut from 180 back to 400 reads as a glitch. */
+     Loops a 400 lb -> 180 lb count. The restart is a hard cut back to 400;
+     it only plays while on screen (see the IntersectionObserver below) so it
+     is not looping away in a background tab. */
   .j-figure-section {
     margin-top: 3rem;   /* matches .photo-timeline-section */
   }
@@ -830,7 +831,7 @@
       <span class="marker">SIMULATED</span>
     </div>
     <div class="j-figure-media">
-      <video id="bodyAnim" muted playsinline preload="metadata"
+      <video id="bodyAnim" muted loop playsinline preload="metadata"
              poster="img/journey-to-180/hero-schematic-poster.jpg"
              aria-label="Animated schematic of a six-foot figure shrinking from 400 pounds
                          to 180 pounds against a weight scale, organs and skeleton visible.">
@@ -895,12 +896,13 @@
 
 <script>
   // ---------- Body animation ----------
-  // The clip lives at the bottom of the page and runs once, so it starts when
-  // it scrolls into view rather than on load — otherwise it has already ended
-  // by the time anyone reaches it. autoplay is never set in the markup: CSS
-  // cannot stop a video that is already playing, so prefers-reduced-motion has
-  // to be checked before playback starts. When motion is reduced the poster
-  // frame (400 lb) stands in and controls appear so it stays available.
+  // The clip loops, and it sits at the bottom of the page, so it plays only
+  // while it is actually on screen — otherwise it would loop forever in the
+  // background burning battery on a page nobody is looking at. autoplay is
+  // never set in the markup: CSS cannot stop a video that is already playing,
+  // so prefers-reduced-motion has to be checked before playback starts. When
+  // motion is reduced the poster frame (400 lb) stands in and controls appear
+  // so it stays available on request.
   (function () {
     const v = document.getElementById('bodyAnim');
     if (!v) return;
@@ -921,9 +923,8 @@
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        io.disconnect();   // runs once — no replay on scroll back
-        start();
+        if (e.isIntersecting) start();
+        else v.pause();
       });
     }, { threshold: 0.4 });
 
