@@ -482,6 +482,29 @@
     line-height: 1.5;
   }
 
+  /* Body animation — closing section, below the photo timeline.
+     Loops a 400 lb -> 180 lb count. The restart is a hard cut back to 400;
+     it only plays while on screen (see the IntersectionObserver below) so it
+     is not looping away in a background tab. */
+  .j-figure-section {
+    margin-top: 3rem;   /* matches .photo-timeline-section */
+  }
+
+  .j-figure-media {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .j-figure-media video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;   /* matches the 1280x720 source; reserves the box so
+                               the methodology notes below do not jump on load */
+    object-fit: cover;
+  }
+
   /* Photo modal */
   .photo-modal-overlay {
     position: fixed;
@@ -639,6 +662,20 @@
     .meta-line { text-align: left; }
   }
 </style>
+<meta name="description" content="Four hundred pounds down toward a goal of one-eighty — weigh-ins, photos, and notes from the way down.">
+<link rel="canonical" href="https://1031f.com/journey-to-180.html">
+
+<!-- Social sharing -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="1031F">
+<meta property="og:url" content="https://1031f.com/journey-to-180.html">
+<meta property="og:title" content="The Journey to 180">
+<meta property="og:description" content="Four hundred pounds down toward a goal of one-eighty — weigh-ins, photos, and notes from the way down.">
+<meta property="og:image" content="https://1031f.com/img/og/og-fitness.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Loaded barbells racked in a gym.">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
@@ -787,6 +824,22 @@
     <div id="photo-timeline"></div>
   </div>
 
+  <!-- Body animation -->
+  <div class="j-figure-section">
+    <div class="section-head">
+      <h2>What 180 looks like</h2>
+      <span class="marker">SIMULATED</span>
+    </div>
+    <div class="j-figure-media">
+      <video id="bodyAnim" muted loop playsinline preload="metadata"
+             poster="img/journey-to-180/hero-schematic-poster.jpg"
+             aria-label="Animated schematic of a six-foot figure shrinking from 400 pounds
+                         to 180 pounds against a weight scale, organs and skeleton visible.">
+        <source src="img/journey-to-180/hero-schematic.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
   <footer>
     <p><strong>On the math.</strong> BMI is exact: (weight × 703) ÷ height². Body fat % uses the U.S. Navy formula: 86.010 × log₁₀(waist − neck) − 70.041 × log₁₀(height) + 36.76. Body fat values for weights other than the one you measure assume waist and neck shrink proportionally to weight lost (about 1 inch off the waist per 10 lb, 0.2 inch off the neck) — a useful approximation, but the real curve depends on the fat-to-muscle ratio of weight you lose.</p>
     <p><strong>On the timeline.</strong> Projections assume steady loss at 1.5 or 2 lb per week. Reality is rarely linear — expect a faster first month (water weight), slower middle phases, occasional plateaus, and diminishing returns near goal as your maintenance calories drop. Resistance training plus 0.7–1 g of protein per pound of body weight protects lean mass through the deficit.</p>
@@ -812,6 +865,9 @@
 <!-- ==================== SITE FOOTER ==================== -->
 <footer class="site-footer">
   <nav class="social-links" aria-label="Social links">
+    <a href="https://github.com/wraith2010" aria-label="GitHub">
+      <img src="img/icons/github.png" alt="GitHub">
+    </a>
     <a href="https://www.youtube.com/channel/UC0jOhavg_NHDfcJbGJPVXaA" aria-label="YouTube">
       <img src="img/icons/youtube_484x484.png" alt="YouTube">
     </a>
@@ -821,14 +877,17 @@
     <a href="https://www.thingiverse.com/wraith2010" aria-label="Thingiverse">
       <img src="img/icons/icon-thingiverse.png" alt="Thingiverse">
     </a>
-    <a href="https://github.com/wraith2010" aria-label="GitHub">
-      <img src="img/icons/github.png" alt="GitHub">
-    </a>
     <a href="https://www.chess.com/member/wraith2010" aria-label="Chess.com">
       <img src="img/icons/chess-icon.png" alt="Chess.com">
     </a>
     <a href="https://www.doublewattgames.com/" aria-label="Double Watt Games">
       <img src="img/icons/icon-website.png" alt="Double Watt Games">
+    </a>
+    <a href="https://www.thecroningroup.tech/" aria-label="The Cronin Group">
+      <img src="img/icons/icon-website.png" alt="The Cronin Group">
+    </a>
+    <a href="https://www.linkedin.com/in/benjamin-mitchell-540705334/" aria-label="LinkedIn">
+      <img src="img/icons/icon-linkedin.png" alt="LinkedIn">
     </a>
   </nav>
   <p class="footer-copy">© 2026 Ben Mitchell</p>
@@ -836,6 +895,42 @@
 </footer>
 
 <script>
+  // ---------- Body animation ----------
+  // The clip loops, and it sits at the bottom of the page, so it plays only
+  // while it is actually on screen — otherwise it would loop forever in the
+  // background burning battery on a page nobody is looking at. autoplay is
+  // never set in the markup: CSS cannot stop a video that is already playing,
+  // so prefers-reduced-motion has to be checked before playback starts. When
+  // motion is reduced the poster frame (400 lb) stands in and controls appear
+  // so it stays available on request.
+  (function () {
+    const v = document.getElementById('bodyAnim');
+    if (!v) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      v.controls = true;
+      return;
+    }
+
+    function start() {
+      // iOS Low Power Mode blocks autoplay even for muted video; without this
+      // the poster would sit there frozen with no way to start it.
+      const p = v.play();
+      if (p) p.catch(() => { v.controls = true; });
+    }
+
+    if (!('IntersectionObserver' in window)) { start(); return; }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) start();
+        else v.pause();
+      });
+    }, { threshold: 0.4 });
+
+    io.observe(v);
+  })();
+
   const HEIGHT_IN = 72;
   const START_WEIGHT = 400;
   const TARGET_WEIGHT = 180;
