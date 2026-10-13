@@ -1,0 +1,18 @@
+{
+  "style_bible": "Street art illustration: bold stencil-cut shapes, black ink outlines, spray-paint texture with overspray and drips, grainy grunge print. Limited palette: bright orange #FF6A00, light orange highlight #FF9A4D, charcoal grey #3A3A3A, mid grey #6E6E6E, near-black #111111, off-white #F2F2F2. Strong high-contrast value shapes with grey subject on a flat orange field. One clear central subject, slightly low-angle three-quarter view, chunky simple forms, orange glow on edges. No text, no letters, no logos, no watermarks, no tags, no people's faces.",
+  "negative_prompt": "text, letters, words, logo, watermark, signature, tag, graffiti lettering, photo, photorealistic, blurry, cluttered, extra limbs, deformed, human face, border, frame, navy, cyan, pastel, clean vector, smooth gradients",
+  "leonardo": {
+    "model_id": "6b645e3a-d64f-4341-a6d8-7a3690fbf042",
+    "width": 1024,
+    "height": 768,
+    "num_images": 4,
+    "seed": 1031,
+    "alchemy": true,
+    "style_reference_image": null
+  },
+  "claude_model": "claude-sonnet-5-5",
+  "max_attempts": 3,
+  "min_score": 8,
+  "output_dir": "out",
+  "site_image_dir": "img/cards"
+}

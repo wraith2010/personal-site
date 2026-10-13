@@ -7,22 +7,23 @@
 
 :root {
   /* Base */
-  --bg:           #0c0c0c;
+  --bg:           #111111;
   --card:         #161616;
   --card-hover:   #1e1e1e;
   --border:       #272727;
   --border-hover: #3a3a3a;
 
   /* Text */
-  --text:         #f0eeea;
+  --text:         #f2f2f2;
   --text-muted:   #888880;
   --text-dim:     #444;
 
-  /* Category accents — vibrant on dark */
-  --lime:         #c9f135;   /* software  */
-  --coral:        #ff5050;   /* builds    */
-  --sky:          #40c4ff;   /* random    */
-  --amber:        #fbbf24;   /* goals     */
+  /* Category accents — pulled from the card art: orange field, grey and off-white.
+     Token names are legacy; the values are what matter. */
+  --lime:         #ff6a00;   /* software / primary accent */
+  --coral:        #f2f2f2;   /* builds    */
+  --sky:          #ff9a4d;   /* random    */
+  --amber:        #b8b8b8;   /* goals     */
 
   /* Layout */
   --gap:          12px;
@@ -64,12 +65,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 24px;
-  border-bottom: 1px solid var(--border);
+  padding: 18px 28px;
+  border-bottom: 3px solid var(--lime);
   position: sticky;
   top: 0;
   z-index: 200;
-  background: rgba(12, 12, 12, 0.88);
+  background: rgba(17, 17, 17, 0.96);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -81,11 +82,11 @@ body {
 }
 
 .avatar {
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--lime);
+  border: 3px solid var(--lime);
   flex-shrink: 0;
 }
 
@@ -97,16 +98,19 @@ body {
 
 .site-title {
   font-family: var(--font-head);
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
   color: var(--text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
 .site-name {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  letter-spacing: 0.01em;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--lime);
+  letter-spacing: 0.02em;
 }
 
 /* Social icons in header */
@@ -188,7 +192,7 @@ main {
 }
 .filter-btn.active[data-filter="builds"] {
   background: var(--coral);
-  color: #fff;
+  color: #0c0c0c;
   border-color: var(--coral);
 }
 .filter-btn.active[data-filter="random"] {
@@ -313,10 +317,10 @@ main {
 }
 
 .tag-software { background: var(--lime);  color: #0c0c0c; }
-.tag-builds   { background: var(--coral); color: #fff; }
+.tag-builds   { background: var(--coral); color: #0c0c0c; }
 .tag-random   { background: var(--sky);   color: #0c0c0c; }
 .tag-goals    { background: var(--amber); color: #0c0c0c; }
-.tag-venture  { background: #a78bfa;      color: #fff; }
+.tag-venture  { background: #3a3a3a;      color: #f2f2f2; }
 
 /* Card text */
 .card-titles {
@@ -636,7 +640,7 @@ main {
 
 .swatch-wash {
   background: #111111;
-  box-shadow: inset 0 0 0 3px #1a1a2e;
+  box-shadow: inset 0 0 0 3px #1e1e1e;
   border-color: rgba(255,255,255,0.25);
 }
 
@@ -892,7 +896,16 @@ main {
   width: 100%;
   max-width: 520px;
   margin: 16px auto;
-  background: #0d1117;
+  background: #111111;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.detail-photo {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: 16px auto;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
 }
@@ -982,9 +995,10 @@ main {
    ==================================== */
 
 .site-footer {
-  border-top: 1px solid var(--border);
-  padding: 48px 20px 36px;
+  border-top: 3px solid var(--lime);
+  padding: 56px 20px 44px;
   text-align: center;
+  background: #0a0a0a;
 }
 
 .social-links {
@@ -1019,18 +1033,21 @@ main {
 }
 
 .footer-copy {
-  font-size: 0.78rem;
-  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .footer-legal {
-  font-size: 0.78rem;
-  color: var(--text-dim);
+  font-size: 0.85rem;
+  color: var(--text-muted);
   margin-top: 8px;
 }
 
 .footer-legal a {
-  color: var(--text-dim);
+  color: var(--text-muted);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -1224,7 +1241,7 @@ main {
 #nq-newGameBtn:hover { background: var(--lime); color: #0c0c0c; }
 
 #nq-resetBtn { border-color: var(--coral); color: var(--coral); }
-#nq-resetBtn:hover { background: var(--coral); color: #fff; }
+#nq-resetBtn:hover { background: var(--coral); color: #0c0c0c; }
 
 .nq-stats {
   font-size: 0.82rem;

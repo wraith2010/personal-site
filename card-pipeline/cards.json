@@ -1,0 +1,223 @@
+[
+  {
+    "slug": "drone-flight",
+    "page": "random.html",
+    "title": "Drone Flight",
+    "subtitle": "Parrot 2 Test Flight",
+    "blurb": "Test flight of a refurbished Parrot 2 drone around the house.",
+    "current": "img/figures/fig-drone-flight.jpg"
+  },
+  {
+    "slug": "mpc-twitch",
+    "page": "random.html",
+    "title": "MPC Twitch",
+    "subtitle": "Mini TV Studio",
+    "blurb": "A multi-camera church livestream studio built on short notice during lockdown. Based on a good laptop and a digital mixing board.",
+    "current": "img/emergency-stream/emergency-stream-01.jpg"
+  },
+  {
+    "slug": "light-saber",
+    "page": "index.html",
+    "title": "A Light Saber",
+    "subtitle": "Prop Building With Home Depot Parts",
+    "blurb": "Prop-ready lightsaber built from slip-joint drain pipe, electronics and a rotary tool. Made to look like obi-wans saber from the prequil trillogy",
+    "details": "One lightsaber only: a short slim hilt held upright, with one long straight blade of light, rising from the emitter well past the top edge of the frame. The blade is a bright, solid off-white core with a light-orange glow, and must read clearly as a glowing laser sword, not a flat beam or stripe. Hilt is a plain grey drain-pipe tube with three or four ribbed grip rings, a slip nut, a small emitter shroud and a round pommel. No crossed parts, no second blade, no tools, no sparks. Flat solid orange background, bold black outlines, orange rim glow on the hilt, spray drips. No text or marks anywhere.",
+    "current": "img/figures/russles-saber.jpg"
+  },
+  {
+    "slug": "chess",
+    "page": "index.html",
+    "title": "Chess",
+    "subtitle": "The Game of Geniuses and Me Too",
+    "blurb": "A love of playing chess with anyone who wants a game.",
+    "current": "img/chess-com/chess-com-logo.jpg"
+  },
+  {
+    "slug": "scribebot",
+    "page": "index.html",
+    "title": "Scribebot Project",
+    "subtitle": "A Discord Transcriber Bot",
+    "blurb": "Discord bot that transcribes voice channel conversation to text, for D&D games and accessibility.",
+    "current": "img/figures/software/fig-scribe-bot-01.png"
+  },
+  {
+    "slug": "overwatch-slackbot",
+    "page": "index.html",
+    "title": "Overwatch Slackbot",
+    "subtitle": "Slackbot based Overwatch randomizer",
+    "blurb": "Slack bot that randomly assigns roles to a team of 2-6 players with an inspirational quote.",
+    "current": "img/figures/software/overwatch.png"
+  },
+  {
+    "slug": "mission-control",
+    "page": "software.html",
+    "title": "Mission Control",
+    "subtitle": "A Multi Media Installation",
+    "blurb": "8-bit retro VBS space launch game; solving the puzzle triggers a smoke machine.",
+    "current": "img/figures/software/fig_mission_control_02.png"
+  },
+  {
+    "slug": "n-queens",
+    "page": "software.html",
+    "title": "The N Queens Problem",
+    "subtitle": "A Study in Computer Science",
+    "blurb": "Placing N chess queens on an NxN board so none attack each other.",
+    "current": "img/figures/software/fig-n-queens-02.png"
+  },
+  {
+    "slug": "halftone-svg",
+    "page": "software.html",
+    "title": "Halftone SVG Generator",
+    "subtitle": "An Art Experiment",
+    "blurb": "Turns portraits into halftone SVG cut files for a laser cutter.",
+    "current": "img/figures/software/fig-halftone-generate-01.jpg"
+  },
+  {
+    "slug": "stencil-tab-tool",
+    "page": "software.html",
+    "title": "Stencil Tab Tool",
+    "subtitle": "Prep stencils for the laser cutter",
+    "blurb": "Adds tabs to SVG stencils to anchor islands for laser cutting.",
+    "current": "img/figures/software/fig-stencil-01.jpg"
+  },
+  {
+    "slug": "bravo-chess",
+    "page": "builds.html",
+    "title": "Chess",
+    "subtitle": "A Bravo Stage",
+    "blurb": "Theatre set for the musical Chess: a Cold War tournament stage with flags flying on frames.",
+    "current": "img/figures/fig_chess.png"
+  },
+  {
+    "slug": "dnd-galleon",
+    "page": "builds.html",
+    "title": "D&D Galleon Build",
+    "subtitle": "A not so miniature model",
+    "blurb": "Laser-cut physical model of a flying galleon airship for a D&D campaign.",
+    "current": "img/figures/fig-galleon.jpg"
+  },
+  {
+    "slug": "into-the-woods",
+    "page": "index.html",
+    "title": "Into the Woods",
+    "subtitle": "A Bravo Stage",
+    "blurb": "Large theatre set: library turned enchanted forest with balcony, bridge and spiral staircase.",
+    "current": "img/figures/fig-into-the-woods.jpg"
+  },
+  {
+    "slug": "little-mermaid-boat",
+    "page": "builds.html",
+    "title": "Prop Row Boat",
+    "subtitle": "For the Little Mermaid",
+    "blurb": "Rolling row boat prop for a high school production of The Little Mermaid.",
+    "current": "img/figures/fig-little-mermaid.jpg"
+  },
+  {
+    "slug": "dungeon-tiles",
+    "page": "index.html",
+    "title": "Dungeon Tiles",
+    "subtitle": "Laser Cut Modular Dungeon Tiles",
+    "blurb": "Laser-cut modular dungeon tiles painted to look like fake stone.",
+    "current": "img/figures/fig-modular-tile.jpg"
+  },
+  {
+    "slug": "nine-square",
+    "page": "builds.html",
+    "title": "9 Square",
+    "subtitle": "A Youth Group Game",
+    "blurb": "PVC pipe nine square game built by the youth group.",
+    "current": "img/figures/fig-nine-square.jpg"
+  },
+  {
+    "slug": "prop-muskets",
+    "page": "builds.html",
+    "title": "Prop Muskets",
+    "subtitle": "For Les Miserables",
+    "blurb": "Stained wood prop muskets based on the brown bess, from 2x6 stock and electrical conduit, under $4 each.",
+    "details": "One musket only, centered, in a low three-quarter view. Full-bleed flat orange background with no border. Stock is a chunky, boxy slab of 2x6 with visible grain. Barrel is a plain electrical conduit tube with simple band clamps, no strap, no pencil, no wood shavings. Bold black stencil outlines, spray overspray and a few drips. No marks, scribbles or signatures anywhere in the image.",
+    "current": "img/figures/fig-les-mis.jpg"
+  },
+  {
+    "slug": "vortex-cannon",
+    "page": "builds.html",
+    "title": "Vortex Cannon",
+    "subtitle": "A Science Demonstration",
+    "blurb": "Trash-can air vortex cannon with a fog machine to make the rings visible.",
+    "current": "img/figures/fig-vortex.jpg"
+  },
+  {
+    "slug": "homelab",
+    "page": "index.html",
+    "title": "Homelab",
+    "subtitle": "The Server Farm We Have at Home",
+    "blurb": "A home server rack with a UPS, a NAS and a KVM console, built well past what anyone would call practical.",
+    "current": "img/home-lab/homelab-logo.jpg"
+  },
+  {
+    "slug": "prop-row-boat",
+    "page": "index.html",
+    "title": "Prop Row Boat",
+    "subtitle": "The Little Mermaid — RHS",
+    "blurb": "A real twenty-foot launch rowboat for the Kiss the Girl scene of a high school Little Mermaid, which had to be made safe to spin on stage.",
+    "current": "img/little-mermaid-boat/little-mermaid-01.jpg"
+  },
+  {
+    "slug": "balloon-animals",
+    "page": "index.html",
+    "title": "Balloon Animals",
+    "subtitle": "Trunk-or-Treat T-Rex",
+    "blurb": "A full inflatable T-Rex costume at the church trunk-or-treat, with a pump of balloons, where children spot it immediately and walk straight toward it.",
+    "current": "img/dino-ballon-animals/title-card.jpg"
+  },
+  {
+    "slug": "gridlockdm",
+    "page": "index.html",
+    "title": "GridlockDM",
+    "subtitle": "Self-Hosted D&D Battle Map",
+    "blurb": "A self-hosted, real-time multiplayer battle map for D&D 5e. The DM runs the server and players join with an invite code, with a shared TV view kept in sync.",
+    "current": "img/gridlockdm/girdlockdm-logo.jpg"
+  },
+  {
+    "slug": "chess-stage",
+    "page": "index.html",
+    "title": "Chess Stage",
+    "subtitle": "Bravo Theatre Co. 2019",
+    "blurb": "The stage and flag frames for Bravo Theatre Co.'s 2019 production of Chess, a Cold War musical about two grandmasters, built to fly the flags in the background.",
+    "current": "img/bravo-chess/bravo-chess-01.jpg"
+  },
+  {
+    "slug": "journey-to-180",
+    "page": "index.html",
+    "title": "Journey to 180",
+    "subtitle": "A Personal Weight Loss Dashboard",
+    "blurb": "A personal progress tracker for losing weight from 400 lb down to a goal of 180 lb, with a timeline projected at 1.5 and 2 lb per week. All data stays on the device.",
+    "details": "Top-down view looking straight down onto a bathroom scale, the same framing as the original photo. A rounded-square grey-blue scale platform fills the frame, with a pair of bare feet standing on it, wearing yellow flip-flops, and jeans cuffs at the top edge. A round white dial sits between the feet with a black centre, a single needle and plain tick marks, no numerals. Feet are chunky stencil shapes with heavy black outlines, the scale is a flat grey-blue block, and the wood floor is replaced by a flat orange field. Orange glow on the edges, spray overspray and drips. No faces, no text, no numbers anywhere.",
+    "current": "img/to180/bathroom-scale.jpg"
+  },
+  {
+    "slug": "strength-cardio-and-miles",
+    "page": "index.html",
+    "title": "Strength, Cardio & Miles",
+    "subtitle": "Gym Training Split",
+    "blurb": "A weekly gym split: strength-focused CrossFit three days a week, treadmill intervals and rowing on two more, and two bike rides of 12+ miles.",
+    "current": "img/to180/barbells.jpg"
+  },
+  {
+    "slug": "the-cronin-group",
+    "page": "index.html",
+    "title": "The Cronin Group",
+    "subtitle": "Software Consulting for Modern Teams",
+    "blurb": "Software consulting for modern teams, from enterprise cloud architecture to AI-assisted development support, delivering production-grade systems.",
+    "details": "The company's logo is a monogram of three chunky 3D letter shapes, T, C and G, with the T in charcoal grey and the C and G in cream and tan, all with black edges and drop shadows, set over an orange and grey brush-stroke field with white streaks. Make one large chunky monogram of three letter-shaped forms in charcoal, cream and tan, a slightly low three-quarter view, with stencil-cut edges and black outlines. Brush strokes of orange, white and grey streak across a flat orange field. Small cloud and server cues are allowed. No readable letters, no words, no company name spelled out, no signature.",
+    "current": "img/the-croning-group/the-croning-group-card-logo.jpg"
+  },
+  {
+    "slug": "double-watt-games",
+    "page": "index.html",
+    "title": "Double Watt Games",
+    "subtitle": "Designing Games for Gamers",
+    "blurb": "A board game design studio whose games work through mechanics and theme together, with the player's decisions at the centre. Built around a light bulb mark.",
+    "details": "The studio's logo is a light bulb with a bold black outline, a light grey or cream inside, a black script letter w as the filament glow, two thin filament lines, and a ridged black screw base. Show one large light bulb, centered and seen from a slightly low three-quarter angle, with the same script w and filament lines as the logo. Use off-white or light grey for the glass and the orange for the glow. Flat solid orange background, bold black stencil outlines, orange rim glow, spray drips. No other objects, no text or lettering other than the w mark.",
+    "current": "img/double-watt-games/double-watt-games-logo.jpg"
+  }
+]
