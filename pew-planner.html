@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sanctuary Pew Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: drafting-table tool — plan drawing on the left, pew stock and totals on the right, row catalog below */
+:root{
+  --bg:#eceeea; --surface:#fafbf8; --ink:#1c2220; --muted:#5b6662; --line:#c6ccc7; --floor:#f4f5f1;
+  --oak:#8e6038; --oak-ink:#fff7ee; --maple:#d8a656; --maple-ink:#3b2608;
+  --access:#1d7466; --access-soft:#d7ece7; --warn:#b03f2b; --warn-soft:#f6ddd6; --focus:#2a5bd7;
+  /* the church's own blue — the logo is white line art and needs it behind, in either theme */
+  --brand:#2b6ca3;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121614; --surface:#1a1f1d; --ink:#e4e9e6; --muted:#9aa5a0; --line:#323c38; --floor:#161b19;
+  --oak:#b07a4a; --oak-ink:#1d1206; --maple:#e0b469; --maple-ink:#2c1c04;
+  --access:#3db09e; --access-soft:#173a34; --warn:#e2765e; --warn-soft:#3d1f18; --focus:#7aa2ff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121614; --surface:#1a1f1d; --ink:#e4e9e6; --muted:#9aa5a0; --line:#323c38; --floor:#161b19;
+  --oak:#b07a4a; --oak-ink:#1d1206; --maple:#e0b469; --maple-ink:#2c1c04;
+  --access:#3db09e; --access-soft:#173a34; --warn:#e2765e; --warn-soft:#3d1f18; --focus:#7aa2ff; color-scheme:dark}
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:.01em;margin:0;text-wrap:balance}
+h1{font-size:30px;line-height:1.1}
+h2{font-size:19px;text-transform:uppercase;letter-spacing:.06em}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:end;justify-content:space-between}
+.titlebox{display:flex;flex-direction:column;gap:4px;min-width:0}
+.brandrow{display:flex;align-items:center;gap:12px;min-width:0}
+.mark{width:52px;height:auto;flex:none;background:var(--brand);border-radius:8px;padding:5px}
+.sub{color:var(--muted);font-size:14px}
+label.scen{display:flex;flex-direction:column;gap:4px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.scenbox{display:flex;flex-direction:column;gap:5px;min-width:0}
+.goal{margin:0;max-width:72ch;border-left:3px solid var(--access);padding-left:12px}
+p.warnmsg{margin:0;max-width:320px}
+input[type=text],input[type=number]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px;min-width:0}
+input[type=text]{width:min(320px,100%);font-size:15px}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+button{font:600 14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+button.primary{background:var(--access);border-color:var(--access);color:var(--surface)}
+button.ghost{background:transparent}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:start}
+@media (max-width:860px){.main{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.plan-panel{padding:10px}
+#plan{width:100%;height:auto;display:block;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.hint{font-size:13px;color:var(--muted)}
+.side{display:flex;flex-direction:column;gap:18px;min-width:0}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:8px}
+.stat b{font:500 26px/1.1 var(--mono)}
+.stat span{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.stat em{font-style:normal;font-size:12px;font-family:var(--mono);color:var(--muted)}
+.stat.access b{color:var(--access)}
+#stock{display:flex;flex-direction:column;gap:8px;padding:8px;margin:-8px;border-radius:8px;border:2px dashed transparent}
+#stock.drop-on{border-color:var(--warn);background:var(--warn-soft)}
+.chip{display:flex;align-items:center;gap:10px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--floor);cursor:grab;touch-action:none;text-align:left;font-weight:400;width:100%}
+.chip[aria-pressed="true"]{outline:2px solid var(--focus);outline-offset:1px}
+.chip[disabled]{opacity:.45;cursor:not-allowed}
+.chip .bar{height:14px;border-radius:2px;flex:none}
+.chip .nm{flex:1;min-width:0}
+.chip .ct{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.bar.orig{background:var(--oak)} .bar.alt{background:var(--maple)} .bar.wc{background:var(--access-soft);border:1.5px solid var(--access)}
+.row2{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:600;font-size:14px}
+.inv{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.inv-row{display:grid;grid-template-columns:1fr 70px 56px 30px;gap:6px;align-items:center;font-size:13px}
+.inv-row input{width:100%;padding:4px 6px}
+.inv-row button{padding:3px 0}
+.warnmsg{color:var(--warn);font-size:13px}
+.selbar{display:flex;flex-direction:column;gap:8px;align-items:flex-start;font-size:14px;min-height:34px}
+.selrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;width:100%}
+.selrow label{display:flex;gap:6px;align-items:center;white-space:nowrap}
+.selrow input[type=number]{width:72px;padding:4px 6px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font:600 12px var(--body);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+tr.changed td:first-child{box-shadow:inset 3px 0 0 var(--maple)}
+tfoot td{font-weight:600;border-bottom:none}
+.ghost-drag{position:fixed;left:0;top:0;pointer-events:none;z-index:50;padding:4px 8px;border-radius:6px;font:600 13px var(--body);background:var(--ink);color:var(--surface);transform:translate(-50%,-140%)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:9px 14px;border-radius:8px;font-size:14px;max-width:90vw;z-index:60}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:18px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+/* plan svg */
+.p-floor{fill:var(--floor)} .p-wall{fill:none;stroke:var(--muted);stroke-width:2}
+.p-txt{fill:var(--muted);font:500 11px var(--body)} .p-num{fill:var(--muted);font:500 10px var(--mono)}
+.p-slot{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
+.p-target{fill:transparent;cursor:copy}
+.p-target.ok{fill:var(--access-soft);opacity:.7} .p-target.bad{fill:var(--warn-soft);opacity:.8}
+.p-orig{fill:var(--oak);stroke:var(--surface);stroke-width:1} .p-alt{fill:var(--maple);stroke:var(--surface);stroke-width:1}
+.p-wc{fill:var(--access-soft);stroke:var(--access);stroke-width:1.4}
+.p-lbl{font:500 9px var(--mono);pointer-events:none} .p-lbl.o{fill:var(--oak-ink)} .p-lbl.a{fill:var(--maple-ink)} .p-lbl.w{fill:var(--access)}
+.p-open{fill:url(#hatch);stroke:var(--line);stroke-width:.6}
+/* halo so a gap dimension stays readable over the hatching */
+.p-gap{fill:var(--muted);font:500 9px var(--mono);paint-order:stroke;stroke:var(--floor);stroke-width:2.5;stroke-linejoin:round}
+.placed{cursor:grab;touch-action:none}
+.placed.sel rect{stroke:var(--focus);stroke-width:2.5}
+@media (prefers-reduced-motion:no-preference){.p-target{transition:fill .12s}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div class="titlebox">
+      <div class="brandrow">
+        <img class="mark" id="logo" src="img/pew-planner/mpc-logo.png" width="256" height="271"
+             alt="Marple Presbyterian Church logo: a line drawing of the church front, steeple topped with a cross, with MPC lettered between the columns">
+        <h1>Sanctuary Pew Planner</h1>
+      </div>
+      <div class="sub">Two blocks of 15 rows · 15.5 ft slots · 6 ft center aisle, 5 ft side aisles · 44 in row pitch</div>
+    </div>
+    <div class="scenbox">
+      <label class="scen" for="scenName">Scenario name
+        <input type="text" id="scenName" value="Existing configuration">
+      </label>
+      <p class="warnmsg" id="nameWarn" hidden>Give this scenario its own name — the rows no longer match the existing configuration.</p>
+    </div>
+  </header>
+
+  <p class="goal" id="goal">The goal is to improve the amount and quality of wheelchair seating at Marple Presbyterian Church. Every arrangement here leaves the aisles as they are and works from the pews the church already owns, so the question is only where they sit.</p>
+
+  <div class="row2">
+    <div class="presets">
+      <button id="btnReset">Reset to existing configuration</button>
+    </div>
+    <span class="hint">Puts all 30 original pews back, one per row, and drops every change.</span>
+  </div>
+
+  <div class="main">
+    <section class="panel plan-panel" aria-label="Floor plan">
+      <svg id="plan" role="img" aria-label="Sanctuary floor plan with pews"></svg>
+      <div class="selbar" id="selbar" aria-live="polite"></div>
+    </section>
+
+    <aside class="side">
+      <section class="panel" aria-labelledby="hStats">
+        <h2 id="hStats">Totals</h2>
+        <div class="stats" id="stats"></div>
+        <div class="row2">
+          <button class="primary" id="btnPdf">Export PDF</button>
+          <button id="btnMirror" title="Reflect the left block's arrangement about the center aisle">Mirror left → right</button>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="hStock">
+        <h2 id="hStock">Pew stock</h2>
+        <p class="hint" style="margin:0">Drag a piece to where you want it in a row, or tap it and then tap the spot. Pieces hold their position, so a gap can sit at either aisle or between two pews. Drag a placed piece back here to return it to storage.</p>
+        <div id="stock"></div>
+        <label class="row2" for="seatIn" style="font-size:14px">Seat width
+          <input type="number" id="seatIn" min="14" max="30" step="1" value="18" style="width:70px"> in per person
+        </label>
+        <label class="row2" for="wcIn" style="font-size:14px">Wheelchair space
+          <input type="number" id="wcIn" min="24" max="72" step="1" value="36" style="width:70px"> in clear width
+        </label>
+        <details>
+          <summary>Edit pew catalog</summary>
+          <div class="inv" id="inv"></div>
+          <div class="row2" style="margin-top:8px"><button id="addType">Add pew size</button></div>
+        </details>
+      </section>
+    </aside>
+  </div>
+
+  <section class="panel" aria-labelledby="hCat">
+    <div class="row2" style="justify-content:space-between">
+      <h2 id="hCat">Row catalog</h2>
+      <div class="legend"><span><i style="background:var(--oak)"></i>Original pew</span><span><i style="background:var(--maple)"></i>Alternative pew</span><span><i style="background:var(--access-soft);border:1.5px solid var(--access)"></i>Wheelchair space, 48 in deep</span><span><i style="background:repeating-linear-gradient(45deg,var(--line) 0 1.4px,transparent 1.4px 6px);border:1px solid var(--line)"></i>Open floor, measured in inches</span></div>
+    </div>
+    <div class="tablewrap"><table id="cat"></table></div>
+  </section>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const ROWS=15, SLOT=186, PITCH=44, PEW_D=20, WC_D=48;
+const TOP=74, BX={L:60,R:60+186+72}, W=564, H=TOP+(ROWS-1)*PITCH+PEW_D+64;
+const SIDES=['L','R'];
+const GRID=1;   /* in — a dropped piece lands on a whole inch */
+const SNAP=3;   /* in — magnet distance to a neighbor or an aisle end */
+const DEFAULT_TYPES=[
+  {id:'orig',len:186,count:30,orig:true},
+  {id:'t8',len:96,count:1},{id:'t7',len:84,count:1},
+  {id:'t11',len:132,count:3},{id:'t35',len:42,count:6}
+];
+const KEY='pewPlanner.v2';
+const $=s=>document.querySelector(s);
+const fmt=i=>{const f=Math.round(i/12*100)/100;return f+' ft'};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const clampN=(v,lo,hi,dflt)=>{const n=Math.round(+v);return isFinite(n)?Math.max(lo,Math.min(hi,n)):dflt};
+let state, sel=null, armed=null;
+
+/* ---------- model ----------
+   A row is a list of pieces, each carrying its own offset x in inches from the
+   low-x edge of its block. Nothing is packed: the gaps between pieces are the
+   plan, so a wheelchair space can sit at either aisle or between two pews.
+   x is the only source of truth for where a piece sits; array order is scratch. */
+function blankRows(){const r={};SIDES.forEach(s=>{r[s]=[];for(let i=0;i<ROWS;i++)r[s].push([{t:'orig',x:0}])});return r}
+/* The left block meets the center aisle at x = SLOT, the right block at x = 0.
+   Offsets are quoted from the outer side aisle so both blocks read the same. */
+const outOff=(s,x,len)=>s==='L'?x:SLOT-x-len;
+const fromOut=(s,off,len)=>s==='L'?off:SLOT-off-len;
+
+/* The one fixed layout: every row as it stands today, one original pew wall to aisle.
+   It is the starting point, the reset target, and what every scenario is measured against. */
+const EXISTING_NAME='Existing configuration';
+const isUntouched=row=>row.length===1&&row[0].t==='orig'&&row[0].x===0;
+const isEdited=()=>!SIDES.every(s=>state.rows[s].every(isUntouched));
+/* An edited plan may not go out under the name of the layout it replaces.
+   Compare the way the filename does — runs of spaces collapse — or
+   "existing   configuration" slips through and exports the same file name. */
+const normName=s=>String(s||'').replace(/\s+/g,' ').trim().toLowerCase();
+function nameNeedsChange(){const n=normName(state.name);
+  return isEdited()&&(n===''||n===normName(EXISTING_NAME))}
+
+function load(){
+  try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.rows&&s.types)return sanitize(s)}catch(e){}
+  try{const o=JSON.parse(localStorage.getItem('pewPlanner.v1'));if(o&&o.rows&&o.types)return sanitize(migrate(o))}catch(e){}
+  return {name:EXISTING_NAME,seatIn:18,wcW:36,types:clone(DEFAULT_TYPES),rows:blankRows()};
+}
+/* v1 rows were ordered lists packed flush from the low-x edge — hand each piece that offset */
+function migrate(s){
+  const find=id=>id==='wc'?{len:36}:(s.types||[]).find(t=>t.id===id);
+  SIDES.forEach(sd=>(s.rows[sd]||[]).forEach(row=>{let c=0;
+    (row||[]).forEach(it=>{const t=find(it.t);it.x=c;c+=t?t.len:0})}));
+  s.wcW=36;return s;
+}
+function sanitize(s){
+  if(typeof s.name!=='string')s.name=EXISTING_NAME;
+  s.seatIn=clampN(s.seatIn,14,30,18);s.wcW=clampN(s.wcW,24,72,36);
+  if(!Array.isArray(s.types)||!s.types.length)s.types=clone(DEFAULT_TYPES);
+  const known=id=>id==='wc'||s.types.some(t=>t.id===id);
+  if(!s.rows)s.rows={};
+  SIDES.forEach(sd=>{const src=Array.isArray(s.rows[sd])?s.rows[sd]:[];
+    s.rows[sd]=Array.from({length:ROWS},(_,i)=>(Array.isArray(src[i])?src[i]:[])
+      .filter(it=>it&&known(it.t)).map(it=>({t:it.t,x:Math.max(0,Math.round(+it.x||0))})))});
+  return s;
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+
+const type=id=>id==='wc'?{id:'wc',len:state.wcW}:state.types.find(t=>t.id===id);
+const lenOf=it=>(type(it.t)||{len:0}).len;
+function placedCount(id){let n=0;SIDES.forEach(s=>state.rows[s].forEach(row=>row.forEach(it=>{if(it.t===id)n++})));return n}
+const avail=id=>id==='wc'?Infinity:(type(id).count-placedCount(id));
+const seatsFor=len=>Math.floor(len/state.seatIn);
+const label=t=>t.id==='wc'?'Wheelchair space':(t.orig?'Original pew':'Pew')+' '+fmt(t.len);
+const byX=row=>row.map((it,i)=>({it,i})).sort((a,b)=>a.it.x-b.it.x||a.i-b.i);
+
+/* ---------- geometry ---------- */
+function occupied(s,r,skip){return state.rows[s][r].map((it,i)=>i===skip?null:{a:it.x,b:it.x+lenOf(it)})
+  .filter(Boolean).sort((p,q)=>p.a-q.a)}
+/* the open floor of a row, as intervals, ignoring the piece being moved */
+function freeSpans(s,r,skip){const out=[];let c=0;
+  occupied(s,r,skip).forEach(o=>{if(o.a-c>0.01)out.push({a:c,b:o.a});c=Math.max(c,o.b)});
+  if(SLOT-c>0.01)out.push({a:c,b:SLOT});return out}
+const widestFree=(s,r,skip)=>freeSpans(s,r,skip).reduce((m,sp)=>Math.max(m,sp.b-sp.a),0);
+/* nearest legal offset to want; the magnet pulls flush when within SNAP of a neighbor or an end */
+function fitX(s,r,len,want,skip,magnet){
+  const spans=freeSpans(s,r,skip).filter(sp=>sp.b-sp.a>=len-0.01);
+  if(!spans.length)return null;
+  let best=null,bd=Infinity;
+  spans.forEach(sp=>{const lo=sp.a,hi=sp.b-len;
+    let x=Math.min(hi,Math.max(lo,Math.round(want/GRID)*GRID));
+    if(magnet!==false){if(Math.abs(want-lo)<=SNAP)x=lo;else if(Math.abs(want-hi)<=SNAP)x=hi}
+    const d=Math.abs(x-want);if(d<bd){bd=d;best=Math.round(x)}});
+  return best;
+}
+/* the open interval a placed piece can slide inside without touching its neighbors */
+function spanOf(s,r,i){const it=state.rows[s][r][i],len=lenOf(it);
+  return freeSpans(s,r,i).find(sp=>it.x>=sp.a-0.01&&it.x+len<=sp.b+0.01)||{a:it.x,b:it.x+len}}
+/* keep a row legal after a length change: hold left-to-right order, slide right, drop what no longer fits */
+function reflow(row){const out=[];let c=0,dropped=0;
+  byX(row).forEach(({it})=>{const l=lenOf(it);let x=Math.max(it.x,c);
+    if(x+l>SLOT+0.01)x=SLOT-l;
+    if(x<c-0.01||x<-0.01){dropped++;return}
+    out.push({t:it.t,x:Math.round(x)});c=x+l});
+  return {row:out,dropped}}
+/* rebuilds the row arrays, so any held selection index is dropped with them */
+function reflowAll(){let n=0;
+  SIDES.forEach(s=>state.rows[s].forEach((row,r)=>{const o=reflow(row);state.rows[s][r]=o.row;n+=o.dropped}));
+  sel=null;
+  if(n)toast(n+(n>1?' pieces':' piece')+' no longer fit and went back to storage.');
+  return n}
+
+function totals(){
+  let seats=0,pewIn=0,wc=0,pews=0,open=0,wideGaps=0;
+  SIDES.forEach(s=>state.rows[s].forEach((row,r)=>{
+    row.forEach(it=>{if(it.t==='wc')wc++;else{const l=lenOf(it);pewIn+=l;seats+=seatsFor(l);pews++}});
+    if(row.length)freeSpans(s,r,-1).forEach(sp=>{const w=sp.b-sp.a;open+=w;if(w>=state.wcW-0.01)wideGaps++})}));
+  return {seats,pewIn,wc,pews,open,wideGaps,base:30*seatsFor(SLOT)};
+}
+
+/* ---------- plan ---------- */
+function planSVG(){
+  let o=`<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--line)" stroke-width="1.4"/></pattern></defs>`;
+  o+=`<rect class="p-floor" x="0" y="0" width="${W}" height="${H}"/><rect class="p-wall" x="1" y="1" width="${W-2}" height="${H-2}"/>`;
+  o+=`<text class="p-txt" x="${W/2}" y="26" text-anchor="middle">Front · chancel</text><line x1="40" y1="40" x2="${W-40}" y2="40" stroke="var(--line)" stroke-dasharray="6 4"/>`;
+  for(let i=0;i<ROWS;i++){const y=TOP+i*PITCH+14;
+    o+=`<text class="p-num" x="30" y="${y}" text-anchor="middle">${i+1}</text><text class="p-num" x="${W-30}" y="${y}" text-anchor="middle">${i+1}</text>`}
+  /* pass one: every drop target first, so no target can land on top of a piece */
+  SIDES.forEach(s=>{for(let r=0;r<ROWS;r++){const x=BX[s],y=TOP+r*PITCH;
+    o+=`<rect class="p-target" data-side="${s}" data-row="${r}" x="${x}" y="${y-12}" width="${SLOT}" height="${PITCH}"/>`;
+    o+=`<rect class="p-slot" x="${x}" y="${y}" width="${SLOT}" height="${PEW_D}"/>`}});
+  /* pass two: open floor, measured, then the pieces over it */
+  SIDES.forEach(s=>{for(let r=0;r<ROWS;r++){
+    const x=BX[s],y=TOP+r*PITCH,row=state.rows[s][r];
+    if(row.length)freeSpans(s,r,-1).forEach(sp=>{const w=sp.b-sp.a,n=Math.round(w);
+      o+=`<rect class="p-open" x="${x+sp.a}" y="${y}" width="${w}" height="${PEW_D}" pointer-events="none"/>`;
+      if(w>=30)o+=`<text class="p-gap" x="${x+sp.a+w/2}" y="${y+13.5}" text-anchor="middle" pointer-events="none">${n} in</text>`;
+      else if(w>=14)o+=`<text class="p-gap" x="${x+sp.a+w/2}" y="${y+13.5}" text-anchor="middle" pointer-events="none">${n}</text>`});
+    byX(row).forEach(({it,i})=>{
+      const t=type(it.t);if(!t)return;const cx=x+it.x,isSel=sel&&sel.s===s&&sel.r===r&&sel.i===i;
+      o+=`<g class="placed${isSel?' sel':''}" data-side="${s}" data-row="${r}" data-idx="${i}">`;
+      if(it.t==='wc'){
+        o+=`<rect class="p-wc" x="${cx+1}" y="${y-14}" width="${t.len-2}" height="${WC_D}" rx="3"/><circle cx="${cx+t.len/2}" cy="${y+10}" r="8" fill="none" stroke="var(--access)" stroke-width="1.4"/><text class="p-lbl w" x="${cx+t.len/2}" y="${y+13}" text-anchor="middle">${t.len}</text>`;
+      }else{
+        const c=t.orig?'o':'a';
+        o+=`<rect class="p-${t.orig?'orig':'alt'}" x="${cx}" y="${y}" width="${t.len}" height="${PEW_D}" rx="2"/>`;
+        if(t.len>=36)o+=`<text class="p-lbl ${c}" x="${cx+t.len/2}" y="${y+13.5}" text-anchor="middle">${fmt(t.len)}</text>`;
+      }
+      o+=`</g>`});
+    if(!row.length)o+=`<text class="p-txt" x="${x+SLOT/2}" y="${y+14}" text-anchor="middle" pointer-events="none">empty row</text>`;
+  }});
+  const by=H-28;
+  o+=`<text class="p-txt" x="30" y="${by}" text-anchor="middle">5 ft</text><text class="p-txt" x="${W-30}" y="${by}" text-anchor="middle">5 ft</text>`;
+  o+=`<text class="p-txt" x="${W/2}" y="${by}" text-anchor="middle">6 ft aisle</text><text class="p-txt" x="${W/2}" y="${H-10}" text-anchor="middle">Back · entrance</text>`;
+  return o;
+}
+
+/* ---------- render ---------- */
+function render(){
+  const svg=$('#plan');svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=planSVG();
+  const T=totals(),d=T.seats-T.base;
+  $('#stats').innerHTML=`
+    <div class="stat"><span>Seats</span><b>${T.seats}</b><em>${d===0?'same as existing':(d>0?'+':'')+d+' vs existing'}</em></div>
+    <div class="stat access"><span>Wheelchair spaces</span><b>${T.wc}</b><em>${state.wcW} × ${WC_D} in each</em></div>
+    <div class="stat"><span>Pew length</span><b>${fmt(T.pewIn).replace(' ft','')}</b><em>ft of seating</em></div>
+    <div class="stat"><span>Pews placed</span><b>${T.pews}</b><em>${30} originally</em></div>
+    <div class="stat"><span>Open floor</span><b>${fmt(T.open).replace(' ft','')}</b><em>ft left in the rows</em></div>
+    <div class="stat access"><span>Usable gaps</span><b>${T.wideGaps}</b><em>${state.wcW} in or wider</em></div>`;
+  const types=[...state.types.filter(t=>t.orig),...state.types.filter(t=>!t.orig).sort((a,b)=>b.len-a.len),{id:'wc',len:state.wcW}];
+  $('#stock').innerHTML=types.map(t=>{
+    const a=avail(t.id),w=Math.max(10,Math.round(t.len/186*70));
+    return `<button class="chip" data-type="${t.id}" aria-pressed="${armed===t.id}" ${a<=0?'disabled':''}>
+      <span class="bar ${t.id==='wc'?'wc':t.orig?'orig':'alt'}" style="width:${w}px"></span>
+      <span class="nm">${label(t)}</span><span class="ct">${t.id==='wc'?'∞':a+' / '+t.count}</span></button>`}).join('');
+  $('#inv').innerHTML=state.types.map(t=>{const over=placedCount(t.id)>t.count;return `
+    <div class="inv-row"><span>${t.orig?'Original':'Alternative'}</span>
+    <input type="number" step="0.5" min="1" data-inv-len="${t.id}" value="${t.len/12}" aria-label="Length in feet">
+    <input type="number" step="1" min="0" data-inv-ct="${t.id}" value="${t.count}" aria-label="Count">
+    ${t.orig?'<span></span>':`<button data-inv-del="${t.id}" aria-label="Remove this size">×</button>`}</div>
+    ${over?`<div class="warnmsg">${placedCount(t.id)-t.count} more ${fmt(t.len)} pew(s) placed than you own.</div>`:''}`}).join('')
+    +`<div class="hint">Columns: length (ft), count owned.</div>`;
+  renderCatalog();renderSel();
+  $('#scenName').value=state.name;$('#seatIn').value=state.seatIn;$('#wcIn').value=state.wcW;
+  $('#nameWarn').hidden=!nameNeedsChange();
+  save();
+}
+/* every row reads outer aisle → center aisle, so the two blocks compare directly */
+function rowSegs(s,row){
+  const segs=[];let c=0;
+  const ord=byX(row).map(o=>o.it),list=s==='L'?ord:ord.slice().reverse();
+  list.forEach(it=>{const l=lenOf(it),off=outOff(s,it.x,l);
+    if(off-c>=1)segs.push(Math.round(off-c)+' in open');
+    segs.push(it.t==='wc'?'wheelchair':fmt(l)+(type(it.t).orig?' orig.':''));
+    c=off+l});
+  if(SLOT-c>=1)segs.push(Math.round(SLOT-c)+' in open');
+  return segs;
+}
+const rowText=(s,row)=>row.length?rowSegs(s,row).join(' · '):'Empty';
+function rowStats(row){let seats=0,wc=0,len=0;
+  row.forEach(it=>{const l=lenOf(it);len+=l;if(it.t==='wc')wc++;else seats+=seatsFor(l)});
+  return {seats,wc,open:row.length?SLOT-len:0}}
+function catalogData(){
+  return Array.from({length:ROWS},(_,r)=>{const L=rowStats(state.rows.L[r]),R=rowStats(state.rows.R[r]);
+    return {r:r+1,lt:rowText('L',state.rows.L[r]),rt:rowText('R',state.rows.R[r]),
+      seats:L.seats+R.seats,wc:L.wc+R.wc,open:L.open+R.open,
+      changed:!(isUntouched(state.rows.L[r])&&isUntouched(state.rows.R[r]))}});
+}
+function renderCatalog(){
+  const rows=catalogData(),T=totals();
+  $('#cat').innerHTML=`<thead><tr><th>Row</th><th>Left block</th><th>Right block</th><th class="num">Seats</th><th class="num">Wheelchair</th><th class="num">Open in.</th></tr></thead><tbody>`+
+    rows.map(x=>`<tr class="${x.changed?'changed':''}"><td class="mono">${x.r}</td><td>${x.lt}</td><td>${x.rt}</td><td class="num">${x.seats}</td><td class="num">${x.wc||''}</td><td class="num">${x.open||''}</td></tr>`).join('')+
+    `</tbody><tfoot><tr><td></td><td colspan="2">Totals · each block reads outer aisle to center aisle</td><td class="num">${T.seats}</td><td class="num">${T.wc}</td><td class="num">${Math.round(T.open)}</td></tr></tfoot>`;
+}
+function renderSel(){
+  const b=$('#selbar');
+  if(sel){
+    const it=state.rows[sel.s][sel.r][sel.i],len=lenOf(it),off=Math.round(outOff(sel.s,it.x,len));
+    b.innerHTML=`<div class="selrow">
+      <span>Selected: ${label(type(it.t))} · ${sel.s==='L'?'left':'right'} row ${sel.r+1}</span>
+      <label for="posIn">Offset <input type="number" id="posIn" min="0" max="${Math.round(SLOT-len)}" step="1" value="${off}"> in from the side aisle</label>
+      <button data-flush="out">Flush side aisle</button><button data-flush="in">Flush center aisle</button>
+      <button id="btnRemove">Return to storage</button><button class="ghost" id="btnDesel">Done</button></div>
+      <div class="selrow"><span class="hint">Whole row:</span>
+      <button data-act="out">Pack to side aisle</button><button data-act="in">Pack to center aisle</button>
+      <button data-act="center">Center</button><button data-act="spread">Spread evenly</button>
+      <button data-act="clear">Clear row</button>
+      <span class="hint">Arrows nudge 1 in, with shift 6 in; up and down change row.</span></div>`;
+  }else if(armed){
+    b.innerHTML=`<div class="selrow"><span>Placing ${label(type(armed))}. Tap where you want it.</span><button class="ghost" id="btnDisarm">Cancel</button></div>`;
+  }else{
+    b.innerHTML=`<span class="hint">Drop a piece anywhere in a row — it stays where you put it, and the open floor either side is measured on the plan. Tap a placed piece to position it to the inch.</span>`;
+  }
+}
+
+/* ---------- edits ---------- */
+let toastT;function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2800)}
+function svgX(clientX,clientY){const svg=$('#plan'),p=new DOMPoint(clientX,clientY).matrixTransform(svg.getScreenCTM().inverse());return p.x}
+const srcLen=src=>src.from==='palette'?type(src.t).len:lenOf(state.rows[src.s][src.r][src.i]);
+const fitsIn=(src,s,r)=>widestFree(s,r,src.from==='row'&&src.s===s&&src.r===r?src.i:-1)>=srcLen(src)-0.01;
+/* place src in row r of block s as close to wantX as the open floor allows */
+function place(src,s,r,wantX){
+  const len=srcLen(src),skip=src.from==='row'&&src.s===s&&src.r===r?src.i:-1;
+  if(src.from==='palette'&&avail(src.t)<=0){toast('None left in storage.');return null}
+  const x=fitX(s,r,len,wantX,skip,true);
+  if(x===null){toast(`Does not fit: this piece is ${len} in and the widest opening in row ${r+1} is ${Math.round(widestFree(s,r,skip))} in.`);return null}
+  if(src.from==='palette'){state.rows[s][r].push({t:src.t,x});return {s,r,i:state.rows[s][r].length-1}}
+  const item=state.rows[src.s][src.r][src.i];
+  if(src.s===s&&src.r===r){item.x=x;return {s,r,i:src.i}}
+  state.rows[src.s][src.r].splice(src.i,1);
+  state.rows[s][r].push({t:item.t,x});
+  return {s,r,i:state.rows[s][r].length-1};
+}
+function removeSel(){if(!sel)return;state.rows[sel.s][sel.r].splice(sel.i,1);sel=null;render()}
+function nudge(step){
+  const it=state.rows[sel.s][sel.r][sel.i],len=lenOf(it),sp=spanOf(sel.s,sel.r,sel.i);
+  const x=Math.round(Math.min(sp.b-len,Math.max(sp.a,it.x+step)));
+  if(x===Math.round(it.x)){toast('No room to move further that way.');return}
+  it.x=x;render();
+}
+function setOffset(v){
+  const it=state.rows[sel.s][sel.r][sel.i],len=lenOf(it);
+  const off=Math.max(0,Math.min(SLOT-len,Math.round(+v||0))),want=fromOut(sel.s,off,len);
+  const x=fitX(sel.s,sel.r,len,want,sel.i,false);
+  if(x===null)return;
+  if(x!==want)toast(`${off} in overlaps another piece — moved to ${Math.round(outOff(sel.s,x,len))} in instead.`);
+  it.x=x;render();
+}
+function flush(where){
+  const it=state.rows[sel.s][sel.r][sel.i],len=lenOf(it);
+  const x=fitX(sel.s,sel.r,len,fromOut(sel.s,where==='out'?0:SLOT-len,len),sel.i,true);
+  if(x===null)return;it.x=x;render();
+}
+function moveRow(dr){
+  const r2=sel.r+dr;if(r2<0||r2>=ROWS)return;
+  const it=state.rows[sel.s][sel.r][sel.i];
+  const res=place({from:'row',s:sel.s,r:sel.r,i:sel.i},sel.s,r2,it.x);
+  if(res){sel=res;render()}
+}
+/* whole-row arrangements: every piece keeps its order, only the gaps change */
+function rowAct(a){
+  const s=sel.s,r=sel.r;
+  if(a==='clear'){state.rows[s][r]=[];sel=null;render();return}
+  const ord=byX(state.rows[s][r]).map(o=>o.it);
+  if(!ord.length)return;
+  const free=Math.max(0,SLOT-ord.reduce((n,it)=>n+lenOf(it),0));
+  const lay=(start,gap)=>{let c=start;ord.forEach(it=>{it.x=Math.round(c);c+=lenOf(it)+gap})};
+  const outAtZero=s==='L';
+  if(a==='out')lay(outAtZero?0:free,0);
+  if(a==='in')lay(outAtZero?free:0,0);
+  if(a==='center')lay(Math.floor(free/2),0);
+  if(a==='spread'){const g=Math.floor(free/(ord.length+1));lay(g,g)}
+  state.rows[s][r]=ord;sel=null;render();
+}
+
+/* ---------- pointer drag ---------- */
+let drag=null;
+const wantAt=(d,cx,cy,side)=>{const x=svgX(cx,cy)-BX[side];return d.grab!=null?x-d.grab:x-srcLen(d.src)/2};
+document.addEventListener('pointerdown',e=>{
+  const chip=e.target.closest('.chip:not([disabled])'),pl=e.target.closest('.placed');
+  if(!chip&&!pl)return;
+  const src=chip?{from:'palette',t:chip.dataset.type}:{from:'row',s:pl.dataset.side,r:+pl.dataset.row,i:+pl.dataset.idx};
+  /* hold the grab point so a dragged piece does not jump out from under the finger */
+  const grab=pl?svgX(e.clientX,e.clientY)-(BX[src.s]+state.rows[src.s][src.r][src.i].x):null;
+  drag={src,grab,x0:e.clientX,y0:e.clientY,moved:false,ghost:null,id:e.pointerId};
+});
+function clearHi(){document.querySelectorAll('.p-target.ok,.p-target.bad').forEach(n=>n.classList.remove('ok','bad'));$('#stock').classList.remove('drop-on')}
+document.addEventListener('pointermove',e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  if(!drag.moved&&Math.hypot(e.clientX-drag.x0,e.clientY-drag.y0)<6)return;
+  if(!drag.moved){drag.moved=true;const g=document.createElement('div');g.className='ghost-drag';
+    const t=drag.src.from==='palette'?type(drag.src.t):type(state.rows[drag.src.s][drag.src.r][drag.src.i].t);
+    g.textContent=label(t);document.body.appendChild(g);drag.ghost=g;armed=null}
+  e.preventDefault();
+  drag.ghost.style.left=e.clientX+'px';drag.ghost.style.top=e.clientY+'px';
+  clearHi();
+  const el=document.elementFromPoint(e.clientX,e.clientY);
+  const tgt=el&&el.closest('[data-side][data-row]');
+  if(tgt){const s=tgt.dataset.side,r=+tgt.dataset.row;
+    const rect=document.querySelector(`.p-target[data-side="${s}"][data-row="${r}"]`);
+    rect.classList.add(fitsIn(drag.src,s,r)?'ok':'bad')}
+  else if(el&&el.closest('#stock')&&drag.src.from==='row')$('#stock').classList.add('drop-on');
+},{passive:false});
+document.addEventListener('pointerup',e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  const d=drag;drag=null;clearHi();if(d.ghost)d.ghost.remove();
+  if(d.moved){
+    const el=document.elementFromPoint(e.clientX,e.clientY);
+    const tgt=el&&el.closest('[data-side][data-row]');
+    if(tgt){const s=tgt.dataset.side,r=+tgt.dataset.row;
+      const res=place(d.src,s,r,wantAt(d,e.clientX,e.clientY,s));
+      if(res){sel=res;render()}}
+    else if(el&&el.closest('#stock')&&d.src.from==='row'){state.rows[d.src.s][d.src.r].splice(d.src.i,1);sel=null;render()}
+    return;
+  }
+  if(d.src.from==='palette'){armed=armed===d.src.t?null:d.src.t;sel=null;render();return}
+  if(armed){
+    const want=svgX(e.clientX,e.clientY)-BX[d.src.s]-type(armed).len/2;
+    if(place({from:'palette',t:armed},d.src.s,d.src.r,want)&&avail(armed)<=0)armed=null;
+    sel=null;render();return}
+  const same=sel&&sel.s===d.src.s&&sel.r===d.src.r&&sel.i===d.src.i;
+  sel=same?null:{s:d.src.s,r:d.src.r,i:d.src.i};render();
+});
+document.addEventListener('pointercancel',()=>{if(drag&&drag.ghost)drag.ghost.remove();drag=null;clearHi()});
+$('#plan').addEventListener('click',e=>{
+  if(!armed)return;const tgt=e.target.closest('.p-target');if(!tgt)return;
+  const s=tgt.dataset.side,r=+tgt.dataset.row;
+  if(place({from:'palette',t:armed},s,r,svgX(e.clientX,e.clientY)-BX[s]-type(armed).len/2)&&avail(armed)<=0)armed=null;
+  render();
+});
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input'))return;
+  if(e.key==='Escape'){armed=null;sel=null;render()}
+  if((e.key==='Delete'||e.key==='Backspace')&&sel){e.preventDefault();removeSel();return}
+  if(sel&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){e.preventDefault();nudge((e.key==='ArrowRight'?1:-1)*(e.shiftKey?6:1));return}
+  if(sel&&(e.key==='ArrowUp'||e.key==='ArrowDown')){e.preventDefault();moveRow(e.key==='ArrowDown'?1:-1);return}
+  if(e.key==='Enter'&&e.target.matches('.chip')){e.preventDefault();armed=armed===e.target.dataset.type?null:e.target.dataset.type;sel=null;render()}
+});
+$('#selbar').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.id==='btnRemove')removeSel();
+  else if(b.id==='btnDesel'){sel=null;render()}
+  else if(b.id==='btnDisarm'){armed=null;render()}
+  else if(b.dataset.flush&&sel)flush(b.dataset.flush);
+  else if(b.dataset.act&&sel)rowAct(b.dataset.act);
+});
+$('#selbar').addEventListener('change',e=>{if(e.target.id==='posIn'&&sel)setOffset(e.target.value)});
+
+/* ---------- controls ---------- */
+$('#btnReset').addEventListener('click',()=>{
+  /* a reset throws away the whole plan, so ask once there is anything to lose */
+  if(isEdited()&&!confirm('Reset the plan? Every change goes back to the existing configuration.'))return;
+  state.rows=blankRows();state.name=EXISTING_NAME;sel=null;armed=null;render();
+  const over=state.types.filter(t=>placedCount(t.id)>t.count);
+  if(over.length)toast('The existing layout needs more pews than your catalog lists.');
+  else toast('Back to the existing configuration.');
+});
+$('#scenName').addEventListener('input',e=>{state.name=e.target.value;$('#nameWarn').hidden=!nameNeedsChange();save()});
+$('#seatIn').addEventListener('change',e=>{state.seatIn=clampN(e.target.value,14,30,18);render()});
+$('#wcIn').addEventListener('change',e=>{state.wcW=clampN(e.target.value,24,72,36);reflowAll();render()});
+$('#inv').addEventListener('change',e=>{
+  const l=e.target.dataset.invLen,c=e.target.dataset.invCt;
+  if(l){const t=type(l),v=Math.round((+e.target.value||t.len/12)*12);
+    if(v>0&&v<=SLOT)t.len=v;else toast('Length must be between 0 and 15.5 ft.')}
+  if(c)type(c).count=Math.max(0,Math.round(+e.target.value||0));
+  reflowAll();render();
+});
+$('#inv').addEventListener('click',e=>{const id=e.target.dataset.invDel;if(!id)return;
+  if(placedCount(id)){toast('Return those pews to storage first.');return}
+  state.types=state.types.filter(t=>t.id!==id);render()});
+$('#addType').addEventListener('click',()=>{state.types.push({id:'t'+Date.now().toString(36),len:60,count:1});render()});
+$('#btnMirror').addEventListener('click',()=>{
+  const need={};state.rows.L.forEach(row=>row.forEach(it=>{if(it.t!=='wc')need[it.t]=(need[it.t]||0)+2}));
+  const short=Object.keys(need).filter(id=>need[id]>type(id).count);
+  if(short.length){toast('Not enough pews to mirror: '+short.map(id=>`need ${need[id]-type(id).count} more ${fmt(type(id).len)}`).join(', ')+'.');return}
+  /* reflect about the center aisle, so a chair space beside the aisle stays beside the aisle */
+  state.rows.R=state.rows.L.map(row=>row.map(it=>({t:it.t,x:Math.round(SLOT-it.x-lenOf(it))})));
+  sel=null;render();toast('Right block now mirrors the left.');
+});
+
+/* ---------- PDF ---------- */
+/* The logo as a data URL: handed the bytes, jsPDF decodes the PNG itself, so the
+   export never leans on a canvas a browser would treat as tainted. The path comes
+   from the img tag, so it stays in one place. A logo that will not load is not a
+   reason to lose the export, so a failure is remembered and quietly skipped. */
+let logoData=null;   /* null = not tried, '' = unavailable, string = ready */
+async function getLogo(){
+  if(logoData!==null)return logoData;
+  try{
+    const r=await fetch($('#logo').src);
+    if(!r.ok)throw new Error('logo '+r.status);
+    const bytes=new Uint8Array(await r.arrayBuffer());
+    /* check the PNG signature rather than the served content type: an error page
+       returned with a 200 would otherwise be handed to jsPDF as an image */
+    if(bytes[0]!==0x89||bytes[1]!==0x50||bytes[2]!==0x4e||bytes[3]!==0x47)throw new Error('not a png');
+    let s='';for(let i=0;i<bytes.length;i++)s+=String.fromCharCode(bytes[i]);
+    logoData='data:image/png;base64,'+btoa(s);
+  }catch(e){logoData=''}
+  return logoData;
+}
+$('#btnPdf').addEventListener('click',async()=>{
+  const btn=$('#btnPdf');
+  if(!window.jspdf){toast('The PDF library did not load. Check your connection and reload.');return}
+  /* an edited plan must not leave here labelled as the layout it replaces */
+  if(nameNeedsChange()){
+    const f=$('#scenName');
+    alert('This plan no longer matches the existing configuration, so it needs a name of its own before it can be exported.\n\nName it for what it shows — "Option 1 – four chair spaces" — and export again.');
+    f.focus();f.select();return;
+  }
+  btn.disabled=true;
+  try{
+    const doc=buildPdf(await getLogo());
+    const slug=(state.name||'').replace(/[^\w\- ]+/g,'').replace(/[\s-]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase();
+    const fname=(slug||'pew-plan')+'.pdf';
+    doc.save(fname);toast('PDF downloaded.');
+  }catch(e){if(e&&e.code==='declined')toast('Export cancelled.');else if(e&&e.code==='rate_limited')toast('A save is already open. Try again in a moment.');else toast('Could not export the PDF.')}
+  btn.disabled=false;
+});
+function buildPdf(logo){
+  const {jsPDF}=window.jspdf,doc=new jsPDF({orientation:'landscape',unit:'pt',format:'letter'});
+  const C={ink:'#1c2220',muted:'#5b6662',line:'#c6ccc7',oak:'#8e6038',maple:'#d8a656',acc:'#1d7466',accSoft:'#d7ece7',floor:'#f4f5f1',gap:'#e4e7e1',brand:'#2b6ca3'};
+  /* letterhead mark, top right of every page; white line art, so it rides on its blue plate */
+  const stamp=()=>{
+    /* check the data before the plate goes down, or a bad logo leaves an empty blue square */
+    if(!/^data:image\/png[;,]/.test(logo||''))return;
+    try{const sz=44,sx=756-sz,sy=26,iw=sz-10,ih=iw*1059/1000;
+      doc.setFillColor(C.brand);doc.roundedRect(sx,sy,sz,sz,5,5,'F');
+      doc.addImage(logo,'PNG',sx+5,sy+(sz-ih)/2,iw,ih);
+    }catch(e){}};
+  const T=totals(),date=new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
+  stamp();
+  doc.setTextColor(C.ink);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(state.name||'Pew plan',36,40);
+  doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(C.muted);
+  /* the goal, taken from the page so the sentence lives in one place; the
+     header carries the first sentence, the method is in the assumptions below */
+  const blurb=($('#goal').textContent||'').replace(/\s+/g,' ').trim();
+  const dot=blurb.indexOf('. ');
+  const goal=dot>0?blurb.slice(0,dot+1):blurb;
+  const goalLines=goal?doc.splitTextToSize(goal,500):[];
+  doc.setTextColor(C.ink);doc.text(goalLines,36,56);
+  const metaY=56+goalLines.length*11;
+  doc.setTextColor(C.muted);
+  doc.text(`Sanctuary pew layout  ·  ${date}  ·  Seat width ${state.seatIn} in per person`,36,metaY);
+  const s=Math.min(370/W,500/H),ox=36,oy=metaY+12,X=v=>ox+v*s,Y=v=>oy+v*s;
+  doc.setFillColor(C.floor);doc.setDrawColor(C.muted);doc.setLineWidth(1);doc.rect(X(0),Y(0),W*s,H*s,'FD');
+  doc.setFontSize(7);doc.setTextColor(C.muted);doc.text('Front · chancel',X(W/2),Y(24),{align:'center'});
+  doc.text('Back · entrance',X(W/2),Y(H-8),{align:'center'});
+  doc.text('5 ft',X(30),Y(H-26),{align:'center'});doc.text('5 ft',X(W-30),Y(H-26),{align:'center'});doc.text('6 ft aisle',X(W/2),Y(H-26),{align:'center'});
+  doc.setLineWidth(.4);
+  SIDES.forEach(sd=>{for(let r=0;r<ROWS;r++){
+    const x0=BX[sd],y=TOP+r*PITCH,row=state.rows[sd][r];
+    doc.setFontSize(6);doc.setTextColor(C.muted);doc.text(String(r+1),X(sd==='L'?30:W-30),Y(y+13),{align:'center'});
+    if(row.length)freeSpans(sd,r,-1).forEach(sp=>{const w=sp.b-sp.a;
+      doc.setFillColor(C.gap);doc.rect(X(x0+sp.a),Y(y),w*s,PEW_D*s,'F');
+      if(w>=30){doc.setFontSize(5.5);doc.setTextColor(C.muted);doc.text(Math.round(w)+' in',X(x0+sp.a+w/2),Y(y+13),{align:'center'})}});
+    doc.setDrawColor(C.line);doc.setLineDashPattern([2,2],0);doc.rect(X(x0),Y(y),SLOT*s,PEW_D*s,'S');doc.setLineDashPattern([],0);
+    byX(row).forEach(({it})=>{const t=type(it.t);if(!t)return;const cx=x0+it.x;
+      if(it.t==='wc'){doc.setFillColor(C.accSoft);doc.setDrawColor(C.acc);doc.rect(X(cx+1),Y(y-14),(t.len-2)*s,WC_D*s,'FD');doc.circle(X(cx+t.len/2),Y(y+10),7*s,'S')}
+      else{doc.setFillColor(t.orig?C.oak:C.maple);doc.setDrawColor('#ffffff');doc.rect(X(cx),Y(y),t.len*s,PEW_D*s,'FD');
+        if(t.len>=40){doc.setFontSize(5.5);doc.setTextColor(t.orig?'#ffffff':'#3b2608');doc.text(fmt(t.len),X(cx+t.len/2),Y(y+13),{align:'center'})}}});
+  }});
+  let rx=440,ry=92;
+  const stat=(lbl,val)=>{doc.setFontSize(8);doc.setTextColor(C.muted);doc.text(lbl.toUpperCase(),rx,ry);doc.setFontSize(20);doc.setTextColor(C.ink);doc.setFont('helvetica','bold');doc.text(String(val),rx,ry+22);doc.setFont('helvetica','normal')};
+  stat('Seats',T.seats);rx=560;stat('Wheelchair spaces',T.wc);
+  rx=440;ry=150;stat('Ft of pew seating',Math.round(T.pewIn/12*100)/100);rx=560;stat('Pews placed',T.pews);
+  rx=440;ry=208;stat('Ft of open floor',Math.round(T.open/12*100)/100);rx=560;stat(`Gaps ${state.wcW} in or wider`,T.wideGaps);
+  rx=440;ry=266;doc.setFontSize(9);doc.setTextColor(C.ink);
+  const d=T.seats-T.base;doc.text(`Existing layout: ${T.base} seats, 30 pews, 465 ft. Change: ${d>0?'+':''}${d} seats.`,rx,ry);
+  ry+=24;doc.setFont('helvetica','bold');doc.text('Pew stock',rx,ry);doc.setFont('helvetica','normal');ry+=14;
+  state.types.forEach(t=>{doc.setFillColor(t.orig?C.oak:C.maple);doc.rect(rx,ry-7,14,7,'F');doc.setTextColor(C.ink);
+    doc.text(`${t.orig?'Original':'Alternative'} ${fmt(t.len)}: ${placedCount(t.id)} placed, ${Math.max(0,t.count-placedCount(t.id))} in storage (of ${t.count})`,rx+20,ry);ry+=14});
+  doc.setFillColor(C.gap);doc.rect(rx,ry-7,14,7,'F');doc.setTextColor(C.ink);doc.text('Open floor, dimensioned in inches',rx+20,ry);ry+=24;
+  doc.setFont('helvetica','bold');doc.text('Legend and assumptions',rx,ry);doc.setFont('helvetica','normal');ry+=14;doc.setTextColor(C.muted);
+  ['Footprint 47 ft wide: 5 ft + 15.5 ft + 6 ft + 15.5 ft + 5 ft.','15 rows per block, 20 in pews on a 44 in pitch.',
+   `Wheelchair space: ${state.wcW} in clear width, ${WC_D} in deep.`,`Seats = pew length / ${state.seatIn} in, rounded down.`,
+   'Pieces sit at measured offsets; gaps are clear openings.','Aisles are unchanged in every scenario.']
+    .forEach(l=>{doc.text(l,rx,ry);ry+=13});
+  doc.addPage();stamp();
+  doc.setTextColor(C.ink);doc.setFont('helvetica','bold');doc.setFontSize(14);doc.text('Row catalog · '+(state.name||''),36,40);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(C.muted);doc.text('Each block reads outer side aisle to center aisle.',36,54);
+  const cols=[{h:'Row',x:36,w:30},{h:'Left block',x:70,w:270},{h:'Right block',x:345,w:270},{h:'Seats',x:640,w:40,r:1},{h:'Wheelchair',x:695,w:50,r:1},{h:'Open in.',x:756,w:0,r:1}];
+  let y=76;doc.setFontSize(8);doc.setTextColor(C.muted);cols.forEach(c=>doc.text(c.h.toUpperCase(),c.r?c.x+(c.w||0):c.x,y,{align:c.r?'right':'left'}));
+  doc.setDrawColor(C.line);doc.line(36,y+5,756,y+5);y+=20;doc.setFont('helvetica','normal');doc.setFontSize(8);
+  catalogData().forEach(x=>{
+    const vals=[x.r,x.lt,x.rt,x.seats,x.wc||'',x.open||''];
+    if(x.changed){doc.setFillColor(C.maple);doc.rect(32,y-9,2.5,12,'F')}
+    doc.setTextColor(C.ink);cols.forEach((c,i)=>{const t=doc.splitTextToSize(String(vals[i]),c.w||40)[0];doc.text(t,c.r?c.x+(c.w||0):c.x,y,{align:c.r?'right':'left'})});
+    doc.setDrawColor(C.line);doc.line(36,y+5,756,y+5);y+=19});
+  doc.setFont('helvetica','bold');doc.text('Totals',70,y+2);doc.text(String(T.seats),680,y+2,{align:'right'});doc.text(String(T.wc),745,y+2,{align:'right'});
+  return doc;
+}
+
+state=load();reflowAll();render();
+</script>
+
+</body>
+</html>
