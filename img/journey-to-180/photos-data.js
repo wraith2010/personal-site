@@ -9,5 +9,6 @@ var JOURNEY_PHOTOS = [
   { "date": "Jun 9, 2026",  "weight": 307, "note": "93 down. The body is catching up to the decision.", "file": "PXL_20260609_180633463.PORTRAIT.jpg" },
   { "date": "Jul 11, 2026", "weight": 298, "note": "Finally under 300. So much still to go, but so happy to be here — I didn't think it was possible.", "file": "PXL_20260622_204255451.MP.jpg" },
   { "date": "Aug 15, 2026", "weight": 294, "note": "Started CrossFit. Five strength sessions on the board this month — 106 lb down and finally lifting again.", "file": "crossfit-attendance-aug-2026.jpeg", "fit": "crop" },
-  { "date": "Sep 6, 2026",  "weight": 288, "note": "Lunch stop on a bike ride. 112 lb down, and an afternoon like this is just a good time now.", "file": "PXL_20260906_190939767.jpg" }
+  { "date": "Sep 6, 2026",  "weight": 288, "note": "Lunch stop on a bike ride. 112 lb down, and an afternoon like this is just a good time now.", "file": "PXL_20260906_190939767.jpg" },
+  { "date": "Oct 14, 2026", "weight": 280, "note": "The work at Bam Bam Body is starting to show. Five pounds from my high school fighting weight. Maybe it's time to take a fight to celebrate.", "file": "IMG_5486_01.jpg" }
 ];
