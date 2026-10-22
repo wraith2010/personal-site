@@ -264,7 +264,7 @@
       font-size: clamp(13px, 3.6vw, 17px); letter-spacing: -0.01em; flex: 1;
     }
     .wk-mins { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--text-dim); flex-shrink: 0; }
-    .wk-track { height: 12px; background: #191919; margin-left: 54px; }
+    .wk-track { display: flex; height: 12px; background: #191919; margin-left: 54px; }
     .wk-bar { height: 100%; }
     .wk-today {
       font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em;
@@ -301,7 +301,7 @@
       .wp * { transition: none !important; }
     }
   </style>
-  <meta name="description" content="The current training split — sessions, movements, and the rides that fill the gaps.">
+  <meta name="description" content="The current training split — sessions, movements, and the walks, hikes and rides that fill the gaps.">
   <link rel="canonical" href="https://1031f.com/workout-plan.html">
 
   <!-- Social sharing -->
@@ -309,7 +309,7 @@
   <meta property="og:site_name" content="1031F">
   <meta property="og:url" content="https://1031f.com/workout-plan.html">
   <meta property="og:title" content="Gym Training Split">
-  <meta property="og:description" content="The current training split — sessions, movements, and the rides that fill the gaps.">
+  <meta property="og:description" content="The current training split — sessions, movements, and the walks, hikes and rides that fill the gaps.">
   <meta property="og:image" content="https://1031f.com/img/og/og-fitness.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -377,7 +377,7 @@
         <p class="wp-sub">
           <a class="wp-link" href="https://bambam-body.com/" target="_blank" rel="noopener">Bam Bam Body</a> — Newtown Square<br>
           Planet Fitness — Broomall<br>
-          Two rides, twelve miles up
+          Walks, hikes and a 13-mile Sunday ride
         </p>
       </section>
 
@@ -392,8 +392,8 @@
           <div class="wp-number-label">Cardio / wk</div>
         </div>
         <div class="wp-number">
-          <div class="wp-number-value wp-display" style="color:#fbbf24">24+</div>
-          <div class="wp-number-label">Bike miles / wk</div>
+          <div class="wp-number-value wp-display" style="color:#fbbf24">01</div>
+          <div class="wp-number-label">Rest day / wk</div>
         </div>
       </section>
 
@@ -420,13 +420,13 @@
           <article class="wp-point" style="--c:#40c4ff">
             <div>
               <h3>Two hard cardio days, no more</h3>
-              <p>The Norwegian 4×4 is the highest-return cardio protocol there is. <strong>Twice a week is plenty</strong> — a third would just eat the recovery that Bam Bam needs.</p>
+              <p>Four hard 4-minute treadmill efforts, then the rower and a core finisher. The target is a <strong>faster 5k</strong>. <strong>Twice a week is plenty</strong> — a third would just eat the recovery that Bam Bam needs.</p>
             </div>
           </article>
           <article class="wp-point" style="--c:#fbbf24">
             <div>
               <h3>Miles are the glue</h3>
-              <p><strong>Two rides, 12+ miles each</strong>, on whichever days the weather cooperates. Mostly conversational — this is aerobic volume, not a third interval session.</p>
+              <p>Walks after lunch or work, a bike or hike on Tuesday, a Saturday hike and a <strong>13+ mile Sunday ride</strong>. Mostly conversational — this is easy aerobic volume, not another interval session. <strong>Thursday is the rest day.</strong></p>
             </div>
           </article>
         </div>
@@ -474,15 +474,18 @@
       BBB:    '#c9f135', // --lime
       PF:     '#40c4ff', // --sky
       DOUBLE: '#ff5050', // --coral
-      FLEX:   '#fbbf24', // --amber
+      ACTIVE: '#fbbf24', // --amber
+      REST:   '#888880', // --text-muted
     };
 
     // Bam Bam Body — coach-programmed, so this is "what to expect / how to show
     // up", not an exercise list.
     const bamBam = {
+      type: "BBB",
+      mins: 60,
       day: "Strength CrossFit",
       name: "Bam&nbsp;Bam<br>Body",
-      meta: "<a class=\"wp-link\" href=\"https://bambam-body.com/\" target=\"_blank\" rel=\"noopener\">Newtown Square</a> &nbsp;/&nbsp; ~60 min &nbsp;/&nbsp; Mon &middot; Wed &middot; Fri",
+      meta: "<a class=\"wp-link\" href=\"https://bambam-body.com/\" target=\"_blank\" rel=\"noopener\">Newtown Square</a> &nbsp;/&nbsp; ~60 min &nbsp;/&nbsp; Mon &middot; Wed 6:00 am &middot; Fri noon",
       blocks: [
         { label: "The session", html: "Coach-programmed: a <strong>strength piece</strong> — squat, press, deadlift or an olympic variant — followed by a conditioning metcon." },
         { label: "Focus", html: "Chase load on the strength piece. That's the whole reason for picking a strength-biased box; the metcon is the finisher, not the main event. <strong>Scale the metcon</strong> to keep moving without wrecking the next session." },
@@ -493,62 +496,134 @@
 
     // Planet Fitness — the only session programmed by Ben, so full detail.
     const planetFitness = {
+      type: "PF",
+      mins: 50,
       day: "Cardio",
       name: "Planet<br>Fitness",
-      meta: "Broomall &nbsp;/&nbsp; ~45 min &nbsp;/&nbsp; Tue &middot; Fri",
+      meta: "Broomall &nbsp;/&nbsp; ~50 min &nbsp;/&nbsp; Tue &middot; Fri 6:00 am",
       items: [
         {
-          name: "Warm-Up Walk / Jog",
-          presc: "10 min",
-          note: "Easy pace, roughly <strong>60–70% max HR</strong> — you should be able to hold a conversation the whole way. Get the legs and lungs online before the hard intervals; the 4×4 punishes a cold start.",
-          tag: "Treadmill"
-        },
-        {
-          name: "Norwegian 4×4",
-          presc: "4 × 4:00 / 3:00",
-          note: "Four rounds of four minutes hard, three minutes easy. Hard means <strong>85–95% max HR</strong> — hard enough that talking is a struggle, but not an all-out sprint. You should finish round four at about the same effort as round one. Keep moving through the recovery; walk or jog, don't stand still.",
-          tag: "Treadmill"
-        },
-        {
-          name: "Cool-Down Walk",
+          name: "Warm-Up Walk",
           presc: "5 min",
-          note: "Easy walk to bring heart rate down before you sit on the rower. Skipping this makes the row feel far worse than it is.",
+          note: "Easy walk at <strong>3 mph</strong>. Get the legs and lungs online before the hard intervals; the 4×4 punishes a cold start.",
           tag: "Treadmill"
         },
         {
-          name: "1000 m Row",
-          presc: "1 × 1000 m",
-          note: "Sequence is <strong>legs → hips → arms</strong> on the drive, and exactly the reverse on the return. Aim for a <strong>consistent split</strong> the whole way rather than a fast first 200 m and a fade — negative split it if you're feeling good.",
+          name: "Nordic 4×4",
+          presc: "4 × 4:00 / 3:00",
+          note: "Four rounds: four minutes hard at <strong>4.5–5 mph</strong>, about 80% of top speed, then three minutes of easy walking at 3 mph. You should finish round four at about the same effort as round one. Keep moving through the recovery; don't stand still. With the warm-up, that's <strong>about 33 minutes</strong> on the treadmill.",
+          tag: "Treadmill"
+        },
+        {
+          name: "Row",
+          presc: "5 min",
+          note: "Typically <strong>about 1,100 m</strong>. Sequence is legs → hips → arms on the drive, and exactly the reverse on the return. Hold a <strong>consistent split</strong> rather than a fast first minute and a fade.",
           tag: "Rower"
+        },
+        {
+          name: "Crunches",
+          presc: "3 × max reps",
+          note: "Three sets, <strong>as many reps as possible</strong> each. Write the numbers down so next session has something to beat.",
+          tag: "Core finisher"
+        },
+        {
+          name: "Push-Ups",
+          presc: "3 × max reps",
+          note: "Three sets, <strong>as many reps as possible</strong> each. Stop a set when form breaks, not when you hit a number.",
+          tag: "Core finisher"
+        },
+        {
+          name: "Plank",
+          presc: "2 × 2:00",
+          note: "Two holds of <strong>two minutes</strong>. Squeeze glutes and brace; a sagging plank is just lying down slowly.",
+          tag: "Core finisher"
         }
       ]
     };
 
-    // Flexible days — ride when the weather and schedule allow, otherwise rest.
-    const flexDay = {
-      day: "Ride or Rest",
-      name: "Your<br>Call",
-      meta: "12+ miles if riding &nbsp;/&nbsp; Thu &middot; Sat &middot; Sun",
+    // Easy aerobic volume around the gym sessions. `mins` are rough estimates
+    // and only drive the bar widths in The Week.
+    const walk2 = {
+      type: "ACTIVE",
+      mins: 40,
+      day: "Easy miles",
+      name: "2&nbsp;Mile<br>Walk",
+      meta: "After lunch &nbsp;/&nbsp; Mon",
       blocks: [
-        { label: "If you ride", html: "Target <strong>12+ miles</strong>, kept mostly conversational. This is aerobic volume, not another interval session — you've already got two of those on the calendar." },
-        { label: "If you rest", html: "Rest isn't the absence of the plan, it's part of it. Strength gets built during recovery, not during the session. Walking, stretching and mobility all count." },
-        { label: "The weekly math", html: "Three flex days, <strong>two rides needed</strong>. Miss one, and the other two still cover you — but don't let it slide to Sunday every week." }
-      ],
-      tags: ["2 rides / wk", "12+ mi each", "24+ mi total"]
+        { label: "Keep it easy", html: "Two miles at a conversational pace. Time on feet adds up without costing the next morning's session." }
+      ]
     };
 
-    // Mon–Sun mapped to index 0–6. `mins` drives the bar widths in The Week.
+    const bikeOrHike = {
+      type: "ACTIVE",
+      mins: 60,
+      day: "Easy miles",
+      name: "Bike<br>or Hike",
+      meta: "After work &nbsp;/&nbsp; Tue",
+      blocks: [
+        { label: "Your call", html: "Whichever the weather and the day allow. Keep it <strong>conversational</strong> — the hard work was at 6:00 am." }
+      ]
+    };
+
+    const walk3 = {
+      type: "ACTIVE",
+      mins: 60,
+      day: "Easy miles",
+      name: "3&nbsp;Mile<br>Walk",
+      meta: "After work &nbsp;/&nbsp; Wed",
+      blocks: [
+        { label: "Keep it easy", html: "Three miles at a conversational pace. This is aerobic volume, not another workout." }
+      ]
+    };
+
+    const rest = {
+      type: "REST",
+      mins: 0,
+      day: "Recovery",
+      name: "Rest<br>Day",
+      meta: "Thu",
+      blocks: [
+        { label: "Why it's here", html: "Rest isn't the absence of the plan, it's part of it. Strength gets built <strong>during recovery</strong>, not during the session." }
+      ]
+    };
+
+    const hike = {
+      type: "ACTIVE",
+      mins: 60,
+      day: "Easy miles",
+      name: "Morning<br>Hike",
+      meta: "If possible &nbsp;/&nbsp; Sat",
+      blocks: [
+        { label: "If the day allows", html: "A morning hike when the schedule cooperates. Miss it and nothing is lost — Sunday's ride still covers the weekend." }
+      ]
+    };
+
+    const ride = {
+      type: "ACTIVE",
+      mins: 65,
+      day: "Long ride",
+      name: "Bike<br>Ride",
+      meta: "13+ miles &nbsp;/&nbsp; Afternoon &nbsp;/&nbsp; Sun",
+      blocks: [
+        { label: "The ride", html: "<strong>13+ miles</strong> in the afternoon, kept mostly conversational. The week's longest aerobic effort." }
+      ],
+      tags: ["13+ mi", "Conversational pace"]
+    };
+
+    // Mon–Sun mapped to index 0–6. `type` sets the day's tab colour; each day
+    // renders its sessions in order.
     const schedule = [
-      { day: "Mon", short: "Mon", type: "BBB",    label: "Bam Bam Body",           mins: 60  },
-      { day: "Tue", short: "Tue", type: "PF",     label: "Planet Fitness",         mins: 45  },
-      { day: "Wed", short: "Wed", type: "BBB",    label: "Bam Bam Body",           mins: 60  },
-      { day: "Thu", short: "Thu", type: "FLEX",   label: "Ride or Rest",           mins: 45  },
-      { day: "Fri", short: "Fri", type: "DOUBLE", label: "Bam Bam + Planet Fitness", mins: 105 },
-      { day: "Sat", short: "Sat", type: "FLEX",   label: "Ride or Rest",           mins: 45  },
-      { day: "Sun", short: "Sun", type: "FLEX",   label: "Ride or Rest",           mins: 45  },
+      { day: "Mon", short: "Mon", type: "BBB",    label: "Bam Bam Body + 2 mi walk",       sessions: [bamBam, walk2] },
+      { day: "Tue", short: "Tue", type: "PF",     label: "Planet Fitness + bike or hike",  sessions: [planetFitness, bikeOrHike] },
+      { day: "Wed", short: "Wed", type: "BBB",    label: "Bam Bam Body + 3 mi walk",       sessions: [bamBam, walk3] },
+      { day: "Thu", short: "Thu", type: "REST",   label: "Rest",                           sessions: [rest] },
+      { day: "Fri", short: "Fri", type: "DOUBLE", label: "Planet Fitness + Bam Bam Body",  sessions: [planetFitness, bamBam] },
+      { day: "Sat", short: "Sat", type: "ACTIVE", label: "Morning hike",                   sessions: [hike] },
+      { day: "Sun", short: "Sun", type: "ACTIVE", label: "Bike ride, 13+ mi",              sessions: [ride] },
     ];
 
-    const MAX_MINS = Math.max(...schedule.map(s => s.mins));
+    const dayMins = s => s.sessions.reduce((sum, x) => sum + x.mins, 0);
+    const MAX_MINS = Math.max(...schedule.map(dayMins));
     const fullDay = { Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday", Sun: "Sunday" };
 
     const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // JS getDay(): Sun=0, so Mon=1...
@@ -556,8 +631,8 @@
     const todayScheduleIndex = dayOrder.indexOf(todayIndex);
 
     let activeDay = todayScheduleIndex >= 0 ? todayScheduleIndex : 0;
-    // String key ("PF-2") rather than a bare index — Friday renders two panels
-    // and bare indices would collide across them.
+    // String key ("PF-2") rather than a bare index, so item keys stay unique
+    // if a day ever renders more than one item panel.
     let expandedItem = null;
 
     function renderDaySelector() {
@@ -607,7 +682,7 @@
           ${panelHead(session, dayName)}
           <div class="wp-panel-body">
             ${blocksHTML(session.blocks)}
-            ${tagsHTML(session.tags)}
+            ${session.tags ? tagsHTML(session.tags) : ''}
           </div>
         </article>`;
     }
@@ -642,14 +717,16 @@
       const s = schedule[activeDay];
       const dayName = fullDay[s.day];
 
-      if (s.type === 'BBB')  { container.innerHTML = buildProsePanel(bamBam,  colorMap.BBB,  dayName); return; }
-      if (s.type === 'PF')   { container.innerHTML = buildPFPanel(colorMap.PF, dayName);              return; }
-      if (s.type === 'FLEX') { container.innerHTML = buildProsePanel(flexDay, colorMap.FLEX, dayName); return; }
-
-      // DOUBLE — Bam Bam in addition to Planet Fitness
-      container.innerHTML = buildProsePanel(bamBam, colorMap.DOUBLE, dayName)
-        + `<div class="wp-then">Then</div>`
-        + buildPFPanel(colorMap.DOUBLE, dayName);
+      container.innerHTML = s.sessions.map((session, i) => {
+        // On the double day both gym sessions take the day's colour.
+        const color = s.type === 'DOUBLE' ? colorMap.DOUBLE : colorMap[session.type];
+        const panel = session.items
+          ? buildPFPanel(color, dayName)
+          : buildProsePanel(session, color, dayName);
+        if (i === 0) return panel;
+        const divider = session.type === 'ACTIVE' ? 'Later' : 'Then';
+        return `<div class="wp-then">${divider}</div>` + panel;
+      }).join('');
     }
 
     function renderWeekly() {
@@ -658,17 +735,24 @@
         const color = colorMap[s.type];
         const isToday = i === todayScheduleIndex;
         const isActive = i === activeDay;
-        const width = Math.round((s.mins / MAX_MINS) * 100);
-        const dim = s.type === 'FLEX' ? 'opacity:0.45;' : '';
+        const mins = dayMins(s);
+        // One bar segment per session, easy miles dimmed so the gym work leads.
+        const bars = s.sessions.map(x => {
+          const width = Math.round((x.mins / MAX_MINS) * 100);
+          const segColor = s.type === 'DOUBLE' ? colorMap.DOUBLE : colorMap[x.type];
+          const dim = x.type === 'ACTIVE' ? 'opacity:0.45;' : '';
+          return `<div class="wk-bar" style="width:${width}%;background:${segColor};${dim}"></div>`;
+        }).join('');
+        const easyDay = s.type === 'ACTIVE' || s.type === 'REST';
         return `
           <div class="wk-row ${isActive ? 'is-active' : ''}">
             <div class="wk-top">
               <span class="wk-day">${s.day}</span>
-              <span class="wk-name" style="color:${s.type === 'FLEX' ? 'var(--text-muted)' : 'var(--text)'}">${s.label}</span>
+              <span class="wk-name" style="color:${easyDay ? 'var(--text-muted)' : 'var(--text)'}">${s.label}</span>
               ${isToday ? `<span class="wk-today" style="background:${color}">Today</span>` : ''}
-              <span class="wk-mins">${s.mins}m</span>
+              <span class="wk-mins">${mins ? `~${mins}m` : 'Rest'}</span>
             </div>
-            <div class="wk-track"><div class="wk-bar" style="width:${width}%;background:${color};${dim}"></div></div>
+            <div class="wk-track">${bars}</div>
           </div>`;
       }).join('');
     }
