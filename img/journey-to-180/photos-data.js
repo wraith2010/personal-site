@@ -10,5 +10,6 @@ var JOURNEY_PHOTOS = [
   { "date": "Jul 11, 2026", "weight": 298, "note": "Finally under 300. So much still to go, but so happy to be here — I didn't think it was possible.", "file": "PXL_20260622_204255451.MP.jpg" },
   { "date": "Aug 15, 2026", "weight": 294, "note": "Started CrossFit. Five strength sessions on the board this month — 106 lb down and finally lifting again.", "file": "crossfit-attendance-aug-2026.jpeg", "fit": "crop" },
   { "date": "Sep 6, 2026",  "weight": 288, "note": "Lunch stop on a bike ride. 112 lb down, and an afternoon like this is just a good time now.", "file": "PXL_20260906_190939767.jpg" },
-  { "date": "Oct 14, 2026", "weight": 280, "note": "The work at Bam Bam Body is starting to show. Five pounds from my high school fighting weight. Maybe it's time to take a fight to celebrate.", "file": "IMG_5486_01.jpg" }
+  { "date": "Oct 14, 2026", "weight": 280, "note": "The work at Bam Bam Body is starting to show. Five pounds from my high school fighting weight. Maybe it's time to take a fight to celebrate.", "file": "IMG_5486_01.jpg" },
+  { "date": "Oct 24, 2026", "weight": 279, "note": "Ran the Bark in the Park 5K at Rosetree Park in just over 40 minutes, five minutes faster than my last 5K. 121 lb down.", "file": "PXL_20261024_134801421.jpg" }
 ];
