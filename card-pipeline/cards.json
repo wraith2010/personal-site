@@ -219,5 +219,14 @@
     "blurb": "A board game design studio whose games work through mechanics and theme together, with the player's decisions at the centre. Built around a light bulb mark.",
     "details": "The studio's logo is a light bulb with a bold black outline, a light grey or cream inside, a black script letter w as the filament glow, two thin filament lines, and a ridged black screw base. Show one large light bulb, centered and seen from a slightly low three-quarter angle, with the same script w and filament lines as the logo. Use off-white or light grey for the glass and the orange for the glow. Flat solid orange background, bold black stencil outlines, orange rim glow, spray drips. No other objects, no text or lettering other than the w mark.",
     "current": "img/double-watt-games/double-watt-games-logo.jpg"
+  },
+  {
+    "slug": "pew-planner",
+    "page": "index.html",
+    "title": "Sanctuary Pew Planner",
+    "subtitle": "Wheelchair Seating Layouts",
+    "blurb": "A single-page tool for rearranging a church's existing pews to make room for wheelchair seating, with live seat counts and PDF export.",
+    "details": "Two people worshiping side by side in ONE row of a single long wooden church pew, seen from behind in a low three-quarter angle, no faces. The person on the left sits on the pew with head bowed and hands folded. The second person sits in a wheelchair directly next to them, in a gap at the end of that same pew, shoulder to shoulder, both facing the same direction. They are one pair, one subject, filling the center of the frame. Chunky flat stencil silhouettes in charcoal and mid grey with off-white highlights, pew in mid grey with a charcoal end panel, wheelchair near-black with off-white rims. The whole background AND the floor are one flat bright orange #FF6A00 field, no cream or white floor, no walls, no windows, no second pew. Bold black stencil outlines, orange rim glow, heavy spray overspray, grainy grunge texture, a few spray drips. All four corners are clean and empty: no marks, signatures, symbols, scribbles, text or lettering anywhere.",
+    "current": "img/figures/software/fig-pew-planner-01.jpg"
   }
 ]
