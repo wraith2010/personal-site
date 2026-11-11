@@ -377,6 +377,20 @@
   }
 
   /* Photo timeline */
+  .photo-banner {
+    margin: 0 0 1rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .photo-banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .photo-timeline-section {
     margin-top: 3rem;
   }
@@ -798,6 +812,10 @@
       <h2>Progress photos</h2>
       <span class="marker">VISUAL RECORD</span>
     </div>
+    <figure class="photo-banner">
+      <img src="img/journey-to-180/5k-overtime.png" width="1808" height="608" loading="lazy"
+           alt="Three photos at the same 5K: May 2024 at 400 pounds, May 2026 at 319, and October 2026 at 279.">
+    </figure>
     <div id="photo-timeline"></div>
   </div>
 
